@@ -6,5 +6,16 @@ const LoginContextProvider = (props) => {
   return <LoginContext.Provider value={{ login, setLogin }}>{props.children}</LoginContext.Provider>;
 };
 
-const useLoginContext = useContext(LoginContext);
+const useLoginContext = () => useContext(LoginContext);
 export { LoginContextProvider, useLoginContext };
+
+/*
+how to use
+press toggle button coming with <Layout/>
+import { useLoginContext } inside root/src/Context
+then call login value
+const { login } = useLoginContext();
+
+use it
+{login && <Something/>}
+*/
