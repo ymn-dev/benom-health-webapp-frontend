@@ -18,7 +18,7 @@ const Profile = () => {
     <>
       <div className="profile__welcome">
         <div className="profile__image__container">
-          <img />
+          <img src={user.profilePicture} />
         </div>
         <h1>Welcome, {user.userName}</h1>
       </div>
@@ -26,19 +26,19 @@ const Profile = () => {
         <h2>PERSONAL INFO</h2>
         <p>
           <span className="field">First name</span>
-          <span className="value">{"please add via edit button" || user.firstName}</span>
+          <span className="value">{user.firstName || "please add via edit button"}</span>
         </p>
         <p>
           <span className="field">Last name</span>
-          <span className="value">{"please add via edit button" || user.lastName}</span>
+          <span className="value">{user.lastName || "please add via edit button"}</span>
         </p>
         <p>
           <span className="field">Gender</span>
-          <span className="value">{"please add via edit button" || user.gender}</span>
+          <span className="value">{user.gender || "please add via edit button"}</span>
         </p>
         <p>
           <span className="field">Birthday</span>
-          <span className="value">{"please add via edit button" || user.birthday}</span>
+          <span className="value">{user.birthday || "please add via edit button"}</span>
         </p>
         <p>
           <span className="field">Email</span>
@@ -46,11 +46,11 @@ const Profile = () => {
         </p>
         <p>
           <span className="field">Height</span>
-          <span className="value">{"please add via edit button" || user.height}(cm)</span>
+          <span className="value">{user.height + "(cm)" || "please add via edit button"}</span>
         </p>
         <p>
           <span className="field">Weight</span>
-          <span className="value">{"please add via edit button" || user.weight}(kg)</span>
+          <span className="value">{user.weight + "(kg)" || "please add via edit button"}</span>
         </p>
         <p>
           <span className="field">Daily Calories</span>

@@ -1,9 +1,11 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import profilePicturePath from "../assets/Emily_profile_icon.png";
 const LoginContext = createContext();
 
 const LoginContextProvider = (props) => {
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState({
+    profilePicture: profilePicturePath,
     userName: "username",
     firstName: "",
     lastName: "",
@@ -23,10 +25,10 @@ const LoginContextProvider = (props) => {
         return "Please add weight(kg), height(cm) and birthday";
       }
       let base = 10 * this.weight + 6.25 * this.height - 5 * this.getAge();
-      if (this.gender === "male") {
+      if (this.gender === "Male") {
         base += 5;
       }
-      if (this.gender === "female") {
+      if (this.gender === "Female") {
         base -= 161;
       }
       return base;
@@ -43,11 +45,10 @@ const LoginContextProvider = (props) => {
       const birthDate = new Date(this.birthday);
       const timeDifference = currentDate - birthDate;
       //the date object counting in millisecond, we want year
-      const age = Math.floor(difference / (365.25 * 24 * 60 * 60 * 1000));
+      const age = Math.floor(timeDifference / (365.25 * 24 * 60 * 60 * 1000));
       return age;
     },
   });
-
   return <LoginContext.Provider value={{ login, setLogin, user, setUser }}>{props.children}</LoginContext.Provider>;
 };
 

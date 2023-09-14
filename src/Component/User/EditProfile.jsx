@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLoginContext } from "../../Context/LoginContext";
 import { Link } from "react-router-dom";
 
 const EditProfile = () => {
-  const { login, user } = useLoginContext();
+  const { login, user, setUser } = useLoginContext();
+  //these are the only field we let them edit
+  const [editUser, setEditUser] = useState({
+    // profilePicture: "",
+    // firstName: "",
+    // lastName: "",
+    // gender: "",
+    // birthday: "",
+  });
+  const submitHandler = (ev) => {
+    ev.preventDefault();
+    let editedUser = { ...user };
+    for (const key in editUser) {
+      editedUser[key] = editUser[key];
+    }
+    setUser({ ...editedUser });
+  };
 
   if (!login) {
     return (
@@ -14,10 +30,18 @@ const EditProfile = () => {
   }
 
   return (
-    <>
+    <form onSubmit={submitHandler}>
       <div className="profile__welcome">
         <div className="profile__image__container">
-          <img />
+          <img src={user.profilePicture} />
+          <input
+            type="url"
+            name="profilePicture"
+            placeholder="new image url here"
+            onChange={(ev) => {
+              setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+            }}
+          />
         </div>
         <h1>Welcome, {user.userName}</h1>
       </div>
@@ -25,32 +49,73 @@ const EditProfile = () => {
         <h2>PERSONAL INFO</h2>
         <p>
           <span className="field">First name</span>
-          <input type="text" placeholder={user.firstName} name="firstName" id="firstName" />
+          <input
+            type="text"
+            placeholder={"add first name" || user.firstName}
+            name="firstName"
+            id="firstName"
+            onChange={(ev) => {
+              setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+            }}
+          />
         </p>
         <p>
           <span className="field">Last name</span>
-          <input type="text" placeholder={user.lastName} name="lastName" id="lastName" />
+          <input
+            type="text"
+            placeholder={"add last name" || user.lastName}
+            name="lastName"
+            id="lastName"
+            onChange={(ev) => {
+              setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+            }}
+          />
         </p>
         <p>
           <span className="field">Gender</span>
           {user.gender ? (
             <span className="value">{user.gender}</span>
           ) : (
-            <form>
+            <>
               <label>
-                <input type="radio" name="gender" value="male" />
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Male"
+                  onChange={(ev) => {
+                    setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+                  }}
+                />
                 Male
               </label>
               <label>
-                <input type="radio" name="gender" value="female" />
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Female"
+                  onChange={(ev) => {
+                    setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+                  }}
+                />
                 Female
               </label>
-            </form>
+            </>
           )}
         </p>
         <p>
           <span className="field">Birthday</span>
-          {user.birthday ? <span className="value">{user.birthday}</span> : <input onChange={(ev) => console.log(ev.target.value)} type="date" name="birthday" id="birthday" />}
+          {user.birthday ? (
+            <span className="value">{user.birthday}</span>
+          ) : (
+            <input
+              type="date"
+              name="birthday"
+              id="birthday"
+              onChange={(ev) => {
+                setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+              }}
+            />
+          )}
         </p>
         <p>
           <span className="field">Email</span>
@@ -58,11 +123,27 @@ const EditProfile = () => {
         </p>
         <p>
           <span className="field">Height</span>
-          <input type="number" name="height" id="height" placeholder={user.height + "(cm)"} />
+          <input
+            type="number"
+            name="height"
+            id="height"
+            placeholder="height (cm)"
+            onChange={(ev) => {
+              setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+            }}
+          />
         </p>
         <p>
           <span className="field">Weight</span>
-          <input type="number" name="weight" id="weight" placeholder={user.weight + "(kg)"} />
+          <input
+            type="number"
+            name="weight"
+            id="weight"
+            placeholder="weight (kg)"
+            onChange={(ev) => {
+              setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+            }}
+          />
         </p>
         <p>
           <span className="field">Daily Calories</span>
@@ -90,8 +171,13 @@ const EditProfile = () => {
         </p>
       </div>
 
-      <button>Save</button>
-    </>
+      {/* <Link to="/profile"> */}
+      <button type="submit">Save</button>
+      {/* </Link> */}
+      <Link to="/profile">
+        <button>back</button>
+      </Link>
+    </form>
   );
 };
 
