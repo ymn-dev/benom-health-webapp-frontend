@@ -5,13 +5,7 @@ import { Link } from "react-router-dom";
 const EditProfile = () => {
   const { login, user, setUser } = useLoginContext();
   //these are the only field we let them edit
-  const [editUser, setEditUser] = useState({
-    // profilePicture: "",
-    // firstName: "",
-    // lastName: "",
-    // gender: "",
-    // birthday: "",
-  });
+  const [editUser, setEditUser] = useState({});
   const submitHandler = (ev) => {
     ev.preventDefault();
     let editedUser = { ...user };
@@ -43,7 +37,13 @@ const EditProfile = () => {
             }}
           />
         </div>
-        <h1>Welcome, {user.userName}</h1>
+        <input
+          type="text"
+          placeholder={user.userName}
+          name="userName"
+          onChange={(ev) => {
+            setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
+          }}></input>
       </div>
       <div className="profile__detail__container">
         <h2>PERSONAL INFO</h2>
