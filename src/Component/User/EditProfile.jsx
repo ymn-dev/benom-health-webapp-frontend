@@ -2,7 +2,7 @@ import React from "react";
 import { useLoginContext } from "../../Context/LoginContext";
 import { Link } from "react-router-dom";
 
-const Profile = () => {
+const EditProfile = () => {
   const { login } = useLoginContext();
   //mock user, will take from LoginContext later
   const user = {
@@ -63,19 +63,32 @@ const Profile = () => {
         <h2>PERSONAL INFO</h2>
         <p>
           <span className="field">First name</span>
-          <span className="value">{user.firstName}</span>
+          <input type="text" placeholder={user.firstName} name="firstName" id="firstName" />
         </p>
         <p>
           <span className="field">Last name</span>
-          <span className="value">{user.lastName}</span>
+          <input type="text" placeholder={user.lastName} name="lastName" id="lastName" />
         </p>
         <p>
           <span className="field">Gender</span>
-          <span className="value">{user.gender}</span>
+          {user.gender ? (
+            <span className="value">{user.gender}</span>
+          ) : (
+            <form>
+              <label>
+                <input type="radio" name="gender" value="male" />
+                Male
+              </label>
+              <label>
+                <input type="radio" name="gender" value="female" />
+                Female
+              </label>
+            </form>
+          )}
         </p>
         <p>
           <span className="field">Birthday</span>
-          <span className="value">{user.birthday}</span>
+          {user.birthday ? <span className="value">{user.birthday}</span> : <input type="date" name="birthday" id="birthday" />}
         </p>
         <p>
           <span className="field">Email</span>
@@ -83,11 +96,11 @@ const Profile = () => {
         </p>
         <p>
           <span className="field">Height</span>
-          <span className="value">{user.height}(cm)</span>
+          <input type="number" name="height" id="height" placeholder={user.height + "(cm)"} />
         </p>
         <p>
           <span className="field">Weight</span>
-          <span className="value">{user.weight}(kg)</span>
+          <input type="number" name="weight" id="weight" placeholder={user.weight + "(kg)"} />
         </p>
         <p>
           <span className="field">Daily Calories</span>
@@ -115,11 +128,9 @@ const Profile = () => {
         </p>
       </div>
 
-      <Link to="/edit-profile">
-        <button>Edit</button>
-      </Link>
+      <button>Save</button>
     </>
   );
 };
 
-export default Profile;
+export default EditProfile;
