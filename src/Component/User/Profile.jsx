@@ -6,6 +6,7 @@ const Profile = () => {
   const { login } = useLoginContext();
   //mock user, will take from LoginContext later
   const user = {
+    userName: "username",
     firstName: "name",
     lastName: "last name",
     gender: "male",
@@ -26,10 +27,10 @@ const Profile = () => {
         return "Please add weight(kg), height(cm) and birthday";
       }
       let base = 10 * this.weight + 6.25 * this.height - 5 * this.age;
-      if (gender === "male") {
+      if (this.gender === "male") {
         base += 5;
       }
-      if (gender === "female") {
+      if (this.gender === "female") {
         base -= 161;
       }
       return base;
@@ -45,7 +46,7 @@ const Profile = () => {
   if (!login) {
     return (
       <h1>
-        <Link to={"/signin"}>Please Login</Link>
+        Please <Link to={"/signin"}>Login</Link>
       </h1>
     );
   }
@@ -56,7 +57,7 @@ const Profile = () => {
         <div className="profile__image__container">
           <img />
         </div>
-        <h1>Welcome, {user.firstName}</h1>
+        <h1>Welcome, {user.userName}</h1>
       </div>
       <div className="profile__detail__container">
         <h2>PERSONAL INFO</h2>
@@ -113,6 +114,10 @@ const Profile = () => {
           <span className="value">{user.liveCaloriesBurned}</span>
         </p>
       </div>
+
+      <Link to="/edit-profile">
+        <button>Edit</button>
+      </Link>
     </>
   );
 };

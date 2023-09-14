@@ -9,7 +9,7 @@ const SignUp = () => {
       </div>
       <h1>BENOM</h1>
       <form>
-        <input placeholder="Name" />
+        <input placeholder="Username" />
         <br />
         <input placeholder="Email" />
         <br />
