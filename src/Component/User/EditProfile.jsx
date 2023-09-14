@@ -3,45 +3,7 @@ import { useLoginContext } from "../../Context/LoginContext";
 import { Link } from "react-router-dom";
 
 const EditProfile = () => {
-  const { login } = useLoginContext();
-  //mock user, will take from LoginContext later
-  const user = {
-    userName: "username",
-    firstName: "name",
-    lastName: "last name",
-    gender: "male",
-    birthday: "date",
-    //to create birthday to age later
-    age: 20,
-    email: "email",
-    height: 170,
-    weight: 60,
-    dailyCalories: "null",
-    exerciseLog: [],
-    exerciseTime: 0,
-    caloriesBurned: 0,
-    liveExercseTime: 0,
-    liveCaloriesBurned: 0,
-    getBMR() {
-      if (!this.weight || !this.height || !this.age) {
-        return "Please add weight(kg), height(cm) and birthday";
-      }
-      let base = 10 * this.weight + 6.25 * this.height - 5 * this.age;
-      if (this.gender === "male") {
-        base += 5;
-      }
-      if (this.gender === "female") {
-        base -= 161;
-      }
-      return base;
-    },
-    getBMI() {
-      if (!this.weight || !this.height) {
-        return "Please add weight(kg) and height (cm)";
-      }
-      return this.weight / ((this.height / 100) * (this.height / 100));
-    },
-  };
+  const { login, user } = useLoginContext();
 
   if (!login) {
     return (
@@ -88,7 +50,7 @@ const EditProfile = () => {
         </p>
         <p>
           <span className="field">Birthday</span>
-          {user.birthday ? <span className="value">{user.birthday}</span> : <input type="date" name="birthday" id="birthday" />}
+          {user.birthday ? <span className="value">{user.birthday}</span> : <input onChange={(ev) => console.log(ev.target.value)} type="date" name="birthday" id="birthday" />}
         </p>
         <p>
           <span className="field">Email</span>
