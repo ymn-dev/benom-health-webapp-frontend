@@ -8,11 +8,7 @@ const EditProfile = () => {
   const [editUser, setEditUser] = useState({});
   const submitHandler = (ev) => {
     ev.preventDefault();
-    let editedUser = { ...user };
-    for (const key in editUser) {
-      editedUser[key] = editUser[key];
-    }
-    setUser({ ...editedUser });
+    setUser({ ...user, ...editUser });
   };
 
   if (!login) {
