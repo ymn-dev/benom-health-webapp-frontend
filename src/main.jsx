@@ -106,13 +106,12 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: (
-      <>
-        <Layout>
-          <Dashboard />
-        </Layout>
-      </>
-    ),
-  },
+      <Layout>
+      <Hero />
+      <CardContainer />
+    </Layout>
+  ),
+},
   {
     path: "/profile",
     element: (
