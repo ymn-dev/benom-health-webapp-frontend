@@ -49,11 +49,9 @@ const router = createBrowserRouter([
   {
     path: "/about",
     element: (
-      <>
-        <Layout>
-          <About />
-        </Layout>
-      </>
+      <Layout>
+        <About />
+      </Layout>
     ),
   },
   {
@@ -108,29 +106,24 @@ const router = createBrowserRouter([
     path: "/home",
     element: (
       <Layout>
-      <Hero />
-      <CardContainer />
-    </Layout>
-  ),
-},
+        <Dashboard />
+      </Layout>
+    ),
+  },
   {
     path: "/profile",
     element: (
-      <>
-        <Layout>
-          <Profile />
-        </Layout>
-      </>
+      <Layout>
+        <Profile />
+      </Layout>
     ),
   },
   {
     path: "/edit-profile",
     element: (
-      <>
-        <Layout>
-          <EditProfile />
-        </Layout>
-      </>
+      <Layout>
+        <EditProfile />
+      </Layout>
     ),
   },
 ]);
