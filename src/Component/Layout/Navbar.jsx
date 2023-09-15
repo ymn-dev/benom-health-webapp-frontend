@@ -6,18 +6,18 @@ const Navbar = () => {
   return (
     <nav className=" flex justify-between mx-5 text-2xl my-7 text-black ">
       <Link id="logo" to={"/"}>
-        Benom
+      <span className="text-black hover:text-orange-500">Benom</span>
       </Link>
       <ul className=" flex">
         <li>
-          <Link to={"/home"}>Home</Link>
+          <Link to={"/home"}><span className="text-black  hover:text-orange-500">Home</span></Link>
         </li>
-        <li className="mx-5 ">
-          <Link to={"/about"}>About Us</Link>
+        <li className="mx-5">
+          <Link to={"/about"}><span className="text-black  hover:text-orange-500">About Us</span></Link>
         </li>
         <li >
-        {!login && <Link to={"/signin"}>Sign in</Link>}
-        {login && <Link to={"/profile"}>Profile</Link>}
+        {!login && <Link to={"/signin"}><span className="text-black  hover:text-orange-500">Sign in</span></Link>}
+        {login && <Link to={"/profile"}><span className="text-black  hover:text-orange-500">Profile</span></Link>}
         </li>
       </ul>
     </nav>
