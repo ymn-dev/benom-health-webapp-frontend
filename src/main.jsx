@@ -18,6 +18,7 @@ import Walking from "./Component/Exercises/Walking.jsx";
 import Yoga from "./Component/Exercises/Yoga.jsx";
 import Profile from "./Component/User/Profile.jsx";
 import Dashboard from "./Component/User/Dashboard.jsx";
+import EditProfile from "./Component/User/EditProfile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -106,19 +107,28 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: (
-      <>
-        <Layout>
-          <Dashboard />
-        </Layout>
-      </>
-    ),
-  },
+      <Layout>
+      <Hero />
+      <CardContainer />
+    </Layout>
+  ),
+},
   {
     path: "/profile",
     element: (
       <>
         <Layout>
           <Profile />
+        </Layout>
+      </>
+    ),
+  },
+  {
+    path: "/edit-profile",
+    element: (
+      <>
+        <Layout>
+          <EditProfile />
         </Layout>
       </>
     ),
