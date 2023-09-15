@@ -5,7 +5,15 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors :{
+        'salmon': '#FF9A62',
+        'lightsalmon':'#FFD0B7'
+      },
+      fontFamily: {
+        'Nunito': ['Nunito', 'sans-serif']
+      },
+    },
   },
   plugins: [require("daisyui")],
 }
