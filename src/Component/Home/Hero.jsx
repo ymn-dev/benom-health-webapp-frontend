@@ -1,18 +1,29 @@
 import React from "react";
 import heroImagePath from "../../assets/hero.png";
+
 const Hero = () => {
+  
+  const heroStyle = {
+    backgroundImage: `url(${heroImagePath})`, 
+  };
+
   return (
     <>
-      <div className="heroImageContainer">
-        <img src={heroImagePath} />
-      </div>
-      <div className="textContainer">
-        <h1 className="heroH1">Let Venom be your gym buddy!</h1>
-        <p className="heroP">
-          we offer you automatic calories calculator <br />
-          and activity tracker to keep your life in check <br />
-          and get strong
-        </p>
+      <div className="hero min-h-screen" style={heroStyle}>
+        <div className="hero-overlay bg-opacity-80"></div>
+        <div className="hero-content text-center text-neutral-content">
+          <div className="max-w-md">
+            <h1 className="mb-5 text-5xl font-bold">Let Venom be your gym buddy!</h1>
+            <p className="mb-5">
+            we offer you automatic calories calculator and activity tracker to keep your life in check and get strong
+            </p>
+            <div className="space-x-36 " >
+              <button className="btn btn-ghost">Try Now</button>
+            <button className="btn btn-ghost">Sign Up</button>
+            </div>
+            
+          </div>
+        </div>
       </div>
     </>
   );
