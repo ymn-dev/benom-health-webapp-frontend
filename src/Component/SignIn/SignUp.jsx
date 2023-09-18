@@ -16,6 +16,8 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [usernameError, setUsernameError] = useState([]);
   const [emailError, setEmailError] = useState([]);
   const [passwordError, setPasswordError] = useState([]);
@@ -23,7 +25,7 @@ const SignUp = () => {
 
   const submitHandler = (ev) => {
     ev.preventDefault();
-    if (!username || !email || !password) {
+    if (!username || !email || !password || !confirmPassword) {
       return;
     }
     setUsernameError([]);
@@ -33,6 +35,7 @@ const SignUp = () => {
     let localUsernameError = false;
     let localUemailError = false;
     let localPasswordError = false;
+    let localconfirmPasswordError = false;
 
     const processedUsername = username.trim().toLowerCase();
     const processedEmail = email.trim().toLowerCase();
@@ -105,7 +108,17 @@ const SignUp = () => {
         localPasswordError = true;
       }
     }
-    if (localUsernameError || localUemailError || localPasswordError) {
+    // ส่วนของของการตรวจสอบ ยืนยัน password 
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("Password and Confirm Password do not match"); // ตั้งค่าข้อความแจ้งเตือน
+      localPasswordError = true;
+      localconfirmPasswordError =true;
+    } else {
+      
+      setConfirmPasswordError(""); // ล้างข้อความแจ้งเตือนหากตรงกัน
+    }
+
+    if (localUsernameError || localUemailError || localPasswordError || localconfirmPasswordError) {
       return;
     } else {
       //putting into database + to check backend duplicate later
@@ -133,7 +146,7 @@ const SignUp = () => {
           maxLength={20}
           name="userName"
           placeholder="Username"
-          className="btn btn-neutral btn-wide btn btn-sm mt-2 text-start text-xs font-bold"
+          className="input input-bordered input-sm mt-2 text-start text-xs font-bold w-full"
           onChange={(ev) => {
             setUsername(ev.target.value);
           }}
@@ -151,7 +164,7 @@ const SignUp = () => {
           type="email"
           name="email"
           placeholder="Email"
-          className="btn btn-neutral btn-wide btn btn-sm mt-3 text-start text-xs font-bold"
+          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
           onChange={(ev) => {
             setEmail(ev.target.value);
           }}
@@ -165,28 +178,45 @@ const SignUp = () => {
             </p>
           ))}
         <input
-          required
-          type="password"
-          minLength={8}
-          name="password"
-          placeholder="Password"
-          className="btn btn-neutral btn-wide btn btn-sm mt-3 text-start text-xs font-bold"
-          onChange={(ev) => {
-            setPassword(ev.target.value);
+      required
+      type="password"
+      minLength={8}
+      name="password"
+      placeholder="Password"
+      className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
+      onChange={(ev) => {
+        setPassword(ev.target.value);
+      }}
+    />
+
+      {passwordError.length > 0 &&
+      passwordError.map((error, index) => (
+        <p key={index} style={{ color: "red" }}>
+          {error}
+        </p>
+      ))}
+
+      {/* ส่วน confirm */}
+      <input
+        required
+        type="password"
+        minLength={8}
+        name="confirmPassword"
+        placeholder="Confirm Password"
+        className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
+        onChange={(ev) => {
+          setConfirmPassword(ev.target.value);
           }}
         />
-        <br />
+        {confirmPasswordError && (
+          <p style={{ color: "red" }}>{confirmPasswordError}</p>
+              )}
+           <br />
 
-        {passwordError.length > 0 &&
-          passwordError.map((error, index) => (
-            <p key={index} style={{ color: "red" }}>
-              {error}
-            </p>
-          ))}
-        <button type="submit" className="btn btn-wide btn btn-sm mt-3 text-xs font-bold" disabled={!username || !password || !email || submitSuccess}>
+        <button type="submit" className="btn btn-sm mt-3 text-xs font-bold bg-black text-white w-full" disabled={!username || !password || !email || submitSuccess}>
           Sign up
         </button>
-        {submitSuccess && <p style={{ color: "green" }}>register success!</p>}
+        {submitSuccess && <p style={{ color: "green", textAlign: "center"}}>Register Success!</p>}
       </form>
       <div className="apiContainer max-w-[250px] mx-auto">
         <p className="text-gray-600 text-center">⸻ or continue with ⸻</p>
