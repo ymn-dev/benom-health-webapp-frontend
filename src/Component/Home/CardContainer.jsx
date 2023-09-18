@@ -6,11 +6,13 @@ import runningImgPath from "../../assets/running.png";
 import calisthenicsImgPath from "../../assets/calisthenics.png";
 import swimmingImgPath from "../../assets/swimming.png";
 import walkingImgPath from "../../assets/walking.png";
+
 const CardContainer = () => {
   return (
-    <>
-      <h2 className="text-center font-family: 'Nunito' text-6xl text-white py-8 font-bold mb-5">Our Courses</h2>
-      <div className="flex justify-between px-4">
+    <div className="text-center py-8">
+      <h2 className="text-6xl text-white font-bold mb-5">Our Courses</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
         <Card
           Name="Yoga"
           Image={yogaImgPath}
@@ -26,8 +28,6 @@ const CardContainer = () => {
           Image={runningImgPath}
           Text="Train your body, mind and spirit in a studio designed to suit everyone, with 3 different classes, utilizing ancient sciences and knowledge applied to the present"
         />
-      </div>
-      <div className="flex justify-between px-4 mt-4">
         <Card
           Name="Calisthenics"
           Image={calisthenicsImgPath}
@@ -44,7 +44,8 @@ const CardContainer = () => {
           Text="Train your body, mind and spirit in a studio designed to suit everyone, with 3 different classes, utilizing ancient sciences and knowledge applied to the present"
         />
       </div>
-    </>
+    </div>
   );
 };
+
 export default CardContainer;

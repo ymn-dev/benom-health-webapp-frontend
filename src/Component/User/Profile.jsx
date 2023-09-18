@@ -13,35 +13,49 @@ const Profile = () => {
     );
   }
 
-  const profileImageStyle = {
-    width: '200px',
-    height: '200px',
-    borderRadius: '50%', 
-    position: 'relative', 
-    top: '80px', 
-    left: '40px',
-  };
+  // const profileImageStyle = {
+  //   width: '200px',
+  //   height: '200px',
+  //   borderRadius: '50%', 
+  //   position: 'relative', 
+  //   top: '80px', 
+  //   left: '40px',
+  // };
 
   return (
-    <div className="md:w-1/2 mx-auto">
-      <div className="bg-salmon p-4 rounded-t-lg">
-        <div className="flex justify-between items-center">
-          <div>
-            <img
+    <div className="mx-auto">
+      <div className="flex bg-salmon justify-center max-sm:" >
+      <img className="flex relative top-[70px] w-[200px]  h-[200px] rounded-full sm:hidden"
               src={user.profilePicture}
               alt="Profile"
-              style={profileImageStyle}
+              // style={profileImageStyle}
+            />
+
+      </div>
+      {/* <div className="flex  bg-salmon  p-4 rounded-t-lg "> */}
+        <div className="flex bg-salmon items-end">
+          
+          <div className=" w-1/2">
+            <img className=" relative top-[70px] left-1/4 w-[200px]  h-[200px] rounded-full max-sm:hidden"
+              src={user.profilePicture}
+              alt="Profile"
+              // style={profileImageStyle}
             />
           </div>
-          <div className="text-white font-bold text-2xl text-center md:text-left">
+          <div className=" w-1/2 text-white font-bold text-2xl max-sm:hidden">
             <h1>Welcome, {user.userName}</h1>
           </div>
         </div>
-      </div>
+
+
+      {/* </div> */}
 
       <div className="bg-white p-4 rounded-b-lg pt-20 md:flex md:flex-row">
         <div className="md:flex-1">
-          <h2 className="text-salmon font-bold text-2xl mb-5 text-center md:text-left">PERSONAL INFO</h2>
+          <h2 className="text-salmon font-bold text-2xl mb-5 text-center md:text-left max-sm:hidden">PERSONAL INFO</h2>
+          <h2 className="text-salmon font-bold text-2xl mb-5 text-center md:text-left sm:hidden ">Welcome, {user.userName}</h2>
+          <h2 className="text-white font-bold text-2xl text-center sm:hidden">Welcome, {user.userName}</h2>
+
           <div className="field-value-pair">
             <p>
               <span className="text-black">First name</span> 
