@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Profile_Benom_Logo from "../../assets/Profile_Benom_Logo.png";
 import facebook_Icon from "../../assets/facebook_Icon.svg";
 import Google_Icon from "../../assets/Google_Icon.svg";
 import isEmail from "validator/lib/isEmail";
 import PasswordValidator from "password-validator";
+import { useLoginContext } from "../../Context/LoginContext";
 
 const SignUp = () => {
+  const { login } = useLoginContext();
+  const navigate = useNavigate();
+  if (login) {
+    navigate("/home");
+  }
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -185,7 +191,6 @@ const SignUp = () => {
       <div className="apiContainer max-w-[250px] mx-auto">
         <p className="text-gray-600 text-center">⸻ or continue with ⸻</p>
         <div className="googleLogin btn btn-neutral btn-wide btn btn-sm mt-3 text-xs font-bold">
-
           <img src={Google_Icon} width={18} height={18} />
           Login
         </div>
