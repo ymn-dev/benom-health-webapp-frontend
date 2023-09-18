@@ -7,6 +7,8 @@ export default {
         salmon: "#FF9A62",
         lightsalmon: "#FFD0B7",
         "salmon-profile": "#FF9671",
+        "salmon-column" : "#F4CFB4",
+        "dark-orange": "#F24822",
       },
       fontFamily: {
         Nunito: ["Nunito", "sans-serif"],
