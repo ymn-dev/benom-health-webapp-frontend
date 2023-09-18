@@ -30,6 +30,7 @@ const Profile = () => {
               alt="Profile"
               // style={profileImageStyle}
             />
+
       </div>
       {/* <div className="flex  bg-salmon  p-4 rounded-t-lg "> */}
         <div className="flex bg-salmon items-end">
@@ -54,6 +55,7 @@ const Profile = () => {
           <h2 className="text-salmon font-bold text-2xl mb-5 text-center md:text-left max-sm:hidden">PERSONAL INFO</h2>
           <h2 className="text-salmon font-bold text-2xl mb-5 text-center md:text-left sm:hidden ">Welcome, {user.userName}</h2>
           <h2 className="text-white font-bold text-2xl text-center sm:hidden">Welcome, {user.userName}</h2>
+
           <div className="field-value-pair">
             <p>
               <span className="text-black">First name</span> 

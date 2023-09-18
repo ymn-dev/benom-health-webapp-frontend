@@ -12,6 +12,7 @@ const CardContainer = () => {
     <div className="text-center py-8">
       <h2 className="text-6xl text-white font-bold mb-5">Our Courses</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
         <Card
           Name="Yoga"
           Image={yogaImgPath}
