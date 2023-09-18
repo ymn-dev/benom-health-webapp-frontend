@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLoginContext } from "../../Context/LoginContext"
+import { useLoginContext } from "../../Context/LoginContext";
 const Navbar = () => {
   const { login } = useLoginContext();
   return (
@@ -18,6 +18,7 @@ const Navbar = () => {
         <li >
         {!login && <Link to={"/signin"}><span className="text-black  hover:text-white">Sign in</span></Link>}
         {login && <Link to={"/profile"}><span className="text-black  hover:text-white">Profile</span></Link>}
+
         </li>
       </ul>
     </nav>

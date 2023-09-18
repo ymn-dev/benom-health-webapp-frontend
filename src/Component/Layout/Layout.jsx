@@ -8,11 +8,13 @@ const Layout = (props) => {
   return (
     <>
       <button
+        style={{ backgroundColor: "yellow" }}
         onClick={() => {
           setLogin(!login);
         }}>
         Login Condition Test
       </button>
+      : Logged in?{login ? "true" : "false"}
       <Navbar />
       {props.children}
       <Footer />
