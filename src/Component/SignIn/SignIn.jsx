@@ -14,9 +14,9 @@ const SignIn = () => {
       </div>
       <h1 className="text-white text-4xl font-extrabold flex justify-center">BENOM</h1>
       <form className="max-w-[250px] w-full mx-auto py-3">
-        <input placeholder="Email" className="btn btn-neutral btn-wide btn btn-sm mt-2 text-start text-xs font-bold" />
+        <input placeholder="Email" className="input input-bordered input-sm mt-2 text-start text-xs font-bold w-full" />
         <br />
-        <input placeholder="Password" className="btn btn-neutral btn-wide btn btn-sm my-3 text-start text-xs font-bold" />
+        <input placeholder="Password" className="input input-bordered input-sm mt-2 text-start text-xs font-bold w-full" />
         <br />
         <a href="#" className="text-gray-600 flex justify-center pl-20 hover:text-white">Forgot your password?</a>
         <button className="btn btn-wide btn btn-sm mt-3 text-xs font-bold">Login</button>
