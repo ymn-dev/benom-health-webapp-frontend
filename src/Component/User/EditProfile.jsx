@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useLoginContext } from "../../Context/LoginContext";
 import { Link } from "react-router-dom";
+import editIcon from "../../assets/edit-svgrepo-com.svg"
 
 const EditProfile = () => {
   const { login, user, setUser } = useLoginContext();
   //these are the only field we let them edit
   const [editUser, setEditUser] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newProfilePicture, setNewProfilePicture] = useState("");
+
+ 
   const submitHandler = (ev) => {
     ev.preventDefault();
-    setUser({ ...user, ...editUser });
+    // ใช้ URL รูปภาพใหม่จาก state ในการอัปเดต editUser
+    setUser({ ...user, ...editUser, profilePicture: newProfilePicture });
+    
   };
+
+
 
   if (!login) {
     return (
@@ -34,32 +43,91 @@ const EditProfile = () => {
     
   };
 
+  const editButtonStyle = {
+    position: 'absolute',
+    bottom: '0',
+    right: '0',
+    backgroundColor: 'transparent',
+    border: 'none',
+    cursor: 'pointer',
+  };
+
+  const editIconStyle = {
+    width: '30px',
+    height: '30px',
+  };
+
   return (
     <form onSubmit={submitHandler}>
       <div className="md:w-1/2 mx-auto">
         <div className="bg-salmon p-4  rounded-t-lg ">
           <div className="flex justify-between items-center">
-            <div>
+
+           
+            <div className="relative">
               <img
                 src={user.profilePicture}
                 alt="Profile"
                 style={profileImageStyle}
               />
-              <input
-                type="url"
-                name="profilePicture"
-                placeholder="New image URL here"
-                onChange={(ev) => {
-                  setEditUser({ ...editUser, [ev.target.name]: ev.target.value });
-                }}
-                style={inputStyle}
-              />
+              {/* แสดงปุ่มและเปิด modal เมื่อกด */}
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                style={editButtonStyle}
+              >
+                <img src={editIcon} style={editIconStyle} alt="editIcon" />
+              </button>
             </div>
             <div className="text-white font-bold text-2xl">
               <h1>Edit your Profile Here</h1>
             </div>
           </div>
         </div>
+
+        {/* แสดง modal เมื่อ isModalOpen เป็น true */}
+        {isModalOpen && (
+          <div className="bg-white p-4 rounded-b-lg pt-5 md:flex md:flex-row">
+            <div className="md:flex-1">
+              {/* ให้ผู้ใช้กรอก URL รูปภาพใหม่ */}
+              <h2 className="text-salmon font-bold text-2xl mb-5">
+                Add New Profile Picture
+              </h2>
+              <div className="field-value-pair">
+                <p>
+                  <input
+                    type="url"
+                    name="profilePicture"
+                    placeholder="New image URL here"
+                    value={newProfilePicture}
+                    onChange={(ev) => setNewProfilePicture(ev.target.value)}
+                    style={inputStyle}
+                  />
+                </p>
+              </div>
+
+              {/* ปุ่ม "Save" และ "Cancel" ใน modal */}
+              <div>
+                
+                <button
+                  type="submit"
+                  className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 ml-5"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+
 
         <div className="bg-white p-4 rounded-b-lg pt-5 md:flex md:flex-row">
           <div className="md:flex-1">
