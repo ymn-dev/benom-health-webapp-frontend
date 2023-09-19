@@ -12,6 +12,9 @@ import {
   } from 'chart.js';
 
 import { Bar } from 'react-chartjs-2';
+import { useNavigate } from "react-router-dom";
+import { useLoginContext } from "../../Context/LoginContext";
+
 
 ChartJS.register(
   BarElement,
@@ -21,8 +24,12 @@ ChartJS.register(
   Legend
 );
 
-
 const Dashboard = () => {
+  const { login, user } = useLoginContext();
+  const navigate = useNavigate();
+  if (!login) {
+    navigate("/");
+  }
   const data = {
     labels: ['12AM', '4AM', '8AM', '12PM', '4PM', '8PM', '11PM'],
     datasets: [
@@ -125,6 +132,7 @@ const Dashboard = () => {
   
 </>
   );
+
 };
 
 

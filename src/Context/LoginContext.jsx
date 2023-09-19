@@ -5,8 +5,10 @@ const LoginContext = createContext();
 const LoginContextProvider = (props) => {
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState({
+    id: "50844c0a-bbe7-41a5-9f59-ccf815411977",
     profilePicture: profilePicturePath,
     userName: "username",
+    password: "1Qqqwww@",
     firstName: "",
     lastName: "",
     gender: "",
