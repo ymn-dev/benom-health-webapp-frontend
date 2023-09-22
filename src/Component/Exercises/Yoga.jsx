@@ -21,16 +21,17 @@ const Yoga = () => {
         <img src={Benom_Yoga_icon} alt="Benom_Yoga_icon" />
         <div>
           <img src={fire_icon} alt="fire_icon.png" />
-          <details className="dropdown mb-2">
-            <summary className="m-2 btn font-bold border-black">YOGA</summary>
-            <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-              <li><a>Calisthenics</a></li>
-              <li><a>Cycling</a></li>
-              <li><a>Running</a></li>
-              <li><a>Swimming</a></li>
-              <li><a>Walking</a></li>
-            </ul>
-          </details>
+          <select className="select select-bordered border-gray-700 w-full max-w-xs mb-3">
+              <option disabled selected>
+                Y
+              </option>
+              <option>Cycling</option>
+              <option>Swimming</option>
+              <option>Yoga</option>
+              <option>Running</option>
+              <option>Walking</option>
+              <option>Calisthenics</option>
+            </select>
         </div> 
       </div>
        <div >
