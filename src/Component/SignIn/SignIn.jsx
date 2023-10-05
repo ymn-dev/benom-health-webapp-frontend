@@ -41,9 +41,11 @@ const SignIn = () => {
       });
       // console.log(userData.data.data);
       const { email, joinDate, userName } = userData.data.data;
+      const exerciseData = await axios.get(`https://benom-backend.onrender.com/users/${_id}/activities`, { headers });
+      const { caloriesBurned, exerciseTime, liveCaloriesBurned, liveExerciseTime, exerciseLog } = exerciseData.data.data;
       // const data = await axios.get(`http://localhost:3001/users/${_id}`, { withCredentials: true });
       // console.log(data);
-      setUser({ ...user, _id, email, joinDate, userName });
+      setUser({ ...user, _id, email, joinDate, userName, headers, caloriesBurned, exerciseTime, liveCaloriesBurned, liveExerciseTime, exerciseLog });
       setLogin(true);
       navigate("/home");
     } catch (err) {

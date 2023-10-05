@@ -10,12 +10,6 @@ const Profile = () => {
   if (!login) {
     navigate("/signin");
   }
-  useEffect(() => {
-    const getData = async () => {
-      const response = await axios.get(`https://benom-backend.onrender.com/users/${user._id}/activities`);
-      console.log(response);
-    };
-  }, []);
 
   // const profileImageStyle = {
   //   width: '200px',
@@ -109,22 +103,22 @@ const Profile = () => {
           <p>
             <span className="text-black">Total time exercised</span>
             <br />
-            <span className="text-salmon"> {`user.exerciseTime`}</span>
+            <span className="text-salmon"> {user.exerciseTime}</span>
           </p>
           <p>
             <span className="text-black">Total time exercised(live)</span>
             <br />
-            <span className="text-salmon"> {`user.liveExercseTime`}</span>
+            <span className="text-salmon"> {user.liveExerciseTime}</span>
           </p>
           <p>
             <span className="text-black">Total calories burned</span>
             <br />
-            <span className="text-salmon"> {`user.caloriesBurned`}</span>
+            <span className="text-salmon"> {user.caloriesBurned}</span>
           </p>
           <p>
             <span className="text-black">Total calories burned(live)</span>
             <br />
-            <span className="text-salmon"> {`user.liveCaloriesBurned`}</span>
+            <span className="text-salmon"> {user.liveCaloriesBurned}</span>
           </p>
         </div>
       </div>
