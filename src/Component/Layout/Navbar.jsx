@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import img1 from "../../assets/Benom_card_icon.png"
+import UserIMG from "../../assets/user.png"
 import { useLoginContext } from "../../Context/LoginContext";
 const Navbar = () => {
   const { login } = useLoginContext();
@@ -16,7 +17,8 @@ const Navbar = () => {
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img src={img1} />
+          {!login && <img src={UserIMG} />}
+          {login && <img src={img1} />}  
         </div>
       </label>
       <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
