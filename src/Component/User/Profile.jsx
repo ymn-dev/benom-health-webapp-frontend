@@ -76,11 +76,11 @@ const Profile = () => {
             </p>
             <p>
               <span className="text-black">Height</span>
-              <span className="text-salmon"> {user.height ? user.height + " (cm)" : "please add via edit button"}</span>
+              <span className="text-salmon"> {user.height ? user.height + " (cm)" : "(cm) please add via edit button"}</span>
             </p>
             <p>
               <span className="text-black">Weight</span>
-              <span className="text-salmon"> {user.weight ? user.weight + " (kg)" : "please add via edit button"}</span>
+              <span className="text-salmon"> {user.weight ? user.weight + " (kg)" : "(kg) please add via edit button"}</span>
             </p>
           </div>
 
