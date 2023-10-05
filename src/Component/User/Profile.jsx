@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLoginContext } from "../../Context/LoginContext";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import defaultPicture from "../../assets/Emily_profile_icon.png";
 
 const Profile = () => {
   const { login, user } = useLoginContext();
@@ -23,7 +25,7 @@ const Profile = () => {
       <div className="flex bg-salmon justify-center max-sm:">
         <img
           className="flex relative top-[70px] w-[200px]  h-[200px] rounded-full sm:hidden"
-          src={user.profilePicture}
+          src={user.profilePicture || defaultPicture}
           alt="Profile"
           // style={profileImageStyle}
         />
@@ -33,7 +35,7 @@ const Profile = () => {
         <div className=" w-1/2">
           <img
             className=" relative top-[70px] left-1/4 w-[200px]  h-[200px] rounded-full max-sm:hidden"
-            src={user.profilePicture}
+            src={user.profilePicture || defaultPicture}
             alt="Profile"
             // style={profileImageStyle}
           />
@@ -74,11 +76,11 @@ const Profile = () => {
             </p>
             <p>
               <span className="text-black">Height</span>
-              <span className="text-salmon"> {user.height + "(cm)" || "please add via edit button"}</span>
+              <span className="text-salmon"> {user.height ? user.height + " (cm)" : "(cm) please add via edit button"}</span>
             </p>
             <p>
               <span className="text-black">Weight</span>
-              <span className="text-salmon"> {user.weight + "(kg)" || "please add via edit button"}</span>
+              <span className="text-salmon"> {user.weight ? user.weight + " (kg)" : "(kg) please add via edit button"}</span>
             </p>
           </div>
 
@@ -91,12 +93,12 @@ const Profile = () => {
           <p>
             <span className="text-black">Daily Calories</span>
             <br />
-            <span className="text-salmon"> {`BMR: ${user.getBMR()}` || user.calories}</span>
+            <span className="text-salmon"> {`temp` || user.calories}</span>
           </p>
           <p>
             <span className="text-black">BMI</span>
             <br />
-            <span className="text-salmon"> {user.getBMI()}</span>
+            <span className="text-salmon"> {`temp`}</span>
           </p>
           <p>
             <span className="text-black">Total time exercised</span>
@@ -106,7 +108,7 @@ const Profile = () => {
           <p>
             <span className="text-black">Total time exercised(live)</span>
             <br />
-            <span className="text-salmon"> {user.liveExercseTime}</span>
+            <span className="text-salmon"> {user.liveExerciseTime}</span>
           </p>
           <p>
             <span className="text-black">Total calories burned</span>
