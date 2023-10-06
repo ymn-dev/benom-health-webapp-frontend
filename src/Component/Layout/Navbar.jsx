@@ -4,8 +4,11 @@ import img1 from "../../assets/Benom_card_icon.png"
 import UserIMG from "../../assets/user.png"
 import { useLoginContext } from "../../Context/LoginContext";
 const Navbar = () => {
-  const { login,user,logout } = useLoginContext();
-  const handleLogout = () => {logout();};
+  const { login, user, setUser, setLogin } = useLoginContext();
+  const handleLogout = () => {
+    setUser({ });
+    setLogin(false);
+  };
   return (
 
     <div className="navbar bg-salmon">

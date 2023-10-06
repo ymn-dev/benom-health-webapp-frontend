@@ -6,42 +6,74 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faBolt, faStopwatch, faFire} from '@fortawesome/free-solid-svg-icons';
 import venomCheese from "../../assets/DashboardPic/venomCheese.png";
 import dumpbell_venom from "../../assets/DashboardPic/dumpbell_venom.png";
-import calendar from "../../assets/DashboardPic/calendar.png";
-import Datepicker from "./Datepicker";
+import Calendar from "./Calendar";
+import { Line } from 'react-chartjs-2';
 
 import {
   Chart as ChartJS,
-  BarElement,
+  LineElement,
   CategoryScale,
   LinearScale,
-  Tooltip,
+  PointElement,
   Legend,
+  Tooltip
   } from 'chart.js';
 
-import { Bar } from 'react-chartjs-2';
-
 ChartJS.register(
-  BarElement,
+  LineElement,
   CategoryScale,
   LinearScale,
-  Tooltip,
-  Legend
+  PointElement,
+  Legend,
+  Tooltip
 );
+
+const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: "Cycling",
+      backgroundColor: "#f21605",
+      borderColor: "#f21605",
+      data: [30, 0, 0, 0, 0, 30, 0],
+    },
+    {
+      label: "Swimming",
+      backgroundColor: "#fe7534",
+      borderColor: "#fe7534",
+      data: [0, 0, 60, 0, 0, 0, 0],
+    },
+    {
+      label: "Yoga",
+      backgroundColor: "#ffb443",
+      borderColor: "#ffb443",
+      data: [0, 120, 0, 0, 0, 0, 0],
+    },
+    {
+      label: "Running",
+      backgroundColor: "#DE3163",
+      borderColor: "#DE3163",
+      data: [0, 0, 0, 90, 0, 0, 60],
+    },
+    {
+      label: "Walking",
+      backgroundColor: "#e456c6",
+      borderColor: "#e456c6",
+      data: [0, 0, 0, 30, 30, 0, 0],
+    },
+    {
+      label: "Calisthenics",
+      backgroundColor: "#ff6767",
+      borderColor: "#ff6767",
+      data: [0, 0, 0, 0, 120, 0, 0],
+    },
+  ],
+};
 
 
 const Dashboard = () => {
-{/*Bar-Chart*/}
-  const data = {
-    labels: ['Cycling', 'Swimming', 'Yoga', 'Running', 'Walking', 'Chalistenics'],
-    datasets: [
-      {
-        label: 'minutes',
-        data: [0, 0, 10, 30, 120, 30],
-        backgroundColor: '#F24822',
-      },
-    ] 
-  };
-  const options = {};
 
 {/*Sport Select Option*/}
 const selectOptions = [
@@ -72,7 +104,8 @@ const handleImageChange = (event) => {
   const file = event.target.files[0];
   setImage(event.target.files[0]);
 };
-  
+
+
   return (
     <>
   <div className="bg-slate-700 flex">
@@ -83,9 +116,9 @@ const handleImageChange = (event) => {
     <div id="common_activity" className="border-solid border-2 border-white bg-white my-6 ml-6 mr-3 rounded-lg pb-2">
       <h2 className="text-4xl mt-3 mb-3 text-center">Common activities</h2>
 
+    {/*ก้อน Modal เลือกแบบกีฬา*/}
     <div><p className="mr-2 text-center ">create custom activities
-
-    {/* Open the modal using document.getElementById('ID').showModal() method */}
+    {/* Modal */}
 <button className="btn" onClick={()=>document.getElementById('my_modal_1').showModal()}><img src={plus_button} width={15} height={15}/></button>
 <dialog id="my_modal_1" className="modal">
   <div className="modal-box">
@@ -98,8 +131,8 @@ const handleImageChange = (event) => {
     <li className="text-start">Calories: <input placeholder="Enter Calories"/></li>
     </ul>
   <div className="modal-action">
-      <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
+      <form method="dialog"> 
+        {/* อ่านเพิ่มเติม method นี้ เผื่อมีปุ่มอัพเดทโดยที่ไม่ต้องกดปิดไปก่อน วิธีนี้มันปิด */}
         <button className="btn">Update</button>
         <button className="btn ml-2">Close</button>
       </form>
@@ -108,39 +141,37 @@ const handleImageChange = (event) => {
 </dialog>
 </p></div>
 
-      <img src={venomIconGroup} width={200} height={200} className="max-w-[550px] w-full mx-auto"/>
-
+      {/*อันนี้จะเปลี่ยนเป็น hover ตอนเรากดเลือก type ในก้อน Modal ต้องมี5ภาพ แต่ละภาพมี hover*/}
+<img src={venomIconGroup} width={200} height={200} className="max-w-[550px] w-full mx-auto"/>
 <div className="text-center">
   <select className="select select-bordered border-gray-700 w-full max-w-xs mb-3" onChange={handleSelect}>
   <option disabled selected>Choose your exercise</option>
+
+  {/*อันนี้เอาไว้เปลี่ยนชื่อกีฬาใน modal แรก*/}
   {selectOptions.map(option => (<option value={option.label}>{option.label}</option>
 ))}
   </select>
 </div>
 
-
-
-
-      <img src={venom_orangePic} width={400} height={400} className="rounded-lg max-w-[550px] w-full mx-auto" />
+  <img src={venom_orangePic} alt="enom_orangePic" className="rounded-lg max-w-[550px] w-full mx-auto"/>
 
   <div><p className="mr-8 text-end">
-
-  {/* Open the modal using document.getElementById('ID').showModal() method */}
+  {/*Modal*/}
    <button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}><img src={plus_button} width={15} height={15}/></button>
    <dialog id="my_modal_2" className="modal text-center">
     <div className="modal-box">
 
   {/*Upload-Image*/}
     <h3 className="font-bold text-lg">Select file</h3>
-
   <div>
-    <div onClick={handleImageClick}>
+    <div>
     {image ? (<img src={URL.createObjectURL(image)} alt="" />
     ) : (
     <img src={venomCheese} alt="venomCheese" />
     )}
     <input type="file" 
     ref={uploadImage} 
+    onClick={handleImageClick}
     onChange={handleImageChange}
     />
     </div>
@@ -149,7 +180,7 @@ const handleImageChange = (event) => {
 
     <div className="modal-action">
       <form method="dialog">
-        {/* if there is a button in form, it will close the modal */}
+        {/* ดูคำสั่ง Modal เพิ่ม modal-action method="dialog" ใช้อันอื่นแทนได้ไหม*/}
         <button className="btn">Update</button>
         <button className="btn ml-2">Close</button>
       </form>
@@ -160,13 +191,11 @@ Add Picture</p></div>
     </div>
   </div>
 
-
-
 <div className="hidden md:block flex-1">
   <div className="border-solid border-2 border-white bg-white my-6 ml-3 mr-6 rounded-lg px-2">
-  <div id="bar-chart">
+  <div id="line-chart">
     <div>
-      <Bar data={data} options={options}></Bar>
+      <Line data={data} />
     </div>
   </div>
 
@@ -192,7 +221,6 @@ Add Picture</p></div>
     </ul>
   </div>
   <div class="border-t border-dark-orange w-3/3 mx-auto my-2"></div>
-
   <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
   <br />
   <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
@@ -200,15 +228,13 @@ Add Picture</p></div>
   <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
   <br />
   <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
-
-    </div>
+  </div>
   </div>
 </div>
 
 
 <div id="Small-Screen" className="md:hidden bg-slate-700">  
 <p className="text-slate-700">gap</p> 
-
   <div className="border-solid border-2 border-white bg-white mx-6 rounded-lg pl-2 pr-2">
   <h1 className="text-5xl text-salmon-profile text-center mt-10">Activities history</h1>
   <img src={venomIconGroup} width={300} height={300} alt="venom-group" className="max-w-[350px] w-full mx-auto"/>
@@ -216,12 +242,9 @@ Add Picture</p></div>
   <br />
 
 {/*Calendar*/}
-
-<img src={calendar} className="max-w-[350px] w-full mx-auto mt-2 mb-2"/>
 <div>
-    <Datepicker></Datepicker>
+  <Calendar />
 </div>
-
 {/*End Calendar*/}
 
  <div className="grid grid-flow-col gap-2 text-center">
@@ -229,22 +252,23 @@ Add Picture</p></div>
   <button className="btn bg-neutral text-white w-50">END</button>
  </div>
 
-
   <div className="flex">
   <div className="flex-1">
-  <img src={venom_orangePic} alt="venom-orange" className="rounded-lg w-full mx-auto mt-2"/>
   
+  <div>
+      <img src={venom_orangePic} alt="enom_orangePic" className="rounded-lg w-full mx-auto mt-2"/>
+    </div>
+
       <div><p className="mr-8 text-start">
-      {/* Open the modal using document.getElementById('ID').showModal() method */}
+      {/* Modal */}
       <button className="btn" onClick={()=>document.getElementById('my_modal_3').showModal()}><img src={plus_button} width={10} height={10}/></button>
       <dialog id="my_modal_3" className="modal text-center">
         <div className="modal-box">
 
       {/*Upload-Image*/}
         <h3 className="font-bold text-lg">Select file</h3>
-
       <div>
-        <div onClick={handleImageClick}>
+        <div>
         {image ? (<img src={URL.createObjectURL(image)} alt="" />
         ) : (
         <img src={venomCheese} alt="venomCheese" />
@@ -252,14 +276,15 @@ Add Picture</p></div>
         <input type="file" 
         ref={uploadImage} 
         onChange={handleImageChange}
+        onClick={handleImageClick}
         />
         </div>
       </div>  
-    {/*End Upload-Image*/}
 
+    {/*End Upload-Image*/}
         <div className="modal-action">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
+            {/* ใช้คำสั่ง Modal อื่น */}
             <button className="btn">Update</button>
             <button className="btn ml-2">Close</button>
           </form>
@@ -268,13 +293,9 @@ Add Picture</p></div>
     </dialog>
     Add Picture</p></div>
     </div>
-
-
   <img src={dumpbell_venom} width={100} height={200} alt="dumpbell_venom" className="flex-1 ml-1 mt-2"/>
   </div>
-
   </div>
-
   <p className="text-slate-700">gap</p> 
 </div>
   
@@ -284,12 +305,4 @@ Add Picture</p></div>
 
 
 export default Dashboard; 
-
-
-
-
-
-
-
-
 
