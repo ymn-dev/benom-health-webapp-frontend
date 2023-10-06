@@ -51,7 +51,18 @@ const LoginContextProvider = (props) => {
       return age;
     },
   });
-  return <LoginContext.Provider value={{ login, setLogin, user, setUser }}>{props.children}</LoginContext.Provider>;
+
+  const logout = () => {
+    setUser({
+      id: "",
+      profilePicture: "",
+      userName: "",
+      password: "",
+    });
+    setLogin(false);
+  };
+
+  return <LoginContext.Provider value={{ login, setLogin, user, setUser , logout }}>{props.children}</LoginContext.Provider>;
 };
 
 const useLoginContext = () => useContext(LoginContext);
