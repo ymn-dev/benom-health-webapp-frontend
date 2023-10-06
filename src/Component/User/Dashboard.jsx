@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faBolt, faStopwatch, faFire} from '@fortawesome/free-solid-svg-icons';
 import venomCheese from "../../assets/DashboardPic/venomCheese.png";
 import dumpbell_venom from "../../assets/DashboardPic/dumpbell_venom.png";
-import calendar from "../../assets/DashboardPic/calendar.png";
-import Datepicker from "./Datepicker";
+import Calendar from "./Calendar";
 import { Line } from 'react-chartjs-2';
 
 import {
@@ -105,6 +104,7 @@ const handleImageChange = (event) => {
   const file = event.target.files[0];
   setImage(event.target.files[0]);
 };
+
 
   return (
     <>
@@ -242,12 +242,11 @@ Add Picture</p></div>
   <br />
 
 {/*Calendar*/}
-<img src={calendar} className="max-w-[350px] w-full mx-auto mt-2 mb-2"/>
 <div>
-    <Datepicker></Datepicker>
+  <Calendar />
 </div>
-
 {/*End Calendar*/}
+
  <div className="grid grid-flow-col gap-2 text-center">
   <button className="btn bg-dark-orange text-white w-50">START</button>
   <button className="btn bg-neutral text-white w-50">END</button>
