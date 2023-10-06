@@ -6,7 +6,7 @@ import { useLoginContext } from "../../Context/LoginContext";
 const Navbar = () => {
   const { login, user, setUser, setLogin } = useLoginContext();
   const handleLogout = () => {
-    setUser({ });
+    setUser({});
     setLogin(false);
   };
   return (
