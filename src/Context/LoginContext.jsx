@@ -6,6 +6,7 @@ const LoginContextProvider = (props) => {
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState({});
   return <LoginContext.Provider value={{ login, setLogin, user, setUser }}>{props.children}</LoginContext.Provider>;
+  
 };
 
 const useLoginContext = () => useContext(LoginContext);

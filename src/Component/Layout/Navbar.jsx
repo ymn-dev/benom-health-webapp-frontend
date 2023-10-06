@@ -4,7 +4,11 @@ import img1 from "../../assets/Benom_card_icon.png"
 import UserIMG from "../../assets/user.png"
 import { useLoginContext } from "../../Context/LoginContext";
 const Navbar = () => {
-  const { login } = useLoginContext();
+  const { login, user, setUser, setLogin } = useLoginContext();
+  const handleLogout = () => {
+    setUser({ });
+    setLogin(false);
+  };
   return (
 
     <div className="navbar bg-salmon">
@@ -18,7 +22,7 @@ const Navbar = () => {
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           {!login && <img src={UserIMG} />}
-          {login && <img src={img1} />}  
+          {login && <img src={user.profilePicture} />}  
         </div>
       </label>
       <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
@@ -27,7 +31,7 @@ const Navbar = () => {
         {login && <Link to={"/profile"}><span className="">Profile</span></Link>}
         </li>
         <li><Link to='/about'><a>About us</a></Link></li>
-        <li><a>Logout</a></li>
+        {login && <li><a onClick={handleLogout}>Logout</a></li>}
       </ul>
     </div>
   </div>
