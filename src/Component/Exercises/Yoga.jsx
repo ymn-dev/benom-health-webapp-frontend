@@ -1,13 +1,13 @@
 import React from "react";
 import Benom_card_icon from "../../assets/Benom_card_icon.png";
-import yoga from "../../assets/yoga.png";
+import yoga01 from "../../assets/yoga01.jpg";
 import Benom_Yoga_icon from "../../assets/Benom_Yoga_icon.png";
 import fire_icon from "../../assets/3_fire_icon.png";
 
 const Yoga = () => {
   return <>
   <div className=" relative">
-    <img src={yoga} alt="yoga" className=" w-full"/>
+    <img src={yoga01} alt="yoga" className=" w-full"/>
     <div className=" absolute top-0 left-0 w-full h-full flex">
       {/* Left */}
       <section className=" w-[50%] h-full bg-white bg-opacity-10">
@@ -20,9 +20,9 @@ const Yoga = () => {
           <a href="/log-activity"><p className="font-bold text-3xl m-4">LOG ACTIVITY </p></a>
           <p className="font-bold  ml-4">COMMON ACTIVITY</p>
           <div className="flex">
-              <img src={Benom_Yoga_icon} alt="Benom_Yoga_icon" className="mix-blend-darken w-[6.25rem] h-[7rem]"/>
+              <img src={Benom_Yoga_icon} alt="Benom_Yoga_icon" className="mix-blend-darken w-[6.25rem] h-[6rem]"/>
               <div>
-                  <img src={fire_icon} alt="fire_icon.png" className="mix-blend-darken w-[7rem] h-[3rem] mt-2"/>
+                  <img src={fire_icon} alt="fire_icon.png" className="mix-blend-darken w-[7rem] h-[2rem] mt-2"/>
                   <select className="select select-bordered border-gray-700 w-full max-w-xs mb-3">
                     <option disabled selected>
                       YOGA
@@ -42,7 +42,7 @@ const Yoga = () => {
                   placeholder="Select Date"
                 /> <br />
                 <label className="font-bold  ml-4" htmlFor="Weight">Weight(kg) : </label>
-                <input className="rounded-lg mb-2"
+                <input className="rounded-lg mb-2 w-40"
                   type="text"
                   id="Weight"
                   name="Weight"
@@ -54,22 +54,23 @@ const Yoga = () => {
                   id="StartTime"
                   name="StartTime"
                   placeholder="HH:MM"
+                  step="3600" 
                 /> <br />
                 <label className="font-bold  ml-4" htmlFor="Duration">Duration : </label>
-                <input className="rounded-lg mb-2"
+                <input className="rounded-lg mb-2 w-20"
                   type="number"
                   id="Duration"
                   name="Duration"
                   placeholder="HH"
                 /> 
-                <input className="rounded-lg mb-2 ml-1"
+                <input className="rounded-lg mb-2 ml-1 w-20"
                   type="number"
                   id="Duration"
                   name="Duration"
                   placeholder="MM"
                 /><br />
                 <label className="font-bold  ml-4" htmlFor="Calories">Calories : </label>
-                <input className="rounded-lg mb-2"
+                <input className="rounded-lg mb-2 w-20"
                   type="text"
                   id="Calories"
                   name="Calories"
