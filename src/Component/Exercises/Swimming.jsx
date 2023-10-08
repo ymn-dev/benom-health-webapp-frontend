@@ -1,7 +1,7 @@
 import React from "react";
 import Benom_card_icon from "../../assets/Benom_card_icon.png";
 import swimming01 from "../../assets/swimming01.jpg";
-import Benom_Swimming_icon from "../../assets/Benom_swimming_icon.png";
+import Benom_Swimming_icon from "../../assets/Benom_Swimming_icon.png";
 import fire_icon from "../../assets/3_fire_icon.png";
 
 const Swimming = () => {
@@ -26,13 +26,13 @@ const Swimming = () => {
                   <select className="select select-bordered border-gray-700 w-40 max-w-xs mb-3">
                     <option disabled selected>
                     SWIMMING
-                    </option>
-                    <option>FREE STYLE/FRONT CRAWL</option>
-                    <option>BACK STROKE</option>
-                    <option>BUTTERFLY</option>
-                  </select>
-              </div> 
-          </div>
+                  </option>
+                  <option>FREE STYLE/FRONT CRAWL</option>
+                  <option>BACK STROKE</option>
+                  <option>BUTTERFLY</option>
+                </select>
+              </div>
+            </div>
             <div>
                 <label className="font-bold  ml-4 " htmlFor="Date">Date : </label>
                 <input className="rounded-lg mb-2"
