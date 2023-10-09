@@ -8,6 +8,7 @@ import venomCheese from "../../assets/DashboardPic/venomCheese.png";
 import dumpbell_venom from "../../assets/DashboardPic/dumpbell_venom.png";
 import Calendar from "./Calendar";
 import { Line } from 'react-chartjs-2';
+import { useLoginContext } from "../../Context/LoginContext";
 
 import {
   Chart as ChartJS,
@@ -27,6 +28,9 @@ ChartJS.register(
   Legend,
   Tooltip
 );
+
+
+
 
 const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
@@ -104,6 +108,15 @@ const handleImageChange = (event) => {
   const file = event.target.files[0];
   setImage(event.target.files[0]);
 };
+
+// importส่วน UserexerciseLog 
+const {user} = useLoginContext();
+const ExerciseLog = user.exerciseLog ;
+
+
+
+// ExerciseLog.sort((a, b) => a.date - b.date);
+
 
 
   return (
@@ -192,7 +205,7 @@ Add Picture</p></div>
   </div>
 
 <div className="hidden md:block flex-1">
-  <div className="border-solid border-2 border-white bg-white my-6 ml-3 mr-6 rounded-lg px-2">
+  <div className="border-solid border-2 border-white bg-white my-6 ml-3 mr-6 rounded-lg px-2 pb-3">
   <div id="line-chart">
     <div>
       <Line data={data} />
@@ -210,8 +223,8 @@ Add Picture</p></div>
   </nav>
 
   <div class="border-t border-gray-700 w-3/3 mx-auto my-2"></div>
-  <h2 className="text-5xl text-salmon-profile mt-14 mb-9 text-start">Activities history</h2>
-  <div>
+  <h2 className="text-5xl text-salmon-profile mt-14 mb-5 text-start">Activities history</h2>
+  {/* <div>
     <ul className="flex text-sm">
       <li className="Calendar-button flex w-60">Date</li>
       <li className="flex-1"><FontAwesomeIcon icon={faBolt} className="mr-1"/>Activity</li>
@@ -219,15 +232,41 @@ Add Picture</p></div>
       <li className="flex-1"><FontAwesomeIcon icon={faStopwatch} className="mr-1"/>Duration</li>
       <li className="flex-1"><FontAwesomeIcon icon={faFire} className="mr-1"/>Calories</li>    
     </ul>
-  </div>
-  <div class="border-t border-dark-orange w-3/3 mx-auto my-2"></div>
+  </div> */}
+  {/* <div class="border-t border-dark-orange w-3/3 mx-auto my-2"></div>
   <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
   <br />
   <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
   <br />
   <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
   <br />
-  <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
+  <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/> */}
+
+  {/* Table log Data  */}
+  <table className="min-w-full divide-y divide-black ">
+  <thead className="bg-dark-orange">
+    <tr>
+      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Activity</th>
+      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Date</th>
+      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Start-Time</th>
+      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Duration</th>
+      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Calories</th>
+    </tr>
+  </thead>
+  <tbody>
+    {ExerciseLog.map((exerciseHistory, index) => (
+      <tr key={exerciseHistory._id} className={index % 2 === 0 ? 'bg-lightsalmon' : 'bg-gray-100'}>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.exerciseName}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.date}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.startTime}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.duration}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.calories}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+
   </div>
   </div>
 </div>
