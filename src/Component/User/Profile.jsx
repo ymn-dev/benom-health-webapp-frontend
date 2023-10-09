@@ -90,36 +90,36 @@ const Profile = () => {
         </div>
 
         <div className="md:flex-1 ">
-          <p>
+          {/* <p>
             <span className="text-black">Daily Calories</span>
             <br />
-            <span className="text-salmon"> {`temp` || user.calories}</span>
+            <span className="text-salmon"> {user.dailyCalories || `please set your daily goal`}</span>
           </p>
           <p>
             <span className="text-black">BMI</span>
             <br />
-            <span className="text-salmon"> {`temp`}</span>
-          </p>
+            <span className="text-salmon"> {user.weight / (user.height / 100) ** 2 || `please set your weight and height`}</span>
+          </p> */}
           <p>
             <span className="text-black">Total time exercised</span>
             <br />
             <span className="text-salmon"> {user.exerciseTime}</span>
           </p>
-          <p>
+          {/* <p>
             <span className="text-black">Total time exercised(live)</span>
             <br />
             <span className="text-salmon"> {user.liveExerciseTime}</span>
-          </p>
+          </p> */}
           <p>
             <span className="text-black">Total calories burned</span>
             <br />
             <span className="text-salmon"> {user.caloriesBurned}</span>
           </p>
-          <p>
+          {/* <p>
             <span className="text-black">Total calories burned(live)</span>
             <br />
             <span className="text-salmon"> {user.liveCaloriesBurned}</span>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLoginContext } from "../../Context/LoginContext";
 import { Link } from "react-router-dom";
-import editIcon from "../../assets/edit-svgrepo-com.svg"
+import editIcon from "../../assets/edit-svgrepo-com.svg";
 
 const EditProfile = () => {
   const { login, user, setUser } = useLoginContext();
@@ -10,15 +10,11 @@ const EditProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newProfilePicture, setNewProfilePicture] = useState("");
 
- 
   const submitHandler = (ev) => {
     ev.preventDefault();
     // ใช้ URL รูปภาพใหม่จาก state ในการอัปเดต editUser
     setUser({ ...user, ...editUser, profilePicture: newProfilePicture });
-    
   };
-
-
 
   if (!login) {
     return (
@@ -29,32 +25,31 @@ const EditProfile = () => {
   }
 
   const profileImageStyle = {
-    width: '200px',
-    height: '200px',
-    borderRadius: '50%',
+    width: "200px",
+    height: "200px",
+    borderRadius: "50%",
   };
 
   const inputStyle = {
-    backgroundColor: 'white',
-    border: '1px solid #ccc',
-    padding: '5px',
-    marginBottom: '10px',
-    marginLeft: '10px',
-    
+    backgroundColor: "white",
+    border: "1px solid #ccc",
+    padding: "5px",
+    marginBottom: "10px",
+    marginLeft: "10px",
   };
 
   const editButtonStyle = {
-    position: 'absolute',
-    bottom: '0',
-    right: '0',
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
+    position: "absolute",
+    bottom: "0",
+    right: "0",
+    backgroundColor: "transparent",
+    border: "none",
+    cursor: "pointer",
   };
 
   const editIconStyle = {
-    width: '30px',
-    height: '30px',
+    width: "30px",
+    height: "30px",
   };
 
   return (
@@ -62,20 +57,10 @@ const EditProfile = () => {
       <div className="md:w-1/2 mx-auto">
         <div className="bg-salmon p-4  rounded-t-lg ">
           <div className="flex justify-between items-center">
-
-           
             <div className="relative">
-              <img
-                src={user.profilePicture}
-                alt="Profile"
-                style={profileImageStyle}
-              />
+              <img src={user.profilePicture} alt="Profile" style={profileImageStyle} />
               {/* แสดงปุ่มและเปิด modal เมื่อกด */}
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                style={editButtonStyle}
-              >
+              <button type="button" onClick={() => setIsModalOpen(true)} style={editButtonStyle}>
                 <img src={editIcon} style={editIconStyle} alt="editIcon" />
               </button>
             </div>
@@ -90,44 +75,25 @@ const EditProfile = () => {
           <div className="bg-white p-4 rounded-b-lg pt-5 md:flex md:flex-row">
             <div className="md:flex-1">
               {/* ให้ผู้ใช้กรอก URL รูปภาพใหม่ */}
-              <h2 className="text-salmon font-bold text-2xl mb-5">
-                Add New Profile Picture
-              </h2>
+              <h2 className="text-salmon font-bold text-2xl mb-5">Add New Profile Picture</h2>
               <div className="field-value-pair">
                 <p>
-                  <input
-                    type="url"
-                    name="profilePicture"
-                    placeholder="New image URL here"
-                    value={newProfilePicture}
-                    onChange={(ev) => setNewProfilePicture(ev.target.value)}
-                    style={inputStyle}
-                  />
+                  <input type="url" name="profilePicture" placeholder="New image URL here" value={newProfilePicture} onChange={(ev) => setNewProfilePicture(ev.target.value)} style={inputStyle} />
                 </p>
               </div>
 
               {/* ปุ่ม "Save" และ "Cancel" ใน modal */}
               <div>
-                
-                <button
-                  type="submit"
-                  className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"
-                >
+                <button type="submit" className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
                   Save
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 ml-5"
-                >
+                <button type="button" onClick={() => setIsModalOpen(false)} className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 ml-5">
                   Cancel
                 </button>
               </div>
             </div>
           </div>
         )}
-
-
 
         <div className="bg-white p-4 rounded-b-lg pt-5 md:flex md:flex-row">
           <div className="md:flex-1">
@@ -238,42 +204,48 @@ const EditProfile = () => {
               </p>
             </div>
 
-               {/* <Link to="/profile"> */}
-                <button type="submit" className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">Save</button>
-               {/* </Link> */}
+            {/* <Link to="/profile"> */}
+            <button type="submit" className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
+              Save
+            </button>
+            {/* </Link> */}
 
             <Link to="/profile">
-              <button className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 ml-5">
-                Back
-              </button>
+              <button className="bg-salmon hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5 ml-5">Back</button>
             </Link>
           </div>
 
           <div className="md:flex-1 mt-6">
-            <p>
-              <span className="text-black">Daily Calories</span><br />
-              <span className="text-salmon">{`BMR: ${user.getBMR()}` || user.calories}</span>
+            {/* <p>
+              <span className="text-black">Daily Calories</span>
+              <br />
+              <span className="text-salmon">{``}</span>
             </p>
             <p>
-              <span className="text-black">BMI</span><br />
-              <span className="text-salmon">{user.getBMI()}</span>
-            </p>
+              <span className="text-black">BMI</span>
+              <br />
+              <span className="text-salmon">{(user.weight && user.height) && user.weight / (user.height / 100) ** 2 }</span>
+            </p> */}
             <p>
-              <span className="text-black">Total time exercised</span><br />
+              <span className="text-black">Total time exercised</span>
+              <br />
               <span className="text-salmon">{user.exerciseTime}</span>
             </p>
-            <p>
-              <span className="text-black">Total time exercised(live)</span><br />
+            {/* <p>
+              <span className="text-black">Total time exercised(live)</span>
+              <br />
               <span className="text-salmon">{user.liveExercseTime}</span>
-            </p>
+            </p> */}
             <p>
-              <span className="text-black">Total calories burned</span><br />
+              <span className="text-black">Total calories burned</span>
+              <br />
               <span className="text-salmon">{user.caloriesBurned}</span>
             </p>
-            <p>
-              <span className="text-black">Total calories burned(live)</span><br />
+            {/* <p>
+              <span className="text-black">Total calories burned(live)</span>
+              <br />
               <span className="text-salmon">{user.liveCaloriesBurned}</span>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
@@ -281,4 +253,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile ;
+export default EditProfile;
