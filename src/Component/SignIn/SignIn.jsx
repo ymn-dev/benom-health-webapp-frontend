@@ -83,7 +83,7 @@ const SignIn = () => {
         />
         <br />
         <a href="#" className="text-gray-600 flex justify-center pl-20 hover:text-white">
-          Forgot your password?
+        <Link to={"/Forgotpassword"}>Forgot your password?</Link>
         </a>
         <button type="submit" className="btn btn-wide  btn-sm mt-3 text-xs font-bold">
           Login

@@ -6,7 +6,7 @@ import fire_icon from "../../assets/3_fire_icon.png";
 
 const Calisthenics = () => {
   return <>
-  <div className=" relative">
+  <div className=" relative ">
     <img src={calisthenics01} alt="calisthenics" className=" w-full"/>
     <div className=" absolute top-0 left-0 w-full h-full flex">
       {/* Left */}

@@ -19,6 +19,7 @@ import Yoga from "./Component/Exercises/Yoga.jsx";
 import Profile from "./Component/User/Profile.jsx";
 import Dashboard from "./Component/User/Dashboard.jsx";
 import EditProfile from "./Component/User/EditProfile.jsx";
+import Forgotpassword from "./Component/SignIn/Forgotpassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <SignIn />
+      </Layout>
+    ),
+  },
+  {
+    path: "/forgotpassword",
+    element: (
+      <Layout>
+        < Forgotpassword />
       </Layout>
     ),
   },
