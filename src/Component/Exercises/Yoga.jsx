@@ -113,7 +113,7 @@ const Yoga = () => {
                   }}
                 />
                 <br />
-                <h2 className="font-bold  ml-4">Calories: {calories || `submit to calculate`}</h2>
+                <h2 className="font-bold  ml-4">Calories: {calories + " kcal" || `submit to calculate`}</h2>
                 {/* <label className="font-bold  ml-4" htmlFor="Calories">
                   Calories :{" "}
                 </label> */}
