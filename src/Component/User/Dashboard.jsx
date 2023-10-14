@@ -202,13 +202,10 @@ const DeleteHandler = async (id) => {
         <td className="px-6 py-4 text-black whitespace-nowrap">{Log.startTime}</td>
         <td className="px-6 py-4 text-black whitespace-nowrap">{Log.duration}</td>
         <td className="px-6 py-4 text-black whitespace-nowrap">{Log.calories}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">
-          {/* ส่วนปุ่ม DELETE  */}
-          <button className="btn btn-outline btn-error" onClick={() => DeleteHandler(Log._id)}>Delete</button>
-        </td>
+        
         <td>
           {/* ส่วนปุ่ม view photo  */}
-          <button className="btn btn-outline btn-primary" onClick={() => document.getElementById(`my_modal_${Log._id}`).showModal()}>View Photo</button>
+          <button className="btn btn-outline btn-primary  disabled:opacity-80 disabled:bg-gray-400 disabled:text-white" onClick={() => document.getElementById(`my_modal_${Log._id}`).showModal()} disabled={!Log.picture}>View Photo</button>
           <dialog id={`my_modal_${Log._id}`} className="modal modal-bottom sm:modal-middle">
             <div className="modal-box">
               <h3 className="font-bold text-lg text-white mb-4">{Log.exerciseName}</h3>
@@ -220,6 +217,10 @@ const DeleteHandler = async (id) => {
               </div>
             </div>
           </dialog>
+        </td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">
+          {/* ส่วนปุ่ม DELETE  */}
+          <button className="btn btn-outline btn-error" onClick={() => DeleteHandler(Log._id)}>Delete</button>
         </td>
       </tr>
     ))}
