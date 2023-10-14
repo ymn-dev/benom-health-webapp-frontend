@@ -9,9 +9,7 @@ const Forgotpassword = () => {
     e.preventDefault();
   
   };
- const popupbtn = () =>{
-
- }
+ 
   const submit = () => {
     alert('New password has been sent to your email!')
   };
