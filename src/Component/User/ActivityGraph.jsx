@@ -16,12 +16,22 @@ const ActivityGraph = ({ ExerciseLog }) => {
   {
     /*เส้นกราฟการออกกำลังกาย 6 ชนิด ช่อง data คือ จำนวนวัน 7 วัน*/
   }
-  const Cycling = [];
-  const Swimming = [];
-  const Yoga = [];
-  const Running = [];
-  const Walking = [];
-  const Calisthenics = [];
+  const exercises = {
+    Cycling: Array(labels.length).fill(0),
+    Swimming: Array(labels.length).fill(0),
+    Yoga: Array(labels.length).fill(0),
+    Running: Array(labels.length).fill(0),
+    Walking: Array(labels.length).fill(0),
+    Calisthenics: Array(labels.length).fill(0),
+  };
+  ExerciseLog.forEach((ex) => {
+    if (new Date(ex.date) < new Date(labels[0])) return;
+    const exIndex = labels.indexOf(ex.date.split("T")[0]);
+    if (exIndex === -1) return;
+    const exerciseType = ex.exerciseName.split(":")[0];
+    exercises[exerciseType][exIndex] += ex.calories;
+  });
+
   /*
  {ExerciseLog.map((Log, index) => (
             <tr key={Log._id} className={index % 2 === 0 ? "bg-lightsalmon" : "bg-gray-100"}>
@@ -33,6 +43,7 @@ const ActivityGraph = ({ ExerciseLog }) => {
 
 
   */
+
   const data = {
     labels: labels,
     datasets: [
@@ -40,37 +51,37 @@ const ActivityGraph = ({ ExerciseLog }) => {
         label: "Cycling",
         backgroundColor: "#f21605",
         borderColor: "#f21605",
-        data: [30, 0, 0, 0, 0, 30, 0],
+        data: exercises["Cycling"],
       },
       {
         label: "Swimming",
         backgroundColor: "#fe7534",
         borderColor: "#fe7534",
-        data: [0, 0, 60, 0, 0, 0, 0],
+        data: exercises["Swimming"],
       },
       {
         label: "Yoga",
         backgroundColor: "#ffb443",
         borderColor: "#ffb443",
-        data: [0, 120, 0, 0, 0, 0, 0],
+        data: exercises["Yoga"],
       },
       {
         label: "Running",
         backgroundColor: "#DE3163",
         borderColor: "#DE3163",
-        data: [0, 0, 0, 90, 0, 0, 60],
+        data: exercises["Running"],
       },
       {
         label: "Walking",
         backgroundColor: "#e456c6",
         borderColor: "#e456c6",
-        data: [0, 0, 0, 30, 30, 0, 0],
+        data: exercises["Walking"],
       },
       {
         label: "Calisthenics",
         backgroundColor: "#ff6767",
         borderColor: "#ff6767",
-        data: [0, 0, 0, 0, 120, 0, 0],
+        data: exercises["Calisthenics"],
       },
     ],
   };
@@ -89,7 +100,7 @@ const ActivityGraph = ({ ExerciseLog }) => {
         <ul className="flex text-sm">
           <li className="flex w-80">
             <img />
-            Daily Totals
+            Weekly Totals
           </li>
           <li className="flex-1">
             <img /> 190 minutes
