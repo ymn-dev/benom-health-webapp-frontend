@@ -139,7 +139,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-salmon-profile">
+    <div className="bg-salmon-profile h-screen w-screen">
       <div className="signUpImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto" />
       </div>
