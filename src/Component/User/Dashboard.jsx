@@ -1,4 +1,4 @@
-import { React, useRef, useState } from "react";
+import { React, useRef, useState, Component,useEffect} from "react";
 import venom_orangePic from "../../assets/DashboardPic/venom_orangePic.png";
 import venomIconGroup from "../../assets/DashboardPic/venomIconGroup.png";
 import plus_button from "../../assets/DashboardPic/plus_button.svg";
@@ -8,6 +8,7 @@ import Calendar from "./Calendar";
 import { Line } from 'react-chartjs-2';
 import AddLog from "./AddLog";
 import { useLoginContext } from "../../Context/LoginContext";
+import axios from 'axios';
 
 import {
   Chart as ChartJS,
@@ -93,14 +94,50 @@ const handleImageChange = (event) => {
 };
 
 
-// importส่วน UserexerciseLog 
-const {user} = useLoginContext();
+// Import User
+const {user,setUser} = useLoginContext();
+const [reload,setReload] = useState("");
+
+
 const ExerciseLog = user.exerciseLog ;
-
-// ExerciseLog.sort((a, b) => a.date - b.date);
-
+ExerciseLog.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 
 
+// ใช้ UseEffect rerender 
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `https://benom-backend.onrender.com/users/${user._id}/activities`,
+        { headers: user.headers }
+      );
+      const {exerciseLog} = response.data.data;
+      setUser({ ...user,exerciseLog});
+    } catch (error) {
+      console.error('Error fetching activities', error);
+    }
+  };
+
+  getData();
+  
+}, [reload]);  
+
+// function ลบข้อมูลโดยระบุ ID 
+const DeleteHandler = async (id) => {
+  try {
+  const response = await axios.delete(
+      `https://benom-backend.onrender.com/users/${user._id}/activities/${id}`,{headers:user.headers}
+    );
+
+    if (response.status === 200) {
+      setReload(!reload);
+    }
+   }  catch (error) {
+    
+    console.error('Error deleting activity', error);
+  }
+  }
+  
 
   return (
     <>
@@ -134,36 +171,64 @@ const ExerciseLog = user.exerciseLog ;
       <li className="flex-1"><img />2,183 calories</li>  
     </ul>
   </nav>
+
+  
+
 {/*จบแถบแสดงข้อมูลผลรวมกราฟ - ใต้เส้นสีดำ */}
 <div class="border-t border-gray-700 w-3/3 mx-auto my-2"></div>
 {/*เส้นตรงสีดำ จบ*/}
   <h2 className="text-5xl text-salmon-profile mt-14 mb-9 text-start">Activities history</h2>
   
   {/*ส่วนที่คุณฟลุ๊คแก้ไข - ตาราง - ห้ามเคลื่อน*/}
+
   {/* Table log Data  */}
-  <table className="min-w-full divide-y divide-black ">
+  <table className="min-w-full divide-y">
   <thead className="bg-dark-orange">
     <tr>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Activity</th>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Date</th>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Start-Time</th>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Duration</th>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Calories</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Activity</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Date</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Start-Time</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Duration</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Calories</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider"></th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider"></th>
     </tr>
   </thead>
   <tbody>
-    {ExerciseLog.map((exerciseHistory, index) => (
-      <tr key={exerciseHistory._id} className={index % 2 === 0 ? 'bg-lightsalmon' : 'bg-gray-100'}>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.exerciseName}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.date}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.startTime}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.duration}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.calories}</td>
+    {ExerciseLog.map((Log, index) => (
+      <tr key={Log._id} className={index % 2 === 0 ? 'bg-lightsalmon' : 'bg-gray-100'}>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.exerciseName}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.dateTime.split('T')[0]}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.startTime}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.duration}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.calories}</td>
+        
+        <td>
+          {/* ส่วนปุ่ม view photo  */}
+          <button className="btn btn-outline btn-primary  disabled:opacity-80 disabled:bg-gray-400 disabled:text-white" onClick={() => document.getElementById(`my_modal_${Log._id}`).showModal()} disabled={!Log.picture}>View Photo</button>
+          <dialog id={`my_modal_${Log._id}`} className="modal modal-bottom sm:modal-middle">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg text-white mb-4">{Log.exerciseName}</h3>
+              <img src={Log.picture} alt="imglog" />
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn btn-outline btn-error" onClick={() => document.getElementById(`my_modal_${Log._id}`).close()}>Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+        </td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">
+          {/* ส่วนปุ่ม DELETE  */}
+          <button className="btn btn-outline btn-error" onClick={() => DeleteHandler(Log._id)}>Delete</button>
+        </td>
       </tr>
     ))}
   </tbody>
 </table>
+
 {/*ส่วนที่คุณฟลุ๊คแก้ไข - ตาราง - ห้ามเคลื่อน*/}
+
 
   </div>
   </div>
