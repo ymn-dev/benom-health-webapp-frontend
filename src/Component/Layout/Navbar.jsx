@@ -6,22 +6,25 @@ import { useLoginContext } from "../../Context/LoginContext";
 const Navbar = () => {
   const { login, user, setUser, setLogin } = useLoginContext();
   const handleLogout = () => {
-    setUser({ });
+    setUser({});
     setLogin(false);
   };
   return (
 
     <div className="navbar bg-salmon">
   <div className="flex-1">
-    <Link to='/home'><a className="btn btn-ghost normal-case text-xl">BENOM</a></Link>
+   {login && <Link to='/home'><a className="btn btn-ghost normal-case text-xl">BENOM</a></Link>}
+   {!login && <Link to='/'><a className="btn btn-ghost normal-case text-xl">BENOM</a></Link>}
   </div>
   <div className="flex-none gap-2">
     <div className="form-control">
     </div>
-    <div className="dropdown dropdown-end">
+    <Link to='/about'><a className=" text-white normal-case text-xl">About us</a></Link>
+    {!login && <Link to={"/signin"}><span className="text-xl normal-case">Sign in</span></Link>}
+    {login && <div className="dropdown dropdown-end">      
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          {!login && <img src={UserIMG} />}
+          {/* {!login && <img src={UserIMG} />} */}
           {login && <img src={user.profilePicture} />}  
         </div>
       </label>
@@ -30,10 +33,10 @@ const Navbar = () => {
         {!login && <Link to={"/signin"}><span className="">Sign in</span></Link>}
         {login && <Link to={"/profile"}><span className="">Profile</span></Link>}
         </li>
-        <li><Link to='/about'><a>About us</a></Link></li>
+        {/* <li><Link to='/about'><a>About us</a></Link></li> */}
         {login && <li><a onClick={handleLogout}>Logout</a></li>}
       </ul>
-    </div>
+    </div>}
   </div>
 </div>
     // <nav className=" flex justify-between px-5 text-2xl py-7 text-black bg-[#FF9671]">
