@@ -6,6 +6,7 @@ import Google_Icon from "../../assets/Google_Icon.svg";
 import isEmail from "validator/lib/isEmail";
 import PasswordValidator from "password-validator";
 import { useLoginContext } from "../../Context/LoginContext";
+import axios from "axios";
 
 const SignUp = () => {
   const { login } = useLoginContext();
@@ -23,7 +24,7 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState([]);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const submitHandler = (ev) => {
+  const submitHandler = async (ev) => {
     ev.preventDefault();
     if (!username || !email || !password || !confirmPassword) {
       return;
@@ -108,13 +109,12 @@ const SignUp = () => {
         localPasswordError = true;
       }
     }
-    // ส่วนของของการตรวจสอบ ยืนยัน password 
+    // ส่วนของของการตรวจสอบ ยืนยัน password
     if (password !== confirmPassword) {
       setConfirmPasswordError("Password and Confirm Password do not match"); // ตั้งค่าข้อความแจ้งเตือน
       localPasswordError = true;
-      localconfirmPasswordError =true;
+      localconfirmPasswordError = true;
     } else {
-      
       setConfirmPasswordError(""); // ล้างข้อความแจ้งเตือนหากตรงกัน
     }
 
@@ -123,12 +123,18 @@ const SignUp = () => {
     } else {
       //putting into database + to check backend duplicate later
       const registedUser = {
-        id: crypto.randomUUID(),
         userName: processedUsername,
         email: processedEmail,
         password: processedPassword,
       };
-      setSubmitSuccess(true);
+      try {
+        const response = await axios.post(`https://benom-backend.onrender.com/users`, registedUser);
+        if (response.status === 200) {
+          setSubmitSuccess(true);
+        }
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -178,45 +184,43 @@ const SignUp = () => {
             </p>
           ))}
         <input
-      required
-      type="password"
-      minLength={8}
-      name="password"
-      placeholder="Password"
-      className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
-      onChange={(ev) => {
-        setPassword(ev.target.value);
-      }}
-    />
-
-      {passwordError.length > 0 &&
-      passwordError.map((error, index) => (
-        <p key={index} style={{ color: "red" }}>
-          {error}
-        </p>
-      ))}
-
-      {/* ส่วน confirm */}
-      <input
-        required
-        type="password"
-        minLength={8}
-        name="confirmPassword"
-        placeholder="Confirm Password"
-        className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
-        onChange={(ev) => {
-          setConfirmPassword(ev.target.value);
+          required
+          type="password"
+          minLength={8}
+          name="password"
+          placeholder="Password"
+          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
+          onChange={(ev) => {
+            setPassword(ev.target.value);
           }}
         />
-        {confirmPasswordError && (
-          <p style={{ color: "red" }}>{confirmPasswordError}</p>
-              )}
-           <br />
+
+        {passwordError.length > 0 &&
+          passwordError.map((error, index) => (
+            <p key={index} style={{ color: "red" }}>
+              {error}
+            </p>
+          ))}
+
+        {/* ส่วน confirm */}
+        <input
+          required
+          type="password"
+          minLength={8}
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
+          onChange={(ev) => {
+            setConfirmPassword(ev.target.value);
+          }}
+        />
+        {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}
+        <br />
 
         <button type="submit" className="btn btn-sm mt-3 text-xs font-bold bg-black text-white w-full" disabled={!username || !password || !email || submitSuccess}>
           Sign up
         </button>
-        {submitSuccess && <p style={{ color: "green", textAlign: "center"}}>Register Success!</p>}
+        {submitSuccess && <p style={{ color: "green", textAlign: "center" }}>Register Success!</p>}
       </form>
       <div className="apiContainer max-w-[250px] mx-auto">
         <p className="text-gray-600 text-center">⸻ or continue with ⸻</p>
