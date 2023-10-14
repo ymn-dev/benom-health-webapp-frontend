@@ -60,36 +60,8 @@ const Dashboard = () => {
         <div className="hidden md:block flex-1">
           <div className="border-solid border-2 border-white bg-white my-6 ml-3 mr-6 rounded-lg px-2">
             {/*กราฟเส้น*/}
-            <ActivityGraph />
+            <ActivityGraph ExerciseLog={ExerciseLog} />
             {/*จบกราฟเส้น*/}
-
-            {/*เส้นตรงสีดำ เริ่ม*/}
-            <div class="border-t border-gray-700 w-3/3 mx-auto my-2"></div>
-            {/*แถบแสดงข้อมูลผลรวมกราฟ - ใต้เส้นสีดำ */}
-            <nav>
-              <ul className="flex text-sm">
-                <li className="flex w-80">
-                  <img />
-                  Daily Totals
-                </li>
-                <li className="flex-1">
-                  <img /> 190 minutes
-                </li>
-                <li className="flex-1 ml-3">
-                  <img />
-                  Exercise
-                </li>
-                <li className="flex-1">
-                  <img />
-                  2,183 calories
-                </li>
-              </ul>
-            </nav>
-
-            {/*จบแถบแสดงข้อมูลผลรวมกราฟ - ใต้เส้นสีดำ */}
-            <div class="border-t border-gray-700 w-3/3 mx-auto my-2"></div>
-            {/*เส้นตรงสีดำ จบ*/}
-
             <h2 className="text-5xl text-salmon-profile mt-14 mb-9 text-start">Activities history</h2>
 
             {/*ส่วนที่คุณฟลุ๊คแก้ไข - ตาราง - ห้ามเคลื่อน*/}
