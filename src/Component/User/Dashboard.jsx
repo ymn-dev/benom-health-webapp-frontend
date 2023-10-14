@@ -1,4 +1,4 @@
-import { React, useRef, useState, Component} from "react";
+import { React, useRef, useState, Component,useEffect} from "react";
 import venom_orangePic from "../../assets/DashboardPic/venom_orangePic.png";
 import venomIconGroup from "../../assets/DashboardPic/venomIconGroup.png";
 import plus_button from "../../assets/DashboardPic/plus_button.svg";
@@ -9,6 +9,7 @@ import dumpbell_venom from "../../assets/DashboardPic/dumpbell_venom.png";
 import Calendar from "./Calendar";
 import { Line } from 'react-chartjs-2';
 import { useLoginContext } from "../../Context/LoginContext";
+import axios from 'axios';
 
 import {
   Chart as ChartJS,
@@ -109,16 +110,48 @@ const handleImageChange = (event) => {
   setImage(event.target.files[0]);
 };
 
-// importส่วน UserexerciseLog 
-const {user} = useLoginContext();
+// Import User
+const {user,setUser} = useLoginContext();
+const [reload,setReload] = useState("");
+
 const ExerciseLog = user.exerciseLog ;
+ExerciseLog.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
 
+// ใช้ UseEffect rerender 
+useEffect(() => {
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `https://benom-backend.onrender.com/users/${user._id}/activities`,
+        { headers: user.headers }
+      );
+      const {exerciseLog} = response.data.data;
+      setUser({ ...user,exerciseLog});
+    } catch (error) {
+      console.error('Error fetching activities', error);
+    }
+  };
 
+  getData();
+  
+}, [reload]);  
 
-// ExerciseLog.sort((a, b) => a.date - b.date);
+// function ลบข้อมูลโดยระบุ ID 
+const DeleteHandler = async (id) => {
+  try {
+  const response = await axios.delete(
+      `https://benom-backend.onrender.com/users/${user._id}/activities/${id}`,{headers:user.headers}
+    );
 
-
-
+    if (response.status === 200) {
+      setReload(!reload);
+    }
+   }  catch (error) {
+    
+    console.error('Error deleting activity', error);
+  }
+  }
+  
   return (
     <>
   <div className="bg-slate-700 flex">
@@ -224,49 +257,53 @@ Add Picture</p></div>
 
   <div class="border-t border-gray-700 w-3/3 mx-auto my-2"></div>
   <h2 className="text-5xl text-salmon-profile mt-14 mb-5 text-start">Activities history</h2>
-  {/* <div>
-    <ul className="flex text-sm">
-      <li className="Calendar-button flex w-60">Date</li>
-      <li className="flex-1"><FontAwesomeIcon icon={faBolt} className="mr-1"/>Activity</li>
-      <li className="flex-1"><FontAwesomeIcon icon={faPlay} className="mr-1"/>Start-Time</li>
-      <li className="flex-1"><FontAwesomeIcon icon={faStopwatch} className="mr-1"/>Duration</li>
-      <li className="flex-1"><FontAwesomeIcon icon={faFire} className="mr-1"/>Calories</li>    
-    </ul>
-  </div> */}
-  {/* <div class="border-t border-dark-orange w-3/3 mx-auto my-2"></div>
-  <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
-  <br />
-  <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
-  <br />
-  <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/>
-  <br />
-  <input type="text" className="input input-bordered input-sm w-full bg-salmon-column text-start mb-2"/> */}
-
+  
   {/* Table log Data  */}
-  <table className="min-w-full divide-y divide-black ">
+  <table className="min-w-full divide-y">
   <thead className="bg-dark-orange">
     <tr>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Activity</th>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Date</th>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Start-Time</th>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Duration</th>
-      <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Calories</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Activity</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Date</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Start-Time</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Duration</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider">Calories</th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider"></th>
+      <th className="px-6 py-5 text-left text-xs font-bold text-black uppercase tracking-wider"></th>
     </tr>
   </thead>
   <tbody>
-    {ExerciseLog.map((exerciseHistory, index) => (
-      <tr key={exerciseHistory._id} className={index % 2 === 0 ? 'bg-lightsalmon' : 'bg-gray-100'}>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.exerciseName}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.date}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.startTime}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.duration}</td>
-        <td className="px-6 py-4 text-black whitespace-nowrap">{exerciseHistory.calories}</td>
+    {ExerciseLog.map((Log, index) => (
+      <tr key={Log._id} className={index % 2 === 0 ? 'bg-lightsalmon' : 'bg-gray-100'}>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.exerciseName}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.dateTime.split('T')[0]}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.startTime}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.duration}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">{Log.calories}</td>
+        <td className="px-6 py-4 text-black whitespace-nowrap">
+          {/* ส่วนปุ่ม DELETE  */}
+          <button className="btn btn-outline btn-error" onClick={() => DeleteHandler(Log._id)}>Delete</button>
+        </td>
+        <td>
+          {/* ส่วนปุ่ม view photo  */}
+          <button className="btn btn-outline btn-primary" onClick={() => document.getElementById(`my_modal_${Log._id}`).showModal()}>View Photo</button>
+          <dialog id={`my_modal_${Log._id}`} className="modal modal-bottom sm:modal-middle">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg text-white mb-4">{Log.exerciseName}</h3>
+              <img src={Log.picture} alt="imglog" />
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn btn-outline btn-error" onClick={() => document.getElementById(`my_modal_${Log._id}`).close()}>Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+        </td>
       </tr>
     ))}
   </tbody>
 </table>
 
-
+ 
   </div>
   </div>
 </div>
