@@ -17,32 +17,25 @@ const ActivityGraph = ({ ExerciseLog }) => {
     /*เส้นกราฟการออกกำลังกาย 6 ชนิด ช่อง data คือ จำนวนวัน 7 วัน*/
   }
   const exercises = {
-    Cycling: Array(labels.length).fill(0),
-    Swimming: Array(labels.length).fill(0),
-    Yoga: Array(labels.length).fill(0),
-    Running: Array(labels.length).fill(0),
-    Walking: Array(labels.length).fill(0),
-    Calisthenics: Array(labels.length).fill(0),
+    Cycling: { data: Array(labels.length).fill(0), time: 0 },
+    Swimming: { data: Array(labels.length).fill(0), time: 0 },
+    Yoga: { data: Array(labels.length).fill(0), time: 0 },
+    Running: { data: Array(labels.length).fill(0), time: 0 },
+    Walking: { data: Array(labels.length).fill(0), time: 0 },
+    Calisthenics: { data: Array(labels.length).fill(0), time: 0 },
+    totalCalories: 0,
+    totalTime: 0,
   };
   ExerciseLog.forEach((ex) => {
     if (new Date(ex.date) < new Date(labels[0])) return;
     const exIndex = labels.indexOf(ex.date.split("T")[0]);
     if (exIndex === -1) return;
     const exerciseType = ex.exerciseName.split(":")[0];
-    exercises[exerciseType][exIndex] += ex.calories;
+    exercises[exerciseType].data[exIndex] += ex.calories;
+    exercises.totalCalories += ex.calories;
+    exercises[exerciseType].time += ex.duration;
+    exercises.totalTime += ex.duration;
   });
-
-  /*
- {ExerciseLog.map((Log, index) => (
-            <tr key={Log._id} className={index % 2 === 0 ? "bg-lightsalmon" : "bg-gray-100"}>
-              <td className="px-6 py-4 text-black whitespace-nowrap">{Log.exerciseName}</td>
-              <td className="px-6 py-4 text-black whitespace-nowrap">{Log.dateTime.split("T")[0]}</td>
-              <td className="px-6 py-4 text-black whitespace-nowrap">{Log.startTime}</td>
-              <td className="px-6 py-4 text-black whitespace-nowrap">{Log.duration}</td>
-              <td className="px-6 py-4 text-black whitespace-nowrap">{Log.calories}</td>
-
-
-  */
 
   const data = {
     labels: labels,
@@ -51,37 +44,37 @@ const ActivityGraph = ({ ExerciseLog }) => {
         label: "Cycling",
         backgroundColor: "#f21605",
         borderColor: "#f21605",
-        data: exercises["Cycling"],
+        data: exercises["Cycling"].data,
       },
       {
         label: "Swimming",
         backgroundColor: "#fe7534",
         borderColor: "#fe7534",
-        data: exercises["Swimming"],
+        data: exercises["Swimming"].data,
       },
       {
         label: "Yoga",
         backgroundColor: "#ffb443",
         borderColor: "#ffb443",
-        data: exercises["Yoga"],
+        data: exercises["Yoga"].data,
       },
       {
         label: "Running",
         backgroundColor: "#DE3163",
         borderColor: "#DE3163",
-        data: exercises["Running"],
+        data: exercises["Running"].data,
       },
       {
         label: "Walking",
         backgroundColor: "#e456c6",
         borderColor: "#e456c6",
-        data: exercises["Walking"],
+        data: exercises["Walking"].data,
       },
       {
         label: "Calisthenics",
         backgroundColor: "#ff6767",
         borderColor: "#ff6767",
-        data: exercises["Calisthenics"],
+        data: exercises["Calisthenics"].data,
       },
     ],
   };
@@ -103,15 +96,15 @@ const ActivityGraph = ({ ExerciseLog }) => {
             Weekly Totals
           </li>
           <li className="flex-1">
-            <img /> 190 minutes
+            <img /> {`${Math.floor(exercises.totalTime / 60)} hours, ${exercises.totalTime % 60} minutes.`}
           </li>
           <li className="flex-1 ml-3">
             <img />
-            Exercise
+            Total Calories Burned
           </li>
           <li className="flex-1">
             <img />
-            2,183 calories
+            {exercises.totalCalories}
           </li>
         </ul>
       </nav>
