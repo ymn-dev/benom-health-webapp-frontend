@@ -42,38 +42,38 @@ const ActivityGraph = ({ ExerciseLog }) => {
     datasets: [
       {
         label: "Cycling",
-        backgroundColor: "#f21605",
-        borderColor: "#f21605",
+        backgroundColor: "#e5e823",
+        borderColor: "#e5e823",
         data: exercises["Cycling"].data,
       },
       {
         label: "Swimming",
-        backgroundColor: "#fe7534",
-        borderColor: "#fe7534",
+        backgroundColor: "#0fdef5",
+        borderColor: "#0fdef5",
         data: exercises["Swimming"].data,
       },
       {
         label: "Yoga",
-        backgroundColor: "#ffb443",
-        borderColor: "#ffb443",
+        backgroundColor: "#a922f2",
+        borderColor: "#a922f2",
         data: exercises["Yoga"].data,
       },
       {
         label: "Running",
-        backgroundColor: "#DE3163",
-        borderColor: "#DE3163",
+        backgroundColor: "#f21605",
+        borderColor: "#f21605",
         data: exercises["Running"].data,
       },
       {
         label: "Walking",
-        backgroundColor: "#e456c6",
-        borderColor: "#e456c6",
+        backgroundColor: "#ff8000",
+        borderColor: "#ff8000",
         data: exercises["Walking"].data,
       },
       {
         label: "Calisthenics",
-        backgroundColor: "#ff6767",
-        borderColor: "#ff6767",
+        backgroundColor: "#00d447",
+        borderColor: "#00d447",
         data: exercises["Calisthenics"].data,
       },
     ],
@@ -104,7 +104,7 @@ const ActivityGraph = ({ ExerciseLog }) => {
           </li>
           <li className="flex-1">
             <img />
-            {exercises.totalCalories}
+            {`${exercises.totalCalories} kcals`}
           </li>
         </ul>
       </nav>
