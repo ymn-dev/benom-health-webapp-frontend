@@ -55,6 +55,7 @@ const Calisthenics = () => {
                   name="StartTime"
                   placeholder="HH:MM"
                   step="3600" 
+                  onChange={(e)=> console.log(e.target.value)}
                 /> <br />
                 <label className="font-bold  ml-4" htmlFor="Duration">Duration : </label>
                 <input className="rounded-lg mb-2 w-20"
