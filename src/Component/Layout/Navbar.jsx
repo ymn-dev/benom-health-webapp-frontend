@@ -13,7 +13,8 @@ const Navbar = () => {
 
     <div className="navbar bg-salmon">
   <div className="flex-1">
-    <Link to='/'><a className="btn btn-ghost normal-case text-xl">BENOM</a></Link>
+   {login && <Link to='/home'><a className="btn btn-ghost normal-case text-xl">BENOM</a></Link>}
+   {!login && <Link to='/'><a className="btn btn-ghost normal-case text-xl">BENOM</a></Link>}
   </div>
   <div className="flex-none gap-2">
     <div className="form-control">
