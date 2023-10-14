@@ -14,27 +14,6 @@ const AddLog = ({ reload, setReload }) => {
   const [date, setDate] = useState("");
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    /*
-            {imageUrl}
-        {selectedOption1}
-        {selectedOption2}
-        {selectedHour}
-        {selectedMinute}
-        {durationHour}
-        {durationMinute}
-        {calories}
-        {date}
-        
-  const [form, setForm] = useState({
-    exerciseName: "",
-    date: "",
-    weight: 0,
-    startTime: "",
-    duration: "",
-    calories: 0,
-    picture: "",
-  });
-        */
     if ((!durationHour && !durationMinute) || (!selectedHour && !selectedMinute) || !date || !weight || !selectedOption1 || !selectedOption2) return;
 
     const exerciseName = `${selectedOption1}:${selectedOption2}`;
@@ -52,8 +31,8 @@ const AddLog = ({ reload, setReload }) => {
     try {
       const response = await axios.post(`https://benom-backend.onrender.com/users/${user._id}/activities`, data, { headers: user.headers });
       if (response.status === 200) {
-        alert(`successfully added new activity!`);
         setReload(!reload);
+        alert(`successfully added new activity!`);
       }
     } catch (err) {
       console.error(err);
@@ -178,12 +157,30 @@ const AddLog = ({ reload, setReload }) => {
         {/*หัวข้อรอง Common activities ซ้ายมือ*/}
         <div id="common_activity" className="border-solid border-2 border-white bg-white my-6 ml-6 mr-3 rounded-lg pb-2">
           <h2 className="text-4xl mt-3 mb-3 text-center">Common activities</h2>
+          {/*เริ่ม dropdown เลือกชนิดกีฬา - ซ้ายมือ*/}
+          <div className="text-center">
+            <select className="select select-bordered border-gray-700 w-full max-w-xs mb-3 bg-white" value={selectedOption1} onChange={handleDropdown1Change} onClick={handleSelect}>
+              <option disabled selected value="">
+                Choose your exercise
+              </option>
+              {options1.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/*จบ dropdown เลือกชนิดกีฬา - ซ้ายมือ*/}
+
+          {/*****แก้เป็น hover ตอนเรากดเลือก type ในก้อน Modal ต้องมี5ภาพ แต่ละภาพมี hover*/}
+          <img src={venomIconGroup} width={200} height={200} className="max-w-[550px] w-full mx-auto" />
+
           {/*หัวข้อ create custom activities ที่มีปุ่มกดเรียก Modal*/}
           <div>
             <p className="mr-2 text-center">
               create custom activities
               {/*เริ่ม Modal สำหรับเก็บข้อมูลประจำวัน กีฬา ประเภท วันเวลา น้ำหนัก เวลาที่เริ่ม เวลาที่เล่นกีฬาชนิดนี้ทั้งหมด แคลที่กินเข้าไป*/}
-              <button className="btn bg-white border-white" onClick={() => document.getElementById("my_modal_1").showModal()}>
+              <button className="btn bg-white border-white" onClick={() => document.getElementById("my_modal_1").showModal()} disabled={!selectedOption1}>
                 <img src={plus_button} width={15} height={15} />
               </button>
               <dialog id="my_modal_1" className="modal">
@@ -212,6 +209,7 @@ const AddLog = ({ reload, setReload }) => {
                       <input
                         type="date"
                         className="input input-bordered input-sm w-2/3 max-w-x ml-12"
+                        max={new Date().toISOString().split("T")[0]}
                         onChange={(ev) => {
                           setDate(ev.target.value);
                         }}
@@ -346,24 +344,6 @@ const AddLog = ({ reload, setReload }) => {
             </p>
           </div>
           {/*จบ Modal - create custom activities*/}
-
-          {/*****แก้เป็น hover ตอนเรากดเลือก type ในก้อน Modal ต้องมี5ภาพ แต่ละภาพมี hover*/}
-          <img src={venomIconGroup} width={200} height={200} className="max-w-[550px] w-full mx-auto" />
-
-          {/*เริ่ม dropdown เลือกชนิดกีฬา - ซ้ายมือ*/}
-          <div className="text-center">
-            <select className="select select-bordered border-gray-700 w-full max-w-xs mb-3 bg-white" value={selectedOption1} onChange={handleDropdown1Change} onClick={handleSelect}>
-              <option disabled selected value="">
-                Choose your exercise
-              </option>
-              {options1.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
-          {/*จบ dropdown เลือกชนิดกีฬา - ซ้ายมือ*/}
 
           {/*รูป venom พื้นสีส้ม*/}
           <img src={venom_orangePic} alt="venom_orangePic" className="rounded-lg max-w-[550px] w-full mx-auto mb-6 mt-5" />
