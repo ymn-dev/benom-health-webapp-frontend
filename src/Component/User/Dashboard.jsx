@@ -5,65 +5,11 @@ import plus_button from "../../assets/DashboardPic/plus_button.svg";
 import venomCheese from "../../assets/DashboardPic/venomCheese.png";
 import dumpbell_venom from "../../assets/DashboardPic/dumpbell_venom.png";
 import Calendar from "./Calendar";
-import { Line } from "react-chartjs-2";
 import AddLog from "./AddLog";
 import { useLoginContext } from "../../Context/LoginContext";
 import axios from "axios";
 import LogTable from "./LogTable";
-
-import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Legend, Tooltip } from "chart.js";
-
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Legend, Tooltip);
-
-{
-  /* ชื่อฐานกราฟ แกน X - แก้เป็นระบบวันจริง */
-}
-const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-{
-  /*เส้นกราฟการออกกำลังกาย 6 ชนิด ช่อง data คือ จำนวนวัน 7 วัน*/
-}
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: "Cycling",
-      backgroundColor: "#f21605",
-      borderColor: "#f21605",
-      data: [30, 0, 0, 0, 0, 30, 0],
-    },
-    {
-      label: "Swimming",
-      backgroundColor: "#fe7534",
-      borderColor: "#fe7534",
-      data: [0, 0, 60, 0, 0, 0, 0],
-    },
-    {
-      label: "Yoga",
-      backgroundColor: "#ffb443",
-      borderColor: "#ffb443",
-      data: [0, 120, 0, 0, 0, 0, 0],
-    },
-    {
-      label: "Running",
-      backgroundColor: "#DE3163",
-      borderColor: "#DE3163",
-      data: [0, 0, 0, 90, 0, 0, 60],
-    },
-    {
-      label: "Walking",
-      backgroundColor: "#e456c6",
-      borderColor: "#e456c6",
-      data: [0, 0, 0, 30, 30, 0, 0],
-    },
-    {
-      label: "Calisthenics",
-      backgroundColor: "#ff6767",
-      borderColor: "#ff6767",
-      data: [0, 0, 0, 0, 120, 0, 0],
-    },
-  ],
-};
+import ActivityGraph from "./ActivityGraph";
 
 const Dashboard = () => {
   {
@@ -103,8 +49,6 @@ const Dashboard = () => {
     getData();
   }, [reload]);
 
-  // function ลบข้อมูลโดยระบุ ID
-
   return (
     <>
       {/*เริ่ม กล่อง 1 ด้านซ้าย สีขาว*/}
@@ -116,11 +60,7 @@ const Dashboard = () => {
         <div className="hidden md:block flex-1">
           <div className="border-solid border-2 border-white bg-white my-6 ml-3 mr-6 rounded-lg px-2">
             {/*กราฟเส้น*/}
-            <div id="line-chart">
-              <div>
-                <Line data={data} />
-              </div>
-            </div>
+            <ActivityGraph />
             {/*จบกราฟเส้น*/}
 
             {/*เส้นตรงสีดำ เริ่ม*/}
