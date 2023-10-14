@@ -62,7 +62,7 @@ const SignIn = () => {
     // navigate("/profile");
   }
   return (
-    <div className="bg-salmon-profile h-screen w-full">
+    <div className="bg-salmon-profile h-screen w-screen">
       <div className="signInImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto" />
       </div>
