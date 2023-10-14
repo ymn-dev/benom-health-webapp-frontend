@@ -224,13 +224,13 @@ const SignUp = () => {
       </form>
       <div className="apiContainer max-w-[250px] mx-auto">
         <p className="text-gray-600 text-center">⸻ or continue with ⸻</p>
-        <div className="googleLogin btn btn-neutral btn-wide btn btn-sm mt-3 text-xs font-bold">
+        <div className="googleLogin btn btn-neutral btn-wide btn-sm mt-3 text-xs font-bold">
           <img src={Google_Icon} width={18} height={18} />
           Login
         </div>
         <br />
 
-        <div className="fbLogin btn btn-neutral btn-wide btn btn-sm mt-3 text-xs font-bold">
+        <div className="fbLogin btn btn-neutral btn-wide btn-sm mt-3 text-xs font-bold">
           <img src={facebook_Icon} width={18} height={18} />
           Login
         </div>

@@ -32,7 +32,7 @@ const AddLog = ({ reload, setReload }) => {
       const response = await axios.post(`https://benom-backend.onrender.com/users/${user._id}/activities`, data, { headers: user.headers });
       if (response.status === 200) {
         setReload(!reload);
-        alert(`successfully added new activity!`);
+        // alert(`successfully added new activity!`);
       }
     } catch (err) {
       console.error(err);
