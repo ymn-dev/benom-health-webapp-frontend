@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Legend, Tooltip } from "chart.js";
 import { Line } from "react-chartjs-2";
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Legend, Tooltip);
 
 const ActivityGraph = ({ ExerciseLog }) => {
+  const [showType, setShowType] = useState("Last Week");
   {
     /* ชื่อฐานกราฟ แกน X - แก้เป็นระบบวันจริง */
   }
   const today = new Date();
   const labels = [];
-  for (let i = 6; i >= 0; i--) {
-    labels.push(new Date(today - i * 24 * 60 * 60 * 1000).toISOString().split("T")[0]);
+  let i;
+  if (showType === "Last Week") {
+    i = 7;
+  } else if (showType === "Last Month") {
+    i = 30;
+  }
+  for (i; i > 0; i--) {
+    labels.push(new Date(today - (i - 1) * 24 * 60 * 60 * 1000).toISOString().split("T")[0]);
   }
 
   {
@@ -80,6 +87,18 @@ const ActivityGraph = ({ ExerciseLog }) => {
   };
   return (
     <>
+      <div className="flex">
+        <select
+          className="select select-bordered border-gray-700 ml-auto bg-white"
+          onChange={(ev) => {
+            setShowType(ev.target.value);
+          }}>
+          <option selected value="Last Week">
+            Last Week
+          </option>
+          <option value="Last Month">Last Month</option>
+        </select>
+      </div>
       <div id="line-chart">
         <div>
           <Line data={data} />
