@@ -84,6 +84,7 @@ const AddLog = ({ reload, setReload }) => {
   const handleDropdown1Change = (event) => {
     const selectedValue = event.target.value;
     setSelectedOption1(selectedValue);
+    setSelectedOption2("");
 
     // Generate options for the second dropdown based on the selection in the first dropdown.
     if (selectedValue === "Cycling") {
