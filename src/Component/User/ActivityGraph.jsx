@@ -10,14 +10,26 @@ const ActivityGraph = ({ ExerciseLog }) => {
   }
   const today = new Date();
   const labels = [];
-  let i;
+  let days;
   if (showType === "Last Week") {
-    i = 7;
+    days = 7;
   } else if (showType === "Last Month") {
-    i = 30;
+    days = 30;
+  } else if (showType === "Last 3 Months") {
+    days = 90;
+  } else if (showType === "Last 6 Months") {
+    days = 180;
+  } else if (showType === "Last Year") {
+    days = 365;
+  } else if (showType === "All Time") {
+    //only work because default sort is from the most recent
+    const oldestDate = new Date(ExerciseLog[ExerciseLog.length - 1].date);
+    const timeDifference = new Date(today.toISOString().split("T")[0]) - oldestDate;
+    days = timeDifference / 24 / 60 / 60 / 1000;
   }
-  for (i; i > 0; i--) {
-    labels.push(new Date(today - (i - 1) * 24 * 60 * 60 * 1000).toISOString().split("T")[0]);
+  const initialDays = days;
+  for (days - 1; days >= 0; days--) {
+    labels.push(new Date(today - days * 24 * 60 * 60 * 1000).toISOString().split("T")[0]);
   }
 
   {
@@ -44,27 +56,27 @@ const ActivityGraph = ({ ExerciseLog }) => {
     exercises.totalTime += ex.duration;
   });
 
+  let modNum = 0;
+  if (initialDays === 30) {
+    modNum = 2;
+  } else if (initialDays === 90) {
+    modNum = 2;
+  } else if (initialDays === 180) {
+    modNum = 3;
+  } else if (initialDays === 365) {
+    modNum = 6;
+  } else {
+    modNum = Math.round(initialDays / 55);
+  }
+  if (labels.length > 13) {
+    for (let i = 0; i < labels.length; i++) {
+      if (i % modNum > 0) labels[i] = "";
+    }
+  }
+
   const data = {
     labels: labels,
     datasets: [
-      {
-        label: "Cycling",
-        backgroundColor: "#e5e823",
-        borderColor: "#e5e823",
-        data: exercises["Cycling"].data,
-      },
-      {
-        label: "Swimming",
-        backgroundColor: "#0fdef5",
-        borderColor: "#0fdef5",
-        data: exercises["Swimming"].data,
-      },
-      {
-        label: "Yoga",
-        backgroundColor: "#a922f2",
-        borderColor: "#a922f2",
-        data: exercises["Yoga"].data,
-      },
       {
         label: "Running",
         backgroundColor: "#f21605",
@@ -76,6 +88,24 @@ const ActivityGraph = ({ ExerciseLog }) => {
         backgroundColor: "#ff8000",
         borderColor: "#ff8000",
         data: exercises["Walking"].data,
+      },
+      {
+        label: "Yoga",
+        backgroundColor: "#a922f2",
+        borderColor: "#a922f2",
+        data: exercises["Yoga"].data,
+      },
+      {
+        label: "Swimming",
+        backgroundColor: "#0fdef5",
+        borderColor: "#0fdef5",
+        data: exercises["Swimming"].data,
+      },
+      {
+        label: "Cycling",
+        backgroundColor: "#e5e823",
+        borderColor: "#e5e823",
+        data: exercises["Cycling"].data,
       },
       {
         label: "Calisthenics",
@@ -97,6 +127,10 @@ const ActivityGraph = ({ ExerciseLog }) => {
             Last Week
           </option>
           <option value="Last Month">Last Month</option>
+          <option value="Last 3 Months">Last 3 Months</option>
+          <option value="Last 6 Months">Last 6 Months</option>
+          <option value="Last Year">Last Year</option>
+          <option value="All Time">All Time</option>
         </select>
       </div>
       <div id="line-chart">

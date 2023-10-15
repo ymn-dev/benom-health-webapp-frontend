@@ -15,6 +15,16 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
       console.error("Error deleting activity", error);
     }
   };
+  const revertName = (str) => {
+    const [type, exercise] = str.split(":");
+    const exerciseArr = exercise.split("-");
+    const reverted = exerciseArr
+      .map((word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join(" ");
+    return `${type}: ${reverted}`;
+  };
   return (
     <>
       {/* Table log Data  */}
@@ -33,7 +43,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
         <tbody>
           {ExerciseLog.map((Log, index) => (
             <tr key={Log._id} className={index % 2 === 0 ? "bg-lightsalmon" : "bg-gray-100"}>
-              <td className="px-6 py-4 text-black whitespace-nowrap">{Log.exerciseName}</td>
+              <td className="px-6 py-4 text-black whitespace-nowrap">{revertName(Log.exerciseName)}</td>
               <td className="px-6 py-4 text-black whitespace-nowrap">{Log.dateTime.split("T")[0]}</td>
               <td className="px-6 py-4 text-black whitespace-nowrap">{Log.startTime}</td>
               <td className="px-6 py-4 text-black whitespace-nowrap">{Log.duration}</td>
