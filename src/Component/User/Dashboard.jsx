@@ -39,8 +39,8 @@ const Dashboard = () => {
     const getData = async () => {
       try {
         const response = await axios.get(`https://benom-backend.onrender.com/users/${user._id}/activities`, { headers: user.headers });
-        const { exerciseLog } = response.data.data;
-        setUser({ ...user, exerciseLog });
+        const { exerciseLog, exerciseTime, caloriesBurned } = response.data.data;
+        setUser({ ...user, exerciseLog, exerciseTime, caloriesBurned });
       } catch (error) {
         console.error("Error fetching activities", error);
       }
