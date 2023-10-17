@@ -149,7 +149,7 @@ const ActivityGraph = ({ ExerciseLog }) => {
             Weekly Totals
           </li>
           <li className="flex-1">
-            <img /> {`${Math.floor(exercises.totalTime / 60)} hours, ${exercises.totalTime % 60} minutes.`}
+            <img /> {`${Math.floor(exercises.totalTime / 60)} hours, ${Math.round(exercises.totalTime % 60)} minutes.`}
           </li>
           <li className="flex-1 ml-3">
             <img />
@@ -157,7 +157,7 @@ const ActivityGraph = ({ ExerciseLog }) => {
           </li>
           <li className="flex-1">
             <img />
-            {`${exercises.totalCalories} kcals`}
+            {`${Math.round(exercises.totalCalories)} kcals`}
           </li>
         </ul>
       </nav>

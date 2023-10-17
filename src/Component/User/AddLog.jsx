@@ -4,8 +4,10 @@ import venomIconGroup from "../../assets/DashboardPic/venomIconGroup.png";
 import plus_button from "../../assets/DashboardPic/plus_button.svg";
 import axios from "axios";
 import { useLoginContext } from "../../Context/LoginContext";
+import Loading from "../Layout/Loading";
 
 const AddLog = ({ reload, setReload }) => {
+  const [loading, setLoading] = useState(false);
   const { user } = useLoginContext();
   const [durationHour, setDurationHour] = useState(0);
   const [durationMinute, setDurationMinute] = useState(0);
@@ -14,7 +16,7 @@ const AddLog = ({ reload, setReload }) => {
   const [date, setDate] = useState("");
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    if ((!durationHour && !durationMinute) || (!selectedHour && !selectedMinute) || !date || !weight || !selectedOption1 || !selectedOption2) return;
+    if ((!durationHour && !durationMinute) || !selectedHour || !date || !weight || !selectedOption1 || !selectedOption2) return;
 
     const exerciseName = `${selectedOption1}:${selectedOption2}`;
     const duration = Number(durationHour) * 60 + Number(durationMinute);
@@ -29,7 +31,9 @@ const AddLog = ({ reload, setReload }) => {
       picture: imageUrl,
     };
     try {
+      setLoading(true);
       const response = await axios.post(`https://benom-backend.onrender.com/users/${user._id}/activities`, data, { headers: user.headers });
+      setLoading(false);
       if (response.status === 200) {
         setReload(!reload);
         // alert(`successfully added new activity!`);
@@ -185,6 +189,7 @@ const AddLog = ({ reload, setReload }) => {
                 <img src={plus_button} width={15} height={15} />
               </button>
               <dialog id="my_modal_1" className="modal">
+                <Loading loading={loading} />
                 <div className="modal-box">
                   {/*ชื่อหัวข้อ Modal ที่จะเปลี่ยนตามชนิดกีฬาที่กดเลือกใน dropdown*/}
                   <h3 className="font-bold text-lg pb-5">Activity : {selectValue}</h3>
@@ -324,7 +329,7 @@ const AddLog = ({ reload, setReload }) => {
                     />
 
                     <div className="modal-action">
-                      <button onClick={handleSubmit} className="btn hover:btn-success" disabled={(!durationHour && !durationMinute) || (!selectedHour && !selectedMinute) || !date || !weight || !selectedOption1 || !selectedOption2}>
+                      <button onClick={handleSubmit} className="btn hover:btn-success" disabled={(!durationHour && !durationMinute) || !selectedHour || !date || !weight || !selectedOption1 || !selectedOption2}>
                         Update
                       </button>
                       {/* <button onClick={handleCancel} className="btn">
