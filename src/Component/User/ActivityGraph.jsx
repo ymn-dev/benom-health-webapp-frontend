@@ -115,6 +115,21 @@ const ActivityGraph = ({ ExerciseLog }) => {
       },
     ],
   };
+  const { totalCalories, totalTime, ...types } = exercises;
+  const byTypes = [];
+  for (const type in types) {
+    const sumType = Math.round(types[type].data.reduce((sum, current) => sum + current, 0));
+    if (sumType) {
+      byTypes.push(
+        <tr className="w-full flex">
+          <td className="w-2/12 text-center">{type}</td>
+          <td className="w-2/12 text-center">{showType}</td>
+          <td className="w-4/12 text-center">{`${Math.floor(types[type].time / 60)} hours, ${Math.round(types[type].time % 60)} minutes.`}</td>
+          <td className="w-4/12 text-center">{`${sumType} kcals`}</td>
+        </tr>
+      );
+    }
+  }
   return (
     <>
       <div className="flex">
@@ -142,25 +157,34 @@ const ActivityGraph = ({ ExerciseLog }) => {
       {/*เส้นตรงสีดำ เริ่ม*/}
       <div class="border-t border-gray-700 w-3/3 mx-auto my-2"></div>
       {/*แถบแสดงข้อมูลผลรวมกราฟ - ใต้เส้นสีดำ */}
-      <nav>
-        <ul className="flex text-sm">
-          <li className="flex w-80">
-            <img />
-            Weekly Totals
-          </li>
-          <li className="flex-1">
-            <img /> {`${Math.floor(exercises.totalTime / 60)} hours, ${Math.round(exercises.totalTime % 60)} minutes.`}
-          </li>
-          <li className="flex-1 ml-3">
-            <img />
-            Total Calories Burned
-          </li>
-          <li className="flex-1">
-            <img />
-            {`${Math.round(exercises.totalCalories)} kcals`}
-          </li>
+      <table className="flex flex-col">
+        <thead className="">
+          <tr className="flex justify-between items-center">
+            <th className=" w-2/12">Name</th>
+            <th className=" w-2/12">Time span</th>
+            <th className=" w-4/12">Total exercise time</th>
+            <th className=" w-4/12">Total calories burned</th>
+          </tr>
+        </thead>
+        <tbody className="">{byTypes}</tbody>
+        <tfoot>
+          <tr className="w-full flex">
+            <td className="w-2/12 text-center font-bold">Total</td>
+            <td className="w-2/12 text-center font-bold">{showType}</td>
+            <td className="w-4/12 text-center font-bold">{`${Math.floor(exercises.totalTime / 60)} hours, ${Math.round(exercises.totalTime % 60)} minutes.`}</td>
+            <td className="w-4/12 text-center font-bold">{`${Math.round(exercises.totalCalories)} kcals`}</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      {/* <div className="flex flex-col">
+        <ul className="flex text-md justify-between">
+          <li className="">{showType}</li>
+          <li className=""></li>
+          <li className="">Total Calories Burned</li>
+          <li className=""></li>
         </ul>
-      </nav>
+      </div> */}
 
       {/*จบแถบแสดงข้อมูลผลรวมกราฟ - ใต้เส้นสีดำ */}
       <div class="border-t border-gray-700 w-3/3 mx-auto my-2"></div>
