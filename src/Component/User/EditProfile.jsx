@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useLoginContext } from "../../Context/LoginContext";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import venom from "../../assets/venom-about.png"
-import Loading from "..";
+import Loading from "../Layout/Loading";
+import defaultPicture from "../../assets/Emily_profile_icon.png";
+import alert from "../../assets/alert.png"
+
 
 const EditProfile = () => {
   const { login, user, setUser } = useLoginContext();
@@ -19,7 +22,7 @@ const EditProfile = () => {
   const [height, setheight] = useState("");
   const [weight, setweight] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   
    // ส่วนต่อ backend 
   useEffect(() => {
@@ -57,6 +60,7 @@ const EditProfile = () => {
       setLoading(false);
       if (response.status === 200) {
         setReload(!reload);
+        navigate("/profile");
        
       }
     } catch (err) {
@@ -72,13 +76,7 @@ const EditProfile = () => {
     );
   }
 
-  const inputStyle = {
-    backgroundColor: "white",
-    border: "1px solid #30827A",
-    padding: "5px",
-    marginBottom: "10px",
-    marginLeft: "10px",
-  };
+
 
   return (
     
@@ -90,8 +88,8 @@ const EditProfile = () => {
           <div className="flex justify-between items-center">
 
         
-            <div className="relative top-20 left-20">
-              <img src={user.profilePicture} alt="Profile" className="w-48 h-48 rounded-full" />
+            <div className="relative left-1/2 top-20 transform -translate-x-1/2  lg:left-1/4">
+              <img src={user.profilePicture || defaultPicture} alt="Profile" className="w-48 h-48 rounded-full" />
             </div>
             {/* ส่วนขวาบน */}
             <div className="w-1/2 text-white font-bold text-2xl hidden lg:flex">
@@ -106,46 +104,59 @@ const EditProfile = () => {
           <div className="md:flex-1">
             <h2 className="text-dark-sea font-bold text-2xl mb-5 mt-16 text-center md:text-left">PERSONAL INFO</h2>
             <div className="field-value-pair">
-              <p>
+              <p className="mb-2 mt-1">
                 <span className="text-black">First name</span>
                 {user.firstName ? (
                   <span className="text-dark-sea ml-3">{user.firstName}</span>
                 ) : (
+                  <>
                 <input
                   type="text"
-                  placeholder={"Add first name only once time" || user.firstName}
+                  placeholder={"first name" || user.firstName}
                   name="firstName"
                   id="firstName"
                   value={firstName}
                   onChange={(ev) => {
                     setfirstName(ev.target.value);
                   }}
-                  style={inputStyle}
-                />
+                  className="bg-white border border-dark-sea p-1 mb-2  ml-2 lg:ml-5"
+                  
+                /> 
+                <span className="tooltip " data-tip="Add first name only once time">
+                <img src={alert} className="w-6 h-6 ml-2 mt-3" alt="alert" />
+                </span>
+                </>
                 )}
+                
               </p>
-              <p>
+              <p className="mb-2 mt-1">
                 <span className="text-black">Last name</span>
                 {user.lastName ? (
                   <span className="text-dark-sea ml-3">{user.lastName}</span>
                 ) : (
+                  <>
                 <input
                   type="text"
-                  placeholder={"Add last name only once time" || user.lastName}
+                  placeholder={"last name" || user.lastName}
                   name="lastName"
                   id="lastName"
                   value={lastName}
                   onChange={(ev) => {
                     setlastName(ev.target.value);
                   }}
-                  style={inputStyle}
+                  className="bg-white border border-dark-sea p-1 mb-1  ml-2 lg:ml-5"
                 />
+                <span className="tooltip " data-tip="Add last name only once time">
+                <img src={alert} className="w-6 h-6 ml-2 mt-3" alt="alert" />
+                </span>
+                </>
                 )}
+                
               </p>
-              <p>
+              <p className="mb-2 mt-1">
                 <span className="text-black mr-5 ">Gender</span>
                 {user.gender ? (
-                  <span className="text-dark-sea ml-3">{user.gender}</span>
+                  <span className="text-dark-sea ml-3 ">{user.gender}</span>
                 ) : (
                   <>
                     <label>
@@ -153,6 +164,7 @@ const EditProfile = () => {
                         type="radio"
                         name="gender"
                         value="Male"
+                        className="ml-4 "
                         onChange={(ev) => {
                           setgender(ev.target.value);
                         }}
@@ -164,12 +176,16 @@ const EditProfile = () => {
                         type="radio"
                         name="gender"
                         value="Female"
+                        className="ml-3"
                         onChange={(ev) => {
                           setgender(ev.target.value);
                         }}
                       />
                       Female
                     </label>
+                    <span className="tooltip " data-tip="Add gender only once time">
+                     <img src={alert} className="w-6 h-6 ml-2 mt-3" alt="alert" />
+                    </span>
                   </>
                 )}
               </p>
@@ -178,6 +194,7 @@ const EditProfile = () => {
                 {user.birthday ? (
                   <span className="text-dark-sea ml-6">{user.birthday}</span>
                 ) : (
+                  <>
                   <input
                     type="date"
                     name="birthday"
@@ -187,15 +204,19 @@ const EditProfile = () => {
                     onChange={(ev) => {
                       setbirthday(ev.target.value);
                     }}
-                    style={inputStyle}
+                    className="bg-white border border-dark-sea p-1 mb-1  ml-6 lg:ml-8"
                   />
+                  <span className="tooltip mt-3" data-tip="Add birthday only once time">
+                    <img src={alert} className="w-6 h-6 ml-2 mt-3 " alt="alert" />
+                  </span>
+                </>
                 )}
               </p>
-              <p>
+              <p className="mb-2 mt-1">
                 <span className="text-black">Email</span>
                 <span className="text-dark-sea ml-12">{user.email}</span>
               </p>
-              <p>
+              <p className="mb-2 mt-1">
                 <span className="text-black">Height</span>
                 <input
                   type="number"
@@ -207,22 +228,23 @@ const EditProfile = () => {
                   onChange={(ev) => {
                     setheight(ev.target.value);
                   }}
-                  style={inputStyle}
+                  className="bg-white border border-dark-sea p-1 mb-1 ml-9 lg:ml-10"
                 />
               </p>
-              <p>
+              <p className="mb-2 mt-1">
                 <span className="text-black">Weight</span>
                 <input
                   type="number"
                   name="weight"
                   id="weight"
                   placeholder="Weight (kg)"
+                  
                   value={weight}
                   min={0}
                   onChange={(ev) => {
                     setweight(ev.target.value);
                   }}
-                  style={inputStyle}
+                  className="bg-white border border-dark-sea p-1 mb-1  ml-8 lg:ml-9"
                 />
               </p>
               
