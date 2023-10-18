@@ -9,6 +9,9 @@ export default {
         "salmon-profile": "#FF9671",
         "salmon-column" : "#F4CFB4",
         "dark-orange": "#F24822",
+        "dark-blue": "#234558",
+        "dark-sea":"#30827A",
+        "sea-blue":"#D1E7E3"
       },
       fontFamily: {
         Nunito: ["Nunito", "sans-serif"],
