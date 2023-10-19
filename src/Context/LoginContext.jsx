@@ -1,19 +1,27 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import profilePicturePath from "../assets/Emily_profile_icon.png";
 const LoginContext = createContext();
+import jwt_decode from "jwt-decode";
 
 const LoginContextProvider = (props) => {
   const localUser = localStorage.getItem("user");
+  let expiredToken = false;
+  if (localUser) {
+    const token = jwt_decode(JSON.parse(localUser).headers.Authorization.split(" ")[1]);
+    const tokenExpireDate = token.exp;
+    if (Math.round(Date.now() / 1000) > tokenExpireDate) expiredToken = true;
+  }
   const [login, setLogin] = useState(false);
   const [user, setUser] = useState(() => {
-    if (localUser) {
+    if (localUser && !expiredToken) {
       return JSON.parse(localUser);
     }
+    if (expiredToken) localStorage.removeItem("user");
     return {};
   });
 
   useEffect(() => {
-    if (localUser) {
+    if (localUser && !expiredToken) {
       setLogin(true);
     }
   }, []);

@@ -7,6 +7,7 @@ import isEmail from "validator/lib/isEmail";
 import PasswordValidator from "password-validator";
 import { useLoginContext } from "../../Context/LoginContext";
 import axios from "axios";
+import Loading from "../Layout/Loading";
 
 const SignUp = () => {
   const { login } = useLoginContext();
@@ -23,6 +24,7 @@ const SignUp = () => {
   const [emailError, setEmailError] = useState([]);
   const [passwordError, setPasswordError] = useState([]);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
@@ -127,10 +129,11 @@ const SignUp = () => {
         email: processedEmail,
         password: processedPassword,
       };
-      try {
+      try {setLoading(true);
         const response = await axios.post(`https://benom-backend.onrender.com/users`, registedUser);
         if (response.status === 200) {
           setSubmitSuccess(true);
+          setLoading(false);
         }
       } catch (err) {
         console.error(err);
@@ -143,6 +146,7 @@ const SignUp = () => {
       <div className="signUpImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>
+      <Loading loading={loading} />
       <h1 className="text-white text-3xl font-extrabold flex justify-center">BENOM'S SIGN UP</h1>
       <form onSubmit={submitHandler} className="max-w-[250px] w-full mx-auto py-3">
         <input

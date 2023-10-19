@@ -11,7 +11,7 @@ export default {
         "dark-orange": "#F24822",
         "dark-blue": "#234558",
         "dark-sea":"#30827A",
-        "sea-blue":"#D1E7E3",
+        "sea-blue":"#D1E7E3"
       },
       fontFamily: {
         Nunito: ["Nunito", "sans-serif"],

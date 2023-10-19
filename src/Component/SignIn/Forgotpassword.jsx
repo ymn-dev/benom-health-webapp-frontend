@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Profile_Benom_Logo from "../../assets/Profile_Benom_Logo.png";
 import axios from "axios";
+import Loading from "../Layout/Loading";
 
 const Forgotpassword = () => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
+    try { setLoading(true);
       //https://benom-backend.onrender.com
       const response = await axios.post(
         `
@@ -17,6 +19,7 @@ const Forgotpassword = () => {
       );
       if (response.status === 200) {
         alert("success, please check your email");
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);

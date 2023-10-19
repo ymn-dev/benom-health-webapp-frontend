@@ -6,6 +6,7 @@ import facebook_Icon from "../../assets/facebook_Icon.svg";
 import Google_Icon from "../../assets/Google_Icon.svg";
 import { useLoginContext } from "../../Context/LoginContext";
 import axios from "axios";
+import Loading from "../Layout/Loading";
 // import Cookies from "js-cookie";
 
 const SignIn = () => {
@@ -13,15 +14,17 @@ const SignIn = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const submitHandler = async (ev) => {
     ev.preventDefault();
     const loginData = {
       account,
       password,
     };
-    try {
+    try {setLoading(true);
       const response = await axios.post("https://benom-backend.onrender.com/signin", loginData);
-
+      
       // const expirationTime = new Date();
       // expirationTime.setTime(expirationTime.getTime() + 2 * 60 * 60 * 1000); // 2 hours in milliseconds
       // const cookiesOptions = {
@@ -40,7 +43,7 @@ const SignIn = () => {
         headers,
       });
       // console.log(userData.data.data);
-      const { email, joinDate, userName, dailyCalories, height, weight, birthday, gender } = userData.data.data;
+      const { email, joinDate, userName, dailyCalories, height, weight, birthday,profilePicture, gender,firstName,lastName } = userData.data.data;
       const exerciseData = await axios.get(`https://benom-backend.onrender.com/users/${_id}/activities`, {
         headers,
       });
@@ -48,10 +51,11 @@ const SignIn = () => {
       // const data = await axios.get(`http://localhost:3001/users/${_id}`, { withCredentials: true });
       // console.log(data);
 
-      localStorage.setItem("user", JSON.stringify({ _id, email, joinDate, userName, headers, caloriesBurned, exerciseTime, liveCaloriesBurned, liveExerciseTime, exerciseLog, dailyCalories, height, weight, birthday, gender }));
-      setUser({ ...user, _id, email, joinDate, userName, headers, caloriesBurned, exerciseTime, liveCaloriesBurned, liveExerciseTime, exerciseLog, dailyCalories, height, weight, birthday, gender });
+      localStorage.setItem("user", JSON.stringify({ _id,firstName,lastName,profilePicture, email, joinDate, userName, headers, caloriesBurned, exerciseTime, liveCaloriesBurned, liveExerciseTime, exerciseLog, dailyCalories, height, weight, birthday, gender }));
+      setUser({ ...user,firstName,lastName,profilePicture, _id, email, joinDate, userName, headers, caloriesBurned, exerciseTime, liveCaloriesBurned, liveExerciseTime, exerciseLog, dailyCalories, height, weight, birthday, gender });
       // console.log(localStorage.getItem("user"));
       setLogin(true);
+      setLoading(false);
       navigate("/home");
     } catch (err) {
       console.error(err);
@@ -65,6 +69,7 @@ const SignIn = () => {
       <div className="signInImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>
+      <Loading loading={loading} />
       <h1 className="text-white text-4xl font-extrabold flex justify-center">BENOM</h1>
       <form onSubmit={submitHandler} className="max-w-[250px] w-full mx-auto py-3 ">
         <input

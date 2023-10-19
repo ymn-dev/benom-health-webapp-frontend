@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Profile_Benom_Logo from "../../assets/Profile_Benom_Logo.png";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import Loading from "../Layout/Loading";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const ResetPassword = () => {
   const [newpassword, setNewpassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ const ResetPassword = () => {
       setConfirmPasswordError("confirm password needs to match your password");
       return;
     }
-    try {
+    try {setLoading(true);
       const response = await axios.patch(
         `
       https://benom-backend.onrender.com/resetPassword`,
@@ -31,6 +33,7 @@ const ResetPassword = () => {
       );
       if (response.status === 200) {
         alert("successfully changed the password");
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
@@ -43,6 +46,7 @@ const ResetPassword = () => {
       <div className="ForgotImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>
+      <Loading loading={loading} />
       <h1 className="text-white text-4xl font-extrabold flex justify-center">BENOM</h1>
       <h1 className=" text-center text-slate-300 my-2 font-bold">Reset Password for {decoded.email}</h1>
       <form onSubmit={handleSubmit} className="max-w-[250px] w-full mx-auto pb-3">
