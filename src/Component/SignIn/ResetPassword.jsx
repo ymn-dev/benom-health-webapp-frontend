@@ -39,28 +39,26 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="bg-salmon-profile h-screen w-full">
+    <div className="bg-dark-blue h-screen w-full">
       <div className="ForgotImageContainer">
-        <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto" />
+        <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>
       <h1 className="text-white text-4xl font-extrabold flex justify-center">BENOM</h1>
-      <h1 className=" text-center my-2  font-bold">Reset Password for {decoded.email}</h1>
+      <h1 className=" text-center text-slate-300 my-2 font-bold">Reset Password for {decoded.email}</h1>
       <form onSubmit={handleSubmit} className="max-w-[250px] w-full mx-auto pb-3">
         <div className="flex flex-col ml-8 gap-y-3">
           <label>
-            New Password:
-            <input className="input input-bordered input-sm mt-2 text-start text-xs font-bold" type="password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)} required />
+            <input className="input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white" type="password" placeholder="New Password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)} required />
           </label>
         </div>
         <div className="flex flex-col ml-8 gap-y-3">
           <label>
-            Confirm Password:
-            <input className="input input-bordered input-sm mt-2 text-start text-xs font-bold" type="password" value={confirmPassword} onChange={(e) => setconfirmPassword(e.target.value)} required />
+            <input className="input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white" type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setconfirmPassword(e.target.value)} required />
           </label>
         </div>
         {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}
         <div className="flex justify-center mt-4 ">
-          <button className=" bg-white hover:bg-[#F24822] rounded-lg text-center p-2" type="submit">
+          <button className=" btn-sm bg-white hover:bg-[#d7d5d5] hover:scale-105 shadow-md shadow-gray-950 duration-150 rounded-lg text-center font-medium p-1" type="submit">
             Reset Password
           </button>
         </div>

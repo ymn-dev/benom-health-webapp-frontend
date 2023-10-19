@@ -139,9 +139,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-salmon-profile h-screen w-screen">
+    <div className="bg-dark-blue h-screen w-screen">
       <div className="signUpImageContainer">
-        <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto" />
+        <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>
       <h1 className="text-white text-3xl font-extrabold flex justify-center">BENOM'S SIGN UP</h1>
       <form onSubmit={submitHandler} className="max-w-[250px] w-full mx-auto py-3">
@@ -152,7 +152,7 @@ const SignUp = () => {
           maxLength={20}
           name="userName"
           placeholder="Username"
-          className="input input-bordered input-sm mt-2 text-start text-xs font-bold w-full"
+          className="input input-bordered input-sm mt-2 text-start text-xs font-bold w-full bg-gray-800 text-white"
           onChange={(ev) => {
             setUsername(ev.target.value);
           }}
@@ -170,7 +170,7 @@ const SignUp = () => {
           type="email"
           name="email"
           placeholder="Email"
-          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
+          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full  bg-gray-800 text-white"
           onChange={(ev) => {
             setEmail(ev.target.value);
           }}
@@ -189,7 +189,7 @@ const SignUp = () => {
           minLength={8}
           name="password"
           placeholder="Password"
-          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
+          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full  bg-gray-800 text-white"
           onChange={(ev) => {
             setPassword(ev.target.value);
           }}
@@ -209,7 +209,7 @@ const SignUp = () => {
           minLength={8}
           name="confirmPassword"
           placeholder="Confirm Password"
-          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full"
+          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full  bg-gray-800 text-white"
           onChange={(ev) => {
             setConfirmPassword(ev.target.value);
           }}
@@ -217,28 +217,28 @@ const SignUp = () => {
         {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}
         <br />
 
-        <button type="submit" className="btn btn-sm mt-3 text-xs font-bold bg-black text-white w-full" disabled={!username || !password || !email || submitSuccess}>
+        <button type="submit" className="btn btn-wide btn-sm mt-3 text-xs font-bold hover:scale-105 shadow-md shadow-gray-950" disabled={!username || !password || !email || submitSuccess}>
           Sign up
         </button>
         {submitSuccess && <p style={{ color: "green", textAlign: "center" }}>Register Success!</p>}
       </form>
       <div className="apiContainer max-w-[250px] mx-auto">
-        <p className="text-gray-600 text-center">⸻ or continue with ⸻</p>
-        <div className="googleLogin btn btn-neutral btn-wide btn-sm mt-3 text-xs font-bold">
+        <p className="text-gray-900 text-center">⸻ or continue with ⸻</p>
+        <div className="googleLogin btn btn-neutral btn-wide btn-sm mt-3 text-xs font-bold hover:scale-105 shadow-md shadow-gray-950">
           <img src={Google_Icon} width={18} height={18} />
           Login
         </div>
         <br />
 
-        <div className="fbLogin btn btn-neutral btn-wide btn-sm mt-3 text-xs font-bold">
+        <div className="fbLogin btn btn-neutral btn-wide btn-sm mt-3 text-xs font-bold hover:scale-105 shadow-md shadow-gray-950">
           <img src={facebook_Icon} width={18} height={18} />
           Login
         </div>
       </div>
 
-      <p className="text-gray-700 font-semibold text-center mt-8">
+      <p className="text-gray-900 font-semibold text-center mt-8">
         Already have an account?
-        <Link to={"/signin"} className="text-white hover:text-xs hover:text-white hover:font-bold">
+        <Link to={"/signin"} className="text-white hover:text-xs hover:text-white hover:font-bold ">
           {" "}
           Log in
         </Link>
