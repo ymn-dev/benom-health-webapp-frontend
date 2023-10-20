@@ -71,6 +71,7 @@ const Profile = () => {
       setLoading(false);
       if (response.status === 200) {
         setUser({ ...user, profilePicture: ProfileImg });
+        document.getElementById("my_modal_5").close();
         setReload(!reload);
       }
     } catch (err) {
