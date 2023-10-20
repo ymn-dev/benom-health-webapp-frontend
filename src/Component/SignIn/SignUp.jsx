@@ -129,7 +129,8 @@ const SignUp = () => {
         email: processedEmail,
         password: processedPassword,
       };
-      try {setLoading(true);
+      try {
+        setLoading(true);
         const response = await axios.post(`https://benom-backend.onrender.com/users`, registedUser);
         if (response.status === 200) {
           setSubmitSuccess(true);
@@ -142,7 +143,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="bg-dark-blue h-screen w-screen">
+    <div className="bg-dark-blue h-screen ">
       <div className="signUpImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>
@@ -221,32 +222,38 @@ const SignUp = () => {
         {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}
         <br />
 
-        <button type="submit" className="btn btn-wide btn-sm mt-3 text-xs font-bold hover:scale-105 shadow-md shadow-gray-950" disabled={!username || !password || !email || submitSuccess}>
+        <button
+          type="submit"
+          className="btn btn-wide btn-sm mt-3 text-xs font-bold hover:scale-105 shadow-md shadow-gray-950 disabled:text-white disabled:opacity-20 disabled:cursor-not-allowed"
+          disabled={!username || !password || !email || !confirmPassword || submitSuccess}
+        >
           Sign up
         </button>
         {submitSuccess && <p style={{ color: "green", textAlign: "center" }}>Register Success!</p>}
       </form>
       <div className="apiContainer max-w-[250px] mx-auto">
-        <p className="text-gray-900 text-center">⸻ or continue with ⸻</p>
-        <div className="googleLogin btn btn-neutral btn-wide btn-sm mt-3 text-xs font-bold hover:scale-105 shadow-md shadow-gray-950">
+        <p className="text-white text-center opacity-20">⸻ or continue with ⸻</p>
+        <button className="googleLogin btn btn-neutral btn-wide  btn-sm mt-3 text-xs hover:scale-105 shadow-md shadow-gray-950 duration-150 disabled:text-white disabled:opacity-50" disabled={true}>
           <img src={Google_Icon} width={18} height={18} />
           Login
-        </div>
+        </button>
         <br />
 
-        <div className="fbLogin btn btn-neutral btn-wide btn-sm mt-3 text-xs font-bold hover:scale-105 shadow-md shadow-gray-950">
+        <button className="fbLogin btn btn-neutral btn-wide  btn-sm my-3 text-xs hover:scale-105 shadow-md shadow-gray-950 duration-150 disabled:text-white disabled:opacity-50" disabled={true}>
           <img src={facebook_Icon} width={18} height={18} />
           Login
-        </div>
+        </button>
       </div>
 
-      <p className="text-gray-900 font-semibold text-center mt-8">
-        Already have an account?
-        <Link to={"/signin"} className="text-white hover:text-xs hover:text-white hover:font-bold ">
-          {" "}
-          Log in
-        </Link>
-      </p>
+      <div className="text-white font-semibold text-center mt-2">
+        <span className="opacity-50">Already have an account?</span>
+        <button className=" btn btn-outline  ml-2 text-white border-none hover:scale-105">
+          <Link to={"/signin"}>
+            {/* {"  "} */}
+            Sign in
+          </Link>
+        </button>
+      </div>
       <br />
     </div>
   );
