@@ -27,13 +27,9 @@ const EditProfile = () => {
     const getData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `https://benom-backend.onrender.com/users/${user._id}`,
-          { headers: user.headers }
-        );
+        const response = await axios.get(`https://benom-backend.onrender.com/users/${user._id}`, { headers: user.headers });
         setLoading(false);
-        const { firstName, lastName, gender, birthday, height, weight } =
-          response.data.data;
+        const { firstName, lastName, gender, birthday, height, weight } = response.data.data;
         setUser({
           ...user,
           firstName,
@@ -67,11 +63,7 @@ const EditProfile = () => {
     // setUser({ ...user, ...editUser, profilePicture: ProfileImg });
     try {
       setLoading(true);
-      const response = await axios.patch(
-        `https://benom-backend.onrender.com/users/${user._id}`,
-        dataUser,
-        { headers: user.headers }
-      );
+      const response = await axios.patch(`https://benom-backend.onrender.com/users/${user._id}`, dataUser, { headers: user.headers });
       setLoading(false);
       if (response.status === 200) {
         setReload(!reload);
@@ -96,11 +88,7 @@ const EditProfile = () => {
         <div className="bg-dark-sea  rounded-t-lg ">
           <div className="flex justify-between items-center">
             <div className="relative left-1/2 top-20 transform -translate-x-1/2  lg:left-1/4">
-              <img
-                src={user.profilePicture || defaultPicture}
-                alt="Profile"
-                className="w-48 h-48 rounded-full"
-              />
+              <img src={user.profilePicture || defaultPicture} alt="Profile" className="w-48 h-48 rounded-full" />
             </div>
             {/* ส่วนขวาบน */}
             <div className="w-1/2 text-white font-bold text-2xl hidden lg:flex">
@@ -112,16 +100,12 @@ const EditProfile = () => {
         {/* ส่วนล่าง  */}
         <div className="bg-white p-10  rounded-b-lg  md:flex md:flex-row">
           <div className="md:flex-1">
-            <h2 className="text-dark-sea font-bold text-2xl mb-5 mt-16 text-center md:text-left">
-              PERSONAL INFO
-            </h2>
+            <h2 className="text-dark-sea font-bold text-2xl mb-5 mt-16 text-center md:text-left">PERSONAL INFO</h2>
             <div className="field-value-pair">
               <p className="mb-2 mt-1">
                 <span className="text-black">First name</span>
                 {user.firstName ? (
-                  <span className="text-dark-sea ml-3 md:ml-4">
-                    {user.firstName}
-                  </span>
+                  <span className="text-dark-sea ml-3 md:ml-4">{user.firstName}</span>
                 ) : (
                   <>
                     <input
@@ -141,9 +125,7 @@ const EditProfile = () => {
               <p className="mb-2 mt-1">
                 <span className="text-black">Last name</span>
                 {user.lastName ? (
-                  <span className="text-dark-sea ml-3 md:ml-4 lg:ml-4">
-                    {user.lastName}
-                  </span>
+                  <span className="text-dark-sea ml-3 md:ml-4 lg:ml-4">{user.lastName}</span>
                 ) : (
                   <>
                     <input
@@ -163,9 +145,7 @@ const EditProfile = () => {
               <p className="mb-2 mt-1">
                 <span className="text-black mr-5 ">Gender</span>
                 {user.gender ? (
-                  <span className="text-dark-sea ml-3 md:ml-4 lg:ml-4">
-                    {user.gender}
-                  </span>
+                  <span className="text-dark-sea ml-3 md:ml-4 lg:ml-4">{user.gender}</span>
                 ) : (
                   <>
                     <label>
@@ -198,9 +178,7 @@ const EditProfile = () => {
               <p>
                 <span className="text-black">Birthday</span>
                 {user.birthday ? (
-                  <span className="text-dark-sea ml-6 md:ml-7 lg:ml-7">
-                    {user.birthday}
-                  </span>
+                  <span className="text-dark-sea ml-6 md:ml-7 lg:ml-7">{user.birthday}</span>
                 ) : (
                   <>
                     <input
@@ -250,15 +228,8 @@ const EditProfile = () => {
                   }}
                   className="bg-white border border-dark-sea p-1 mb-1  ml-8 lg:ml-9"
                 />
-                <span
-                  className="tooltip "
-                  data-tip="Must add weight before calculation calories."
-                >
-                  <img
-                    src={alert}
-                    className="w-6 h-6 ml-1 md:ml-2 lg:ml-2"
-                    alt="alert"
-                  />
+                <span className="tooltip " data-tip="Must add weight before calculation calories.">
+                  <img src={alert} className="w-6 h-6 ml-1 md:ml-2 lg:ml-2" alt="alert" />
                 </span>
               </p>
             </div>
@@ -278,46 +249,24 @@ const EditProfile = () => {
                 Save
               </button>
               {/* ส่วน modal  */}
-              <dialog
-                id="my_modal_5"
-                className="modal modal-bottom sm:modal-middle"
-              >
+              <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                  <h2 className="text-dark-sea font-bold text-2xl mb-5">
-                    Confirm Saving
-                  </h2>
+                  <h2 className="text-dark-sea font-bold text-2xl mb-5">Confirm Saving</h2>
                   <p className="">
                     {firstName ? "First name, " : ""}
                     {lastName ? "Last name, " : ""}
                     {gender ? "Gender, " : ""}
-                    {birthday ? "Birthday " : ""} Can save only once. Are you
-                    sure to save user information?
+                    {birthday ? "Birthday " : ""} Can save only once. Are you sure to save user information?
                   </p>
-                  <div className="field-value-pair mt-5">
-                    {/* Field-value pairs can be added here */}
-                  </div>
+                  <div className="field-value-pair mt-5">{/* Field-value pairs can be added here */}</div>
                   <div className="modal-action">
-                    <button
-                      onClick={submitHandler}
-                      className="btn hover:btn-success"
-                    >
+                    <button onClick={submitHandler} className="btn hover:btn-success">
                       save
                     </button>
                     <form method="dialog">
                       <button className="btn btn-circle hover:btn-error">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
                     </form>
@@ -328,9 +277,7 @@ const EditProfile = () => {
               {/* </Link> */}
 
               <Link to="/profile">
-                <button className="bg-dark-sea hover:bg-dark-blue text-white font-bold py-2 px-4 rounded mt-5 ml-5">
-                  Back
-                </button>
+                <button className="bg-dark-sea hover:bg-dark-blue text-white font-bold py-2 px-4 rounded mt-5 ml-5">Back</button>
               </Link>
             </div>
           </div>
