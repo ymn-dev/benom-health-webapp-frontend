@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLoginContext } from "../../Context/LoginContext";
 import alert from "../../assets/alert.png";
 import ReactPaginate from "react-paginate";
+import ExerciseChoices from "../Exercises/exercises";
 
 const LogTable = ({ ExerciseLog, reload, setReload }) => {
   //paginate
@@ -58,7 +59,6 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
       {/* Table log Data  */}
 
       <div className="my-4 xl:mx-10 mx-5 border-dark-blue">
-        {" "}
         {/*container mx-auto max-w-screen-lg*/}
         <table className="flex flex-col bg-dark-blue text-white border rounded-t-3xl">
           <thead className="">
@@ -80,7 +80,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
             {currentItems.map((Log, index) => (
               <tr key={Log._id} className={`${index % 2 === 1 ? "bg-sea-blue" : "bg-white"}`}>
                 <td className="xl:w-3/12 w-3/12 text-center text-black">{revertName(Log.exerciseName)}</td>
-                <td className="xl:w-2/12 w-2/12 text-center text-black">{Log.dateTime.split("T")[0]}</td>
+                <td className="xl:w-2/12 w-2/12 text-center text-black">{Log.date.split("T")[0]}</td>
                 <td className="xl:w-2/12 w-2/12 text-center text-black">{Log.startTime}</td>
                 <td className="xl:w-2/12 w-2/12 text-center text-black">{`${Log.duration > 60 ? `${Math.floor(Log.duration / 60)} hr ${Math.round(Log.duration % 60)} min` : `${Math.round(Log.duration % 60)} min`}`}</td>
                 <td className="xl:w-1/12 w-1/12 text-center text-black">{Math.round(Log.calories)}</td>
@@ -91,6 +91,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
                     className="btn btn-warning border-black "
                     onClick={() => {
                       document.getElementById("my_modal_5").showModal();
+                      setSelectedModal({ ...selectedModal, id: Log._id, picture: Log.picture, exerciseName: Log.exerciseName, date: Log.date, startTime: Log.startTime, duration: Log.duration, weight: Log.weight, calories: Log.calories });
                     }}>
                     View Details
                   </button>
@@ -108,32 +109,29 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
           </form>
           {/*view only Modal*/}
           <h3 className="text-xl font-bold text-center pb-5">View Details</h3>
-          <img src="https://i.ibb.co/ck92yGC/Screenshot-2023-10-20-225703.png" className="rounded-lg" />
+          <img src={selectedModal.picture || "https://i.ibb.co/ck92yGC/Screenshot-2023-10-20-225703.png"} className="rounded-lg" />
 
-          <h2 className="ml-3 pt-5 text-xl">
-            Activity :<span className="text-xl ml-10 text-white bg-sea-blue border border-slate-300 rounded-lg px-40 py-1"></span>
-          </h2>
-
-          <h2 className="ml-3 pt-5 text-xl">
-            Date :<span className="text-xl ml-16 text-white bg-sea-blue border border-slate-300 rounded-lg px-40 py-1"></span>
-          </h2>
-
-          <h2 className="ml-3 pt-5 text-xl">
-            Start-Time :<span className="text-xl ml-3 text-white bg-sea-blue border border-slate-300 rounded-lg px-40 py-1"></span>
-          </h2>
-
-          <h2 className="ml-3 pt-5 text-xl">
-            {" "}
-            Duration :<span className="text-xl ml-7 text-white bg-sea-blue border border-slate-300 rounded-lg px-40 py-1"></span>
-          </h2>
-
-          <h2 className="ml-3 pt-5 text-xl">
-            {" "}
-            Calories :<span className="text-xl ml-9 text-white bg-sea-blue border border-slate-300 rounded-lg px-40 py-1"></span>
-          </h2>
+          <div className="text-xl w-full flex py-3">
+            <span className=" w-3/12 text-right">Activity: </span> <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.exerciseName && revertName(selectedModal.exerciseName)}</span>
+          </div>
+          <div className="text-xl w-full flex py-3">
+            <span className=" w-3/12 text-right">Date: </span> <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.date && selectedModal.date.split("T")[0]}</span>
+          </div>
+          <div className="text-xl w-full flex py-3">
+            <span className=" w-3/12 text-right">Start-Time: </span> <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.startTime}</span>
+          </div>
+          <div className="text-xl w-full flex py-3">
+            <span className=" w-3/12 text-right">Duration: </span>{" "}
+            <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{`${
+              selectedModal.duration > 60 ? `${Math.floor(selectedModal.duration / 60)} hr ${Math.round(selectedModal.duration % 60)} min` : `${Math.round(selectedModal.duration % 60)} min`
+            }`}</span>
+          </div>
+          <div className="text-xl w-full flex py-3">
+            <span className=" w-3/12 text-right">Calories: </span> <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{`${Math.round(selectedModal.calories)} kcals`}</span>
+          </div>
 
           <div className="modal-action">
-            <td>
+            <div>
               <button className="btn btn-active hover:btn-warning" onClick={() => document.getElementById("my_modal_3").showModal()}>
                 Edit Details
               </button>
@@ -294,19 +292,19 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
                   </ul>
 
                   <div className="modal-action">
-                    <td>
+                    <div>
                       <button className="btn btn-active hover:btn-success">Save Change</button>
-                    </td>
-                    <form method="dialog">
-                      <button className="btn btn-active hover:btn-outline">cancel</button>
-                    </form>
+                    </div>
+                    <div>
+                      <button className="btn btn-active hover:btn-error">cancel</button>
+                    </div>
                   </div>
                 </div>
               </dialog>
-            </td>
+            </div>
 
             <td>
-              <button className="btn btn-active hover:btn-error hover:text-white" onClick={() => DeleteHandler(Log._id)}>
+              <button className="btn btn-active hover:btn-error hover:text-white" onClick={() => DeleteHandler(selectedModal.id)}>
                 Delete
               </button>
             </td>
