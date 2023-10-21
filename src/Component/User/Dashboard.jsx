@@ -4,8 +4,15 @@ import { useLoginContext } from "../../Context/LoginContext";
 import axios from "axios";
 import LogTable from "./LogTable";
 import ActivityGraph from "./ActivityGraph";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  // Import User
+  const { user, setUser, login } = useLoginContext();
+  const navigate = useNavigate();
+  if (!login) {
+    navigate("/");
+  }
   //Upload Image - Click
   const uploadImage = useRef(null);
   const [image, setImage] = useState("");
@@ -19,8 +26,6 @@ const Dashboard = () => {
     setImage(event.target.files[0]);
   };
 
-  // Import User
-  const { user, setUser } = useLoginContext();
   const [reload, setReload] = useState(false);
 
   const ExerciseLog = user.exerciseLog;
