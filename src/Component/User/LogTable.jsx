@@ -4,9 +4,11 @@ import { useLoginContext } from "../../Context/LoginContext";
 import alert from "../../assets/alert.png";
 import ReactPaginate from "react-paginate";
 import ExerciseChoices from "../Exercises/exercises";
+import Loading from "../Layout/Loading";
 
 const LogTable = ({ ExerciseLog, reload, setReload }) => {
   //paginate
+  const [loading, setLoading] = useState(false);
   const itemsPerPage = 9;
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
@@ -24,7 +26,9 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
 
   const DeleteHandler = async (id) => {
     try {
+      setLoading(true);
       const response = await axios.delete(`https://benom-backend.onrender.com/users/${user._id}/activities/${id}`, { headers: user.headers });
+      setLoading(false);
 
       if (response.status === 200) {
         setReload(!reload);
@@ -65,7 +69,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
   for (const ExerciseType in ExerciseChoices) {
     options1.push({ label: ExerciseType, value: ExerciseType });
   }
-
+  const [newCalories, setNewCalories] = useState(null);
   const handleDropdown1Change = (event, option = null) => {
     const selectedValue = option ? option : event.target.value;
     setSelectedOption2("");
@@ -81,22 +85,39 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
       setOptions2([]);
     }
   };
-  const handleSaveEdit = (ev) => {
+  const handleSaveEdit = async (ev) => {
     ev.preventDefault();
-    const { startTime, duration, exerciseName, ...data } = editModal;
-
+    const { startTime, duration, exerciseName, calories, id, ...data } = editModal;
+    data._id = id;
     data.duration = durationHour * 60 + durationMinute;
+    data.startTime = selectedHour + ":" + selectedMinute;
+    data.exerciseName = selectedOption1 + ":" + selectedOption2;
+    if (newCalories) {
+      data.calories = newCalories;
+    }
+    console.log(data);
+    try {
+      setLoading(true);
+      const response = await axios.patch(`https://benom-backend.onrender.com/users/${user._id}/activities/${id}`, data, { headers: user.headers });
+      setLoading(false);
+      console.log(response);
+      if (response.status === 200) {
+        setReload(!reload);
+      }
+    } catch (err) {
+      console.error("Error editing activity", err);
+    }
   };
 
   return (
     <>
       {/* Table log Data  */}
 
-      <div className="my-4 xl:mx-10 mx-5 border-dark-blue">
+      <div className="my-4 xl:mx-10 mx-5 border border-dark-blue rounded-t-3xl ">
         {/*container mx-auto max-w-screen-lg*/}
-        <table className="flex flex-col bg-dark-blue text-white border rounded-t-3xl">
-          <thead className="">
-            <tr className="flex justify-between items-center py-4">
+        <table className="w-full bg-dark-blue text-white rounded-t-3xl ">
+          <thead className=" ">
+            <tr className="py-4 ">
               <th className="xl:w-3/12 w-3/12 text-center font-bold uppercase text-white">Activity</th>
               <th className="xl:w-2/12 w-2/12 text-center font-bold uppercase text-white">Date</th>
               <th className="xl:w-2/12 w-2/12 text-center font-bold uppercase text-white">Start-Time</th>
@@ -116,7 +137,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
                 <td className="xl:w-3/12 w-3/12 text-center text-black">{revertName(Log.exerciseName)}</td>
                 <td className="xl:w-2/12 w-2/12 text-center text-black">{Log.date.split("T")[0]}</td>
                 <td className="xl:w-2/12 w-2/12 text-center text-black">{Log.startTime}</td>
-                <td className="xl:w-2/12 w-2/12 text-center text-black">{`${Log.duration > 60 ? `${Math.floor(Log.duration / 60)} hr ${Math.round(Log.duration % 60)} m` : `${Math.round(Log.duration % 60)} min`}`}</td>
+                <td className="xl:w-2/12 w-2/12 text-center text-black">{`${Log.duration >= 60 ? `${Math.floor(Log.duration / 60)} hr ${Math.round(Log.duration % 60)} m` : `${Math.round(Log.duration % 60)} min`}`}</td>
                 <td className="xl:w-1/12 w-1/12 text-center text-black">{Math.round(Log.calories)}</td>
 
                 {/*ปุ่ม VIEW DETAIL*/}
@@ -172,7 +193,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
           <div className="text-xl w-full flex py-3">
             <span className=" w-3/12 text-right">Duration: </span>{" "}
             <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{`${
-              selectedModal.duration > 60 ? `${Math.floor(selectedModal.duration / 60)} hr ${Math.round(selectedModal.duration % 60)} min` : `${Math.round(selectedModal.duration % 60)} min`
+              selectedModal.duration >= 60 ? `${Math.floor(selectedModal.duration / 60)} hr ${Math.round(selectedModal.duration % 60)} min` : `${Math.round(selectedModal.duration % 60)} min`
             }`}</span>
           </div>
           <div className="text-xl w-full flex py-3">
@@ -209,6 +230,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
         </div>
       </dialog>
       <dialog id="my_modal_3" className="modal modal-bottom sm:modal-middle">
+        <Loading loading={loading} />
         <div className="modal-box">
           <form method="dialog">
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -244,8 +266,6 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
               ))}
             </select>
           </div>
-          {selectedOption1}
-          {selectedOption2}
           <div className="w-full my-3 flex">
             <span className="text-right w-4/12 mr-2">Activity Variation: </span>
             <select
@@ -277,7 +297,6 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
               }}
             />
           </div>
-          {editModal.date}
           <div className="w-full my-3 flex">
             <span className="text-right w-4/12 mr-2"> Start time: </span>
             <div className="w-8/12 mr-6">
@@ -316,9 +335,6 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
               </select>
             </div>
           </div>
-          {selectedHour}
-          {selectedMinute}
-          {editModal.startTime}
           <div className="w-full my-3 flex">
             <span className="text-right w-4/12 mr-2"> Duration: </span>
             <div className="w-8/12 mr-6">
@@ -345,9 +361,6 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
               />
             </div>
           </div>
-          {durationHour + "    "}
-          {durationMinute + "    "}
-          {editModal.duration}
           <div className="w-full my-3 flex relative">
             <span className="text-right w-4/12 mr-2"> Calories: </span>
             <input
@@ -355,18 +368,18 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
               placeholder="Enter Calories"
               className="input input-bordered input-sm w-8/12 mr-6"
               min="0"
+              value={newCalories}
               onChange={(ev) => {
-                setEditModal({ ...editModal, calories: ev.target.value });
+                setNewCalories(ev.target.value);
               }}
             />
             <span className=" tooltip tooltip-left tooltip-success absolute top-1 right-0" data-tip="Will automatically calculate if no input">
               <img src={alert} className="w-6 h-6" alt="alert" />
             </span>
           </div>
-
           <div className="modal-action">
             <div>
-              <button className="btn btn-active hover:btn-success" onClick={handleSaveEdit}>
+              <button className="btn btn-active hover:btn-success" onClick={handleSaveEdit} disabled={!selectedOption2}>
                 Save Change
               </button>
             </div>
