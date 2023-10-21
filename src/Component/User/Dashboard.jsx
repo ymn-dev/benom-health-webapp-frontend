@@ -45,43 +45,36 @@ const Dashboard = () => {
     <>
       {/*Chart Box*/}
       <div className="bg-slate-700 pb-7">
-      <div className="md:block">
-      <h1 className="text-6xl text-white pt-10 pb-6 text-center">Activities log</h1>
-      <div id="common_activity" className="border-solid border-2 border-white bg-white my-6 ml-5 mr-5 rounded-lg pb-5 2xl:mx-60 2xl:my-10">
-        <ActivityGraph ExerciseLog={ExerciseLog} />
-      </div>
-      </div>
-      {/*Chart Box*/}
+        <div className="md:block">
+          <h1 className="text-6xl text-white pt-10 pb-6 text-center">Activities log</h1>
+          <div id="common_activity" className="border-solid border-2 border-white bg-white my-6 ml-5 mr-5 rounded-lg pb-5 xl:mx-60 xl:my-10">
+            <ActivityGraph ExerciseLog={ExerciseLog} />
+          </div>
+        </div>
+        {/*Chart Box*/}
 
-      
-      {/*AddLog + Table Box*/}
-      <div className="2xl:flex">
+        {/*AddLog + Table Box*/}
+        <div className="xl:flex">
+          {/*AddLog*/}
+          <div className="xl:flex-1 xl:w-1/2">
+            <div className="border-solid border-2 border-white bg-white my-6 ml-5 mr-5 rounded-lg px-4 pt-4">
+              <AddLog reload={reload} setReload={setReload} />
+            </div>
+          </div>
+          {/*AddLog */}
 
+          {/*Table*/}
 
-      {/*AddLog*/}
-      <div className="2xl:flex-1">
-       <div className="border-solid border-2 border-white bg-white my-6 ml-5 mr-5 rounded-lg px-4 pt-4">
-        
-        <AddLog reload={reload} setReload={setReload} />
-        
-       </div>
-      </div>
-      {/*AddLog */}
+          <div className="xl:flex-1 xl:first-letter:w-1/2">
+            <div className="border-solid border-2 border-white bg-white ml-5 mr-5 rounded-lg pb-5 mt-6">
+              <h2 className="text-4xl mt-14 mb-9 text-start ml-2 xl:ml-12">Activities history</h2>
+              <LogTable reload={reload} setReload={setReload} ExerciseLog={ExerciseLog} />
+            </div>
+          </div>
 
-
-      {/*Table*/}
-    <div>
-      <div className="2xl:flex-1">
-        <div className="border-solid border-2 border-white bg-white ml-5 mr-5 rounded-lg pb-5 mt-6">
-          <h2 className="text-4xl mt-14 mb-9 text-start ml-2 2xl:ml-12">Activities history</h2>
-            
-            <LogTable reload={reload} setReload={setReload} ExerciseLog={ExerciseLog} />
+          {/*Table*/}
         </div>
       </div>
-    </div>
-      {/*Table*/}
-    </div>
-    </div>
     </>
   );
 };
