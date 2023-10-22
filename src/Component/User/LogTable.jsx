@@ -32,6 +32,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
 
       if (response.status === 200) {
         setReload(!reload);
+        document.getElementById("my_modal_5").close();
       }
     } catch (error) {
       console.error("Error deleting activity", error);
@@ -95,14 +96,13 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
     if (newCalories) {
       data.calories = newCalories;
     }
-    console.log(data);
     try {
       setLoading(true);
       const response = await axios.patch(`https://benom-backend.onrender.com/users/${user._id}/activities/${id}`, data, { headers: user.headers });
       setLoading(false);
-      console.log(response);
       if (response.status === 200) {
         setReload(!reload);
+        document.getElementById("my_modal_3").close();
       }
     } catch (err) {
       console.error("Error editing activity", err);
@@ -172,6 +172,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
         </table>
       </div>
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <Loading loading={loading} />
         <div className="modal-box">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
