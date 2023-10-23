@@ -5,6 +5,8 @@ import plus_button from "../../assets/DashboardPic/plus_button.svg";
 import axios from "axios";
 import { useLoginContext } from "../../Context/LoginContext";
 import Loading from "../Layout/Loading";
+import ExerciseChoices from "../Exercises/exercises";
+import alert from "../../assets/alert.png";
 
 const AddLog = ({ reload, setReload }) => {
   const [loading, setLoading] = useState(false);
@@ -12,11 +14,10 @@ const AddLog = ({ reload, setReload }) => {
   const [durationHour, setDurationHour] = useState(0);
   const [durationMinute, setDurationMinute] = useState(0);
   const [calories, setCalories] = useState(0);
-  const [weight, setWeight] = useState(user.weight || 0);
   const [date, setDate] = useState("");
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    if ((!durationHour && !durationMinute) || !selectedHour || !date || !weight || !selectedOption1 || !selectedOption2) return;
+    if ((!durationHour && !durationMinute) || !selectedHour || !date || !selectedOption1 || !selectedOption2) return;
 
     const exerciseName = `${selectedOption1}:${selectedOption2}`;
     const duration = Number(durationHour) * 60 + Number(durationMinute);
@@ -24,7 +25,6 @@ const AddLog = ({ reload, setReload }) => {
     const data = {
       exerciseName,
       date,
-      weight,
       startTime,
       duration,
       calories,
@@ -43,46 +43,38 @@ const AddLog = ({ reload, setReload }) => {
     }
   };
 
-  {
-    /*----ปุ่มยิงข้อมูล dropdown ให้เปลี่ยนขื่อหัวข้อใน Modal + */
-  }
+  
+    //toggle dropdown1 & dropdown2
   const [selectValue, setSelectValue] = useState("");
 
   function handleSelect(event) {
     setSelectValue(event.target.value);
   }
 
-  {
-    /*----ปุ่มชั่วโมง บังคับให้มี 12 ชั่วโมง - Select Hours for 24 hours only - {selectedHour}*/
-  }
+  
+    //24 hours
   const [selectedHour, setSelectedHour] = useState("");
   const hours = Array.from({ length: 24 }, (_, i) => (i < 10 ? `0${i}` : `${i}`));
 
-  {
-    /*----ปุ่มนาที บังคับให้มี 60 นาที Select Minuts for 60 mins only - {selectedMins}*/
-  }
+  
+    //60 mins
   const [selectedMinute, setSelectedMinute] = useState("00");
 
   // Generate an array of 60 minutes (00 to 59)
   const minutes = Array.from({ length: 60 }, (_, i) => (i < 10 ? `0${i}` : `${i}`));
 
-  {
-    /*----แถบ Dropdownประเภทกีฬา เปลี่ยนตามชื่อกีฬาที่เลือก*/
-  }
+  
+    //Dropdown select type
   const [selectedOption1, setSelectedOption1] = useState("");
   const [selectedOption2, setSelectedOption2] = useState("");
   const [options2, setOptions2] = useState([]);
 
   // Define the options for the first dropdown.
-  const options1 = [
-    { label: "Cycling", value: "Cycling" },
-    { label: "Swimming", value: "Swimming" },
-    { label: "Yoga", value: "Yoga" },
-    { label: "Running", value: "Running" },
-    { label: "Walking", value: "Walking" },
-    { label: "Calisthenics", value: "Calisthenics" },
-    // Add more options as needed
-  ];
+  const options1 = [];
+  for (const ExerciseType in ExerciseChoices) {
+    options1.push({ label: ExerciseType, value: ExerciseType });
+  }
+  
 
   // Define the options for the second dropdown based on the selection in the first dropdown.
   const handleDropdown1Change = (event) => {
@@ -91,61 +83,19 @@ const AddLog = ({ reload, setReload }) => {
     setSelectedOption2("");
 
     // Generate options for the second dropdown based on the selection in the first dropdown.
-    if (selectedValue === "Cycling") {
-      setOptions2([
-        { label: "Vigorous Mountain", value: "vigorous-mountain" },
-        { label: "General Mountain", value: "general-mountain" },
-        { label: "Racing", value: "racing" },
-        { label: "General", value: "general" },
-        { label: "Stationary", value: "stationary" },
-      ]);
-    } else if (selectedValue === "Swimming") {
-      setOptions2([
-        { label: "Moderate Freestyle", value: "moderate-freestyle" },
-        { label: "General Backstroke", value: "general-backstroke" },
-        { label: "General Breaststroke", value: "general-breaststroke" },
-        { label: "General Butterfly", value: "general-butterfly" },
-        { label: "General Sidestroke", value: "general-sidestroke" },
-      ]);
-    } else if (selectedValue === "Yoga") {
-      setOptions2([
-        { label: "Hatha", value: "hatha" },
-        { label: "Power", value: "power" },
-        { label: "Nadisodhana", value: "nadisodhana" },
-        { label: "Surya Namaskar", value: "surya-namaskar" },
-        { label: "Stretching", value: "stretching" },
-      ]);
-    } else if (selectedValue === "Running") {
-      setOptions2([
-        { label: "Walk Combination", value: "walk-combination" },
-        { label: "General", value: "general" },
-        { label: "In Place", value: "in-place" },
-        { label: "Stairs Up", value: "stairs-up" },
-        { label: "Marathon", value: "marathon" },
-      ]);
-    } else if (selectedValue === "Walking") {
-      setOptions2([
-        { label: "Race", value: "race" },
-        { label: "Normal", value: "normal" },
-        { label: "Slow", value: "slow" },
-        { label: "Stair Climb", value: "stair-climb" },
-        { label: "Hills Climb", value: "hills-climb" },
-      ]);
-    } else if (selectedValue === "Calisthenics") {
-      setOptions2([
-        { label: "Vigorous", value: "vigorous" },
-        { label: "Moderate", value: "moderate" },
-        { label: "Light", value: "light" },
-        { label: "General", value: "general" },
-        { label: "Water", value: "water" },
-      ]);
+    if (selectedValue in ExerciseChoices) {
+      const newOptions2 = [];
+      for (const subtype in ExerciseChoices[selectedValue]) {
+        newOptions2.push({ label: ExerciseChoices[selectedValue][subtype], value: subtype });
+      }
+      setOptions2(newOptions2);
     } else {
-      setOptions2([]); // Reset options when no selection is made
+      setOptions2([]);
     }
   };
 
   {
-    /*----ปุ่ม Upload Image ด้วย URL*/
+    //Upload Image - URL
   }
   const [imageUrl, setImageUrl] = useState(""); // User Input
   const [tempImageUrl, setTempImageUrl] = useState("https://i.ibb.co/mHF9LZZ/venom-Cheese.png"); // Default
@@ -156,15 +106,11 @@ const AddLog = ({ reload, setReload }) => {
 
   return (
     <>
-      <div className="hidden md:block flex-1">
-        {/*เริ่ม Activity log ซ้ายมือ*/}
-        <h1 className="text-6xl text-white mt-6 mb-6 text-center">Activities log</h1>
-        {/*หัวข้อรอง Common activities ซ้ายมือ*/}
-        <div id="common_activity" className="border-solid border-2 border-white bg-white my-6 ml-6 mr-3 rounded-lg pb-2">
-          <h2 className="text-4xl mt-3 mb-3 text-center">Common activities</h2>
-          {/*เริ่ม dropdown เลือกชนิดกีฬา - ซ้ายมือ*/}
+        {/*Activity log*/}
+          <h2 className="text-4xl mt-10 mb-10 text-center">Common activities</h2>
+{/*Dropdown*/}
           <div className="text-center">
-            <select className="select select-bordered border-gray-700 w-full max-w-xs mb-3 bg-white" value={selectedOption1} onChange={handleDropdown1Change} onClick={handleSelect}>
+            <select className="select select-bordered select-lg border-gray-700 w-full max-w-xs bg-white text-xl" value={selectedOption1} onChange={handleDropdown1Change} onClick={handleSelect}>
               <option disabled selected value="">
                 Choose your exercise
               </option>
@@ -174,27 +120,33 @@ const AddLog = ({ reload, setReload }) => {
                 </option>
               ))}
             </select>
-          </div>
-          {/*จบ dropdown เลือกชนิดกีฬา - ซ้ายมือ*/}
+  {/*Dropdown*/}
 
-          {/*****แก้เป็น hover ตอนเรากดเลือก type ในก้อน Modal ต้องมี5ภาพ แต่ละภาพมี hover*/}
+{/*Should be hover with animation*/}
           <img src={venomIconGroup} width={200} height={200} className="max-w-[550px] w-full mx-auto" />
 
-          {/*หัวข้อ create custom activities ที่มีปุ่มกดเรียก Modal*/}
+          
           <div>
-            <p className="mr-2 text-center">
+            <p className="mr-2 text-xl text-center">
               create custom activities
-              {/*เริ่ม Modal สำหรับเก็บข้อมูลประจำวัน กีฬา ประเภท วันเวลา น้ำหนัก เวลาที่เริ่ม เวลาที่เล่นกีฬาชนิดนี้ทั้งหมด แคลที่กินเข้าไป*/}
-              <button className="btn bg-white border-white" onClick={() => document.getElementById("my_modal_1").showModal()} disabled={!selectedOption1}>
-                <img src={plus_button} width={15} height={15} />
+
+
+{/*Modal button*/}
+              <button className="btn" onClick={()=>document.getElementById('my_modal_1').showModal()} disabled={!selectedOption1}>
+                <img src={plus_button} width={15} height={15} />  
               </button>
-              <dialog id="my_modal_1" className="modal">
-                <Loading loading={loading} />
-                <div className="modal-box">
-                  {/*ชื่อหัวข้อ Modal ที่จะเปลี่ยนตามชนิดกีฬาที่กดเลือกใน dropdown*/}
-                  <h3 className="font-bold text-lg pb-5">Activity : {selectValue}</h3>
+
+                <dialog id="my_modal_1" className="modal">
+                 <Loading loading={loading} />
+                  <div className="modal-box">
+                    <form method="dialog">
+                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+
+    {/*Modal - Activity : */}
+                  <h3 className="font-bold text-xl pb-5">Activity : {selectValue}</h3>
                   <ul>
-                    {/*ชนิดกีฬา เปลี่ยนตามประเภทที่เลือกหัวข้อ Modal*/}
+    {/*Select type*/}
                     <li className="text-start">
                       Options:
                       <select className="select select-bordered select-sm w-2/3 max-w-x ml-6" value={selectedOption2} onChange={(event) => setSelectedOption2(event.target.value)}>
@@ -209,7 +161,7 @@ const AddLog = ({ reload, setReload }) => {
                       </select>
                     </li>
                     <br />
-                    {/*วันที่เล่นกีฬา*/}
+        {/*Date*/}
                     <li className="text-start">
                       Date:
                       <input
@@ -222,20 +174,7 @@ const AddLog = ({ reload, setReload }) => {
                       />
                     </li>
                     <br />
-                    {/*น้ำหนักในวันที่เล่นกีฬา*/}
-                    <li className="text-start">
-                      Weight:{" "}
-                      <input
-                        type="number"
-                        placeholder={weight || "Enter weight in KG"}
-                        className="input input-bordered input-sm w-2/3 max-w-x ml-6"
-                        onChange={(ev) => {
-                          setWeight(ev.target.value);
-                        }}
-                      />
-                    </li>
-                    <br />
-                    {/*เวลาที่เริ่มเล่นกีฬา*/}
+      {/*Start-Time*/}
                     <li className="text-start">
                       Start Time:
                       <select
@@ -247,7 +186,8 @@ const AddLog = ({ reload, setReload }) => {
                         <option disabled selected value="">
                           HH
                         </option>{" "}
-                        {/*เลือกเวลาเป็นชั่วโมง*/}
+
+             {/*hours*/}
                         {hours.map((hour) => (
                           <option key={hour} value={hour}>
                             {hour}
@@ -263,7 +203,8 @@ const AddLog = ({ reload, setReload }) => {
                         <option selected value="00">
                           MM
                         </option>{" "}
-                        {/*เลือกเวลาเป็นนาที*/}
+                
+                {/*min*/}
                         {minutes.map((minute) => (
                           <option key={minute} value={minute}>
                             {minute}
@@ -273,7 +214,7 @@ const AddLog = ({ reload, setReload }) => {
                     </li>
                     <br />
 
-                    {/*เวลาที่ออกกำลังกาย*/}
+      {/*Duration*/}
                     <li className="text-start">
                       Duration:
                       <input
@@ -298,7 +239,7 @@ const AddLog = ({ reload, setReload }) => {
                     </li>
                     <br />
 
-                    {/*แคลอรี่ที่เผาในการออกกำลังกายนี้*/}
+       {/*Calories*/}
                     <li className="text-start mb-5">
                       Calories:
                       <input
@@ -310,12 +251,19 @@ const AddLog = ({ reload, setReload }) => {
                           setCalories(ev.target.value);
                         }}
                       />
-                    </li>
-                    <h3 className="border rounded-full text-xs w-5/6 max-w-x text-center mb-5 ml-12 bg-slate-200 font-medium">* Will automatically calculate if no input *</h3>
-                  </ul>
-                  {/*จบ Modal สำหรับเก็บข้อมูลประจำวัน - ยังอยู่ใน Modal*/}
 
-                  {/*เริ่ม Update image ใน Modal - ยังอยู่ใน Modal*/}
+                      <span className="lg:tooltip" data-tip="Will automatically calculate if no input">
+                      <img
+                        src={alert}
+                        className="w-6 h-6 ml-1 md:ml-2 lg:ml-2"
+                        alt="alert" 
+                      />
+                      </span> 
+                    </li>
+                  </ul>
+                  {/*Modal*/}
+
+                {/*Update image*/}
                   <div>
                     <img src={imageUrl || tempImageUrl} alt="venom-cheese" className="rounded-lg" />
 
@@ -329,33 +277,22 @@ const AddLog = ({ reload, setReload }) => {
                     />
 
                     <div className="modal-action">
-                      <button onClick={handleSubmit} className="btn hover:btn-success" disabled={(!durationHour && !durationMinute) || !selectedHour || !date || !weight || !selectedOption1 || !selectedOption2}>
+                      <button onClick={handleSubmit} className="btn hover:btn-success" disabled={(!durationHour && !durationMinute) || !selectedHour || !date || !selectedOption1 || !selectedOption2}>
                         Update
                       </button>
-                      {/* <button onClick={handleCancel} className="btn">
-                        Cancel
-                      </button> */}
-                      <form method="dialog">
-                        <button className="btn btn-circle hover:btn-error">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </button>
-                      </form>
                     </div>
                   </div>
-                  {/*จบ Update image ใน Modal - ยังอยู่ใน Modal*/}
-                </div>
-              </dialog>
-            </p>
-          </div>
-          {/*จบ Modal - create custom activities*/}
+                  {/*Upload image*/}
+                  
+                  </div>
+                  </dialog>
+                </p>
+              </div>
+          {/*Modal*/}
 
-          {/*รูป venom พื้นสีส้ม*/}
-          <img src={venom_orangePic} alt="venom_orangePic" className="rounded-lg max-w-[550px] w-full mx-auto mb-6 mt-5" />
+          {/*venomสีส้ม*/}
+          <img src={venom_orangePic} alt="venom_orangePic" className="rounded-lg w-full mx-auto mb-10 mt-12" />
         </div>
-      </div>
-      {/*จบกล่องด้านซ้ายมือ สีขาว*/}
     </>
   );
 };

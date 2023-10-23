@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import Benom_card_icon from "../../assets/Benom_card_icon.png";
-import yoga01 from "../../assets/yoga01.jpg";
-import Benom_Yoga_icon from "../../assets/Benom_Yoga_icon.png";
-import fire_icon from "../../assets/3_fire_icon.png";
 import axios from "axios";
+import yogaBackground from "../../assets/yoga01.jpg";
+import benomIcon from "../../assets/Benom_Yoga_icon.png"
 
 const Yoga = () => {
   const [type, setType] = useState("");
@@ -30,50 +28,60 @@ const Yoga = () => {
     }
   };
   return (
-    <>
-      <div className=" relative">
-        <img src={yoga01} alt="yoga" className=" w-full" />
-        <div className=" absolute top-0 left-0 w-full h-full flex">
-          {/* Left */}
-          <section className=" w-[50%] h-full bg-white bg-opacity-10">
-            <p className="font-bold text-5xl text-white ml-10 mt-20">YOGA</p>
-          </section>
-
-          {/* Right */}
-          <section className=" w-[50%] h-full bg-white bg-opacity-70 p-[5rem] flex flex-col gap-y-[1rem] ">
+    <div className="flex min-h-screen bg-no-repeat bg-cover container mx-auto rounded-2xl " style={{backgroundImage: `url(${yogaBackground})` 
+    ,backgroundSize: "cover"}} >
+      <div className="w-2/5 max-lg:hidden" >
+        <h2 className="text-7xl m-4 text-white">Yoga</h2></div>
+      <div className="flex w-4/5 bg-dark-blue bg-opacity-90 max-lg:w-screen max-lg:bg-opacity-100 ">
+        <div className=" w-full">
+          <div className="px-10 max-lg:px-0 ">
+          <div className="flex  m-3">
+            <div className="flex-row">
+            <h2 className="text-7xl text-white max-lg:hidden">Log Activities</h2>
+             <h3 className="text-5xl text-white mt-7 mb-10 max-lg:hidden">Common Activities</h3>
+             <h3 className="font-bold text-5xl m-4 text-white lg:hidden">Yoga <br />Log Activities</h3>
+             
+             </div>
+             <img  className="m-auto h-28 max-sm:hidden" src={benomIcon} alt="" />
+          <div className="">
+           {/* <img src={Benom_Calisthenics_icon} alt="Benom_Calisthenics_icon" className=" h-[12rem] w-auto  max-sm:hidden mx-auto rounded-xl mix-blend-multiply"/> */}
+           </div>
+          </div>
+<div className="">
+          <select className="select select-bordered m-4 border-white text-white text-lg w-full max-w-xs bg-dark-blue bg-opacity-90" onChange={(ev) => {
+          setType("Yoga:" + ev.target.value.split(" ").join("-").toLowerCase());
+          }}>
+            <option disabled selected>Select Type</option>
+            <option>Hatha</option>
+            <option>Power</option>
+            <option>Nadisodhana</option>
+            <option>Surya Namaskar</option>
+            <option>Stretching</option>
+          </select>
+            </div>
+            </div>
+            {/* input box */}
             <form onSubmit={submitHandler}>
-              <p className="font-bold text-3xl m-4">LOG ACTIVITY </p>
-              <p className="font-bold  ml-4">COMMON ACTIVITY</p>
-              <div className="flex">
-                <img src={Benom_Yoga_icon} alt="Benom_Yoga_icon" className="mix-blend-darken w-[6.25rem] h-[6rem]" />
-                <div>
-                  <img src={fire_icon} alt="fire_icon.png" className="mix-blend-darken w-[7rem] h-[2rem] mt-2" />
-                  <select
-                    className="select select-bordered border-gray-700 w-full max-w-xs mb-3"
-                    onChange={(ev) => {
-                      setType("Yoga:" + ev.target.value.split(" ").join("-").toLowerCase());
-                    }}>
-                    <option disabled selected>
-                      Select type
-                    </option>
-                    <option>Hatha</option>
-                    <option>Power</option>
-                    <option>Nadisodhana</option>
-                    <option>Surya Namaskar</option>
-                    <option>Stretching</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                {/* <label className="font-bold  ml-4 " htmlFor="Date">
-                Date :{" "}
-              </label>
-              <input className="rounded-lg mb-2" type="date" id="Date" name="Date" placeholder="Select Date" /> <br /> */}
-                <label className="font-bold  ml-4" htmlFor="Weight">
-                  Weight(kg) :{" "}
+             <div className="mx-10 mt-7 max-lg:mx-0">
+              <div className="m-4">
+               <div className="flex-row ">
+               <label className="text-xl text-white" htmlFor="Weight">
+                  Date :
                 </label>
                 <input
-                  className="rounded-lg mb-2 w-40"
+                  className="text-white text-lg ml-20 border-white bg-dark-blue input input-bordered input-sm max-w-xs  rounded-lg w-2/4"
+                  type="date"
+                  id="date"
+                  name="date"
+                />
+                </div>
+                <br />
+              <div>
+              <label className="text-xl text-white" htmlFor="Weight">
+                  Weight(KG) :{" "}
+                </label>
+                <input
+                  className="text-white text-lg ml-4 border-white bg-dark-blue input input-bordered input-sm max-w-xs rounded-lg w-2/4"
                   type="text"
                   id="Weight"
                   name="Weight"
@@ -83,15 +91,13 @@ const Yoga = () => {
                   }}
                 />
                 <br />
-                {/* <label className="font-bold  ml-4" htmlFor="StartTime">
-                  Start Time :{" "}
-                </label>
-                <input className="rounded-lg mb-2" type="time" id="StartTime" name="StartTime" placeholder="HH:MM" step="3600" /> <br /> */}
-                <label className="font-bold  ml-4" htmlFor="Duration">
+                </div>
+                <div className="mt-6 ">
+                <label className="text-xl text-white" htmlFor="Duration">
                   Duration :{" "}
                 </label>
                 <input
-                  className="rounded-lg mb-2 w-20"
+                  className="text-white text-lg ml-10 input input-bordered input-sm border-white bg-dark-blue max-w-xs rounded-lg w-1/6"
                   type="number"
                   id="Duration"
                   name="Duration"
@@ -101,7 +107,7 @@ const Yoga = () => {
                   }}
                 />
                 <input
-                  className="rounded-lg mb-2 ml-1 w-20"
+                  className="text-white text-lg ml-3 input input-bordered input-sm border-white bg-dark-blue max-w-xs rounded-lg w-1/6"
                   type="number"
                   id="Duration"
                   name="Duration"
@@ -112,90 +118,21 @@ const Yoga = () => {
                     setMinute(ev.target.value);
                   }}
                 />
+                </div>
                 <br />
-                <h2 className="font-bold  ml-4">Calories: {calories + " kcal" || `submit to calculate`}</h2>
-                {/* <label className="font-bold  ml-4" htmlFor="Calories">
-                  Calories :{" "}
-                </label> */}
-                {/* <input className="rounded-lg mb-2 w-20" type="text" id="Calories" name="Calories" placeholder="Calories" /> <br /> */}
-                <button type="submit" className="btn bg-[#FF9671] hover:bg-[#F24822] mb-2 ml-4" disabled={!type || !weight || (!hour && !minute)}>
+                <h2 className="text-xl text-white">Calories:
+                  <span className="text-2lg ml-[3.6rem] bg-dark-blue text-white border border-white rounded-lg  py-1 px-24 max-md:px-8 max-sm:px-4">{calories + " kcal" || `submit to calculate`}</span>
+                  </h2>
+                <button type="submit" className="btn btn-white rounded-full btn-wide mt-10 disabled:text-white w-2/5" disabled={!type || !weight || (!hour && !minute)}>
                   Submit
                 </button>
-              </div>
-            </form>
-          </section>
-        </div>
+            </div>
+          </div>
+        </form>
       </div>
-
-      {/* <div className="flex justify-between bg-[#FF9671]">
-    <p className="font-bold text-3xl p-5">YOGA</p>
-    <img src={Benom_card_icon} alt="Benom_card_icon" />
-  </div>
-  <div className=" flex ">
-    <div>
-      <img src={yoga} alt="yoga" />
-    </div>
-    <div>
-      <a href="/log-activity"><p className="font-bold text-xl m-4">LOG ACTIVITY </p></a>
-      <p className="font-bold  ml-4">COMMON ACTIVITY</p>
-      <div className="flex">
-        <img src={Benom_Yoga_icon} alt="Benom_Yoga_icon" />
-        <div>
-          <img src={fire_icon} alt="fire_icon.png" />
-          <select className="select select-bordered border-gray-700 w-full max-w-xs mb-3">
-              <option disabled selected>
-                Y
-              </option>
-              <option>Cycling</option>
-              <option>Swimming</option>
-              <option>Yoga</option>
-              <option>Running</option>
-              <option>Walking</option>
-              <option>Calisthenics</option>
-            </select>
-        </div> 
-      </div>
-       <div >
-            <label className="font-bold  ml-4" htmlFor="Date">Date : </label>
-            <input
-              type="date"
-              id="Date"
-              name="Date"
-              placeholder="Select Date"
-            /> <br />
-            <label className="font-bold  ml-4" htmlFor="Weight">Weight(kg) : </label>
-            <input
-              type="text"
-              id="Weight"
-              name="Weight"
-              placeholder="Enter Weight in Kg"
-            /><br />
-            <label className="font-bold  ml-4" htmlFor="StartTime">Start Time : </label>
-            <input
-              type="time"
-              id="StartTime"
-              name="StartTime"
-              placeholder="HH:MM"
-            /> <br />
-            <label className="font-bold  ml-4" htmlFor="Duration">Duration : </label>
-            <input
-              type="number"
-              id="Duration"
-              name="Duration"
-              placeholder="HH:MM"
-            /> <br />
-            <label className="font-bold  ml-4" htmlFor="Calories">Calories : </label>
-            <input
-              type="text"
-              id="Calories"
-              name="Calories"
-              placeholder="Calories"
-            />
       </div>
     </div>
-  </div> */}
-    </>
+    
   );
 };
-
 export default Yoga;
