@@ -4,6 +4,7 @@ import Profile_Benom_Logo from "../../assets/Profile_Benom_Logo.png";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Loading from "../Layout/Loading";
+import PasswordValidator from "password-validator";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -21,6 +22,42 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const processedNewPassword = newpassword.trim();
+    const pwVa = new PasswordValidator();
+    pwVa.is().min(8);
+    pwVa.has().uppercase();
+    pwVa.has().lowercase();
+    pwVa.has().symbols();
+    pwVa.has().digits();
+    pwVa.has().not().spaces();
+    const errDetails = pwVa.validate(processedNewPassword, { details: true });
+    //make custom text
+    if (errDetails.length > 0) {
+      const myError = errDetails.map((err) => err.validation);
+      if (myError.indexOf("min") > -1) {
+        setPasswordError((old) => [...old, "Password length should be at least 8 characters"]);
+        localPasswordError = true;
+      }
+      if (myError.indexOf("uppercase") > -1) {
+        setPasswordError((old) => [...old, "Password should have at least 1 uppercased character"]);
+      }
+      if (myError.indexOf("lowercase") > -1) {
+        setPasswordError((old) => [...old, "Password should have at least 1 lowercased character"]);
+        localPasswordError = true;
+      }
+      if (myError.indexOf("symbols") > -1) {
+        setPasswordError((old) => [...old, "Password should have at least 1 symbol"]);
+        localPasswordError = true;
+      }
+      if (myError.indexOf("digits") > -1) {
+        setPasswordError((old) => [...old, "Password should have at least 1 number"]);
+        localPasswordError = true;
+      }
+      if (myError.indexOf("spaces") > -1) {
+        setPasswordError((old) => [...old, "Password should not contains a space"]);
+        localPasswordError = true;
+      }
+    }
     if (newpassword !== confirmPassword) {
       setConfirmPasswordError("confirm password needs to match your password");
       return;
@@ -29,7 +66,7 @@ const ResetPassword = () => {
       const response = await axios.patch(
         `
       https://benom-backend.onrender.com/resetPassword`,
-        { newPassword: newpassword, token }
+        { newPassword: processedNewPassword, token }
       );
       if (response.status === 200) {
         alert("successfully changed the password");
