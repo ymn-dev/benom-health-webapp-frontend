@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import calisthenicsBackground from "../../assets/calisthenics01.jpg";
 import benomIcon from "../../assets/Benom_Calisthenics_icon.png";
+import ExerciseChoices from "./exercises";
 
 const Calisthenics = () => {
   const [type, setType] = useState("");
@@ -27,6 +28,12 @@ const Calisthenics = () => {
       console.error(err);
     }
   };
+  
+  const options = [];
+  for (const choice in ExerciseChoices["Calisthenics"]) {
+    options.push(ExerciseChoices["Calisthenics"][choice]);
+  }
+
   return (
     <div className="flex  bg-cover min-h-screen  bg-center  " style={{ backgroundImage: `url(${calisthenicsBackground})` }}>
       <div className="w-2/5 max-lg:hidden">
@@ -44,7 +51,7 @@ const Calisthenics = () => {
                   Log Activities
                 </h3>
               </div>
-              <img className="m-auto h-28 max-sm:hidden" src={benomIcon} alt="" />
+              <img className="m-auto h-28 max-sm:hidden rounded-2xl" src={benomIcon} alt="" />
               <div className="">{/* <img src={Benom_Calisthenics_icon} alt="Benom_Calisthenics_icon" className=" h-[12rem] w-auto  max-sm:hidden mx-auto rounded-xl mix-blend-multiply"/> */}</div>
             </div>
             <div className="">
@@ -57,11 +64,9 @@ const Calisthenics = () => {
                 <option disabled selected>
                   Select Type
                 </option>
-                <option>Vigorous</option>
-                <option>Moderate</option>
-                <option>Light</option>
-                <option>Water</option>
-                <option>General</option>
+                {options.map((opt) => {
+                      return <option>{opt}</option>;
+                    })}
               </select>
             </div>
           </div>

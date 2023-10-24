@@ -123,16 +123,16 @@ const AddLog = ({ reload, setReload }) => {
   {/*Dropdown*/}
 
 {/*Should be hover with animation*/}
-          <img src={venomIconGroup} width={200} height={200} className="max-w-[550px] w-full mx-auto" />
+          <img src={venomIconGroup} width={900} height={900} className="" /> 
 
           
           <div>
-            <p className="mr-2 text-xl text-center">
-              create custom activities
+            <p className="mr-2 text-center mb-5 mt-5">
+              <span className="text-xl">create custom activities</span>
 
 
 {/*Modal button*/}
-              <button className="btn" onClick={()=>document.getElementById('my_modal_1').showModal()} disabled={!selectedOption1}>
+              <button className="btn disable:text-black disabled:opacity-20" onClick={()=>document.getElementById('my_modal_1').showModal()} disabled={!selectedOption1}>
                 <img src={plus_button} width={15} height={15} />  
               </button>
 
@@ -144,12 +144,13 @@ const AddLog = ({ reload, setReload }) => {
                     </form>
 
     {/*Modal - Activity : */}
-                  <h3 className="font-bold text-xl pb-5">Activity : {selectValue}</h3>
-                  <ul>
+                  <h3 className="font-bold text-xl pt-3 pb-8">Activity : {selectValue}</h3>
+                  
+                  <div>
     {/*Select type*/}
-                    <li className="text-start">
+                    <div className="ml-7 text-start">
                       Options:
-                      <select className="select select-bordered select-sm w-2/3 max-w-x ml-6" value={selectedOption2} onChange={(event) => setSelectedOption2(event.target.value)}>
+                      <select className="select select-bordered select-sm w-2/3 max-w-x ml-9" value={selectedOption2} onChange={(event) => setSelectedOption2(event.target.value)}>
                         <option disabled selected value="">
                           Choose sport options
                         </option>
@@ -159,26 +160,26 @@ const AddLog = ({ reload, setReload }) => {
                           </option>
                         ))}
                       </select>
-                    </li>
+                    </div>
                     <br />
         {/*Date*/}
-                    <li className="text-start">
+                    <div className="ml-7 text-start">
                       Date:
                       <input
                         type="date"
-                        className="input input-bordered input-sm w-2/3 max-w-x ml-12"
+                        className="input input-bordered input-sm w-2/3 max-w-x ml-14"
                         max={new Date().toISOString().split("T")[0]}
                         onChange={(ev) => {
                           setDate(ev.target.value);
                         }}
                       />
-                    </li>
+                    </div>
                     <br />
       {/*Start-Time*/}
-                    <li className="text-start">
+                    <div className="ml-7 text-start">
                       Start Time:
                       <select
-                        className="select select-bordered select-sm w-1/6 max-w-x ml-2 mr-2 text-center"
+                        className="select select-bordered select-sm w-1/6 max-w-x ml-5 mr-2 text-center"
                         value={selectedHour}
                         onChange={(ev) => {
                           setSelectedHour(ev.target.value);
@@ -211,16 +212,16 @@ const AddLog = ({ reload, setReload }) => {
                           </option>
                         ))}
                       </select>
-                    </li>
+                    </div>
                     <br />
 
       {/*Duration*/}
-                    <li className="text-start">
+                    <div className="ml-7 text-start">
                       Duration:
                       <input
                         type="number"
                         placeholder="HH"
-                        className="input input-bordered input-sm w-1/6 max-w-x ml-4 mr-2 text-center"
+                        className="input input-bordered input-sm w-1/6 max-w-x ml-7 mr-2 text-center"
                         min="0"
                         onChange={(ev) => {
                           setDurationHour(ev.target.value);
@@ -236,31 +237,32 @@ const AddLog = ({ reload, setReload }) => {
                           setDurationMinute(ev.target.value);
                         }}
                       />
-                    </li>
+                    </div>
                     <br />
 
        {/*Calories*/}
-                    <li className="text-start mb-5">
+                    <div className="ml-7 text-start mb-6">
                       Calories:
                       <input
                         type="number"
                         placeholder="Enter Calories"
-                        className="input input-bordered input-sm w-2/3 max-w-x ml-4"
+                        className="input input-bordered input-sm w-2/3 max-w-x ml-8"
                         min="0"
                         onChange={(ev) => {
                           setCalories(ev.target.value);
                         }}
                       />
 
-                      <span className="lg:tooltip" data-tip="Will automatically calculate if no input">
+                      <span className="tooltip tooltip-left tooltip-success absolute justify-center" data-tip="Will automatically calculate if no input">
                       <img
                         src={alert}
-                        className="w-6 h-6 ml-1 md:ml-2 lg:ml-2"
+                        className="w-6 h-7 ml-1 pt-1"
                         alt="alert" 
                       />
                       </span> 
-                    </li>
-                  </ul>
+
+                    </div>
+                  </div>
                   {/*Modal*/}
 
                 {/*Update image*/}
@@ -291,7 +293,7 @@ const AddLog = ({ reload, setReload }) => {
           {/*Modal*/}
 
           {/*venomสีส้ม*/}
-          <img src={venom_orangePic} alt="venom_orangePic" className="rounded-lg w-full mx-auto mb-10 mt-12" />
+          <img src={venom_orangePic} alt="venom_orangePic" className="rounded-lg w-full mx-auto mb-12 mt-12" />
         </div>
     </>
   );

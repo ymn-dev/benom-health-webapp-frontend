@@ -133,6 +133,8 @@ const ActivityGraph = ({ ExerciseLog }) => {
   return (
     <>
       <div className="flex">
+      
+
         <select
           className="select select-bordered border-gray-700 ml-auto bg-white"
           onChange={(ev) => {
@@ -149,9 +151,23 @@ const ActivityGraph = ({ ExerciseLog }) => {
         </select>
       </div>
       <div id="line-chart">
+      
+      <div className="flex-start ml-1">
+       <span className="text-xl font-bold border-solid border-2 rounded-full px-2 py-1 border-dark-sea bg-dark-sea text-white">
+        Calories
+       </span>
+      </div>
+
         <div>
           <Line data={data} />
         </div>
+      
+      <div className="flex justify-end mr-1">
+       <span className="text-xl font-bold border-solid border-2 rounded-full px-6 py-1 border-dark-sea bg-dark-sea text-white">
+          Date
+       </span>
+      </div>
+
       </div>
 
       {/*เส้นตรงสีดำ เริ่ม*/}

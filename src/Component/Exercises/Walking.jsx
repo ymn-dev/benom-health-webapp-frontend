@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import walkingBackground from "../../assets/walking01.png";
 import benomIcon from "../../assets/Benom_Walking_icon.png";
+import ExerciseChoices from "./exercises";
 
 const Walking = () => {
   const [type, setType] = useState("");
@@ -27,6 +28,10 @@ const Walking = () => {
       console.error(err);
     }
   };
+  const options = [];
+  for (const choice in ExerciseChoices["Walking"]) {
+    options.push(ExerciseChoices["Walking"][choice]);
+  }
   return (
     <div className="flex  bg-cover min-h-screen  bg-center  " style={{ backgroundImage: `url(${walkingBackground})` }}>
       <div className="w-2/5 max-lg:hidden">
@@ -44,7 +49,7 @@ const Walking = () => {
                   Log Activities
                 </h3>
               </div>
-              <img className="m-auto h-28 max-sm:hidden" src={benomIcon} alt="" />
+              <img className="m-auto h-28 max-sm:hidden rounded-xl" src={benomIcon} alt="" />
               <div className="">{/* <img src={Benom_Calisthenics_icon} alt="Benom_Calisthenics_icon" className=" h-[12rem] w-auto  max-sm:hidden mx-auto rounded-xl mix-blend-multiply"/> */}</div>
             </div>
             <div className="">
@@ -57,11 +62,9 @@ const Walking = () => {
                 <option disabled selected>
                   Select Type
                 </option>
-                <option>Race</option>
-                <option>Normal</option>
-                <option>Slow</option>
-                <option>Stair Climb</option>
-                <option>Hills Climb</option>
+                {options.map((opt) => {
+                      return <option>{opt}</option>;
+                    })}
               </select>
             </div>
           </div>
