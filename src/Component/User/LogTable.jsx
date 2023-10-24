@@ -179,26 +179,26 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
           {/*view only Modal*/}
-          <h3 className="text-xl font-bold text-center pb-5">View Details</h3>
+          <h3 className="text-xl font-bold text-center pb-5 mt-3 mb-3">View Details</h3>
           <img src={selectedModal.picture || "https://i.ibb.co/ck92yGC/Screenshot-2023-10-20-225703.png"} className="rounded-lg" />
 
-          <div className="text-xl w-full flex py-3">
-            <span className=" w-3/12 text-right">Activity: </span> <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.exerciseName && revertName(selectedModal.exerciseName)}</span>
+          <div className="w-full flex py-2 mt-2">
+            <span className="w-3/12 pl-2">Activity: </span> <span className="pl-4 py-1 bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.exerciseName && revertName(selectedModal.exerciseName)}</span>
           </div>
-          <div className="text-xl w-full flex py-3">
-            <span className=" w-3/12 text-right">Date: </span> <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.date && selectedModal.date.split("T")[0]}</span>
+          <div className="w-full flex py-2">
+            <span className=" w-3/12 pl-2">Date: </span> <span className="pl-4 py-1 bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.date && selectedModal.date.split("T")[0]}</span>
           </div>
-          <div className="text-xl w-full flex py-3">
-            <span className=" w-3/12 text-right">Start-Time: </span> <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.startTime}</span>
+          <div className="w-full flex py-2">
+            <span className="w-3/12 pl-2">Start-Time: </span> <span className="pl-4 py-1 bg-sea-blue border border-slate-300 rounded-lg w-9/12">{selectedModal.startTime}</span>
           </div>
-          <div className="text-xl w-full flex py-3">
-            <span className=" w-3/12 text-right">Duration: </span>{" "}
-            <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{`${
-              selectedModal.duration >= 60 ? `${Math.floor(selectedModal.duration / 60)} hr ${Math.round(selectedModal.duration % 60)} min` : `${Math.round(selectedModal.duration % 60)} min`
+          <div className="w-full flex py-2">
+            <span className="w-3/12 pl-2">Duration: </span>{" "}
+            <span className="pl-4 py-1 bg-sea-blue border border-slate-300 rounded-lg w-9/12">{`${
+              selectedModal.duration >= 60 ? `${Math.floor(selectedModal.duration / 60)} hour ${Math.round(selectedModal.duration % 60)} minutes` : `${Math.round(selectedModal.duration % 60)} min`
             }`}</span>
           </div>
-          <div className="text-xl w-full flex py-3">
-            <span className=" w-3/12 text-right">Calories: </span> <span className="pl-4 text-xl text-black bg-sea-blue border border-slate-300 rounded-lg w-9/12">{`${Math.round(selectedModal.calories)} kcals`}</span>
+          <div className="w-full flex py-2">
+            <span className=" w-3/12 pl-2">Calories: </span> <span className="pl-4 py-1 bg-sea-blue border border-slate-300 rounded-lg w-9/12">{`${Math.round(selectedModal.calories)} kcals`}</span>
           </div>
 
           <div className="modal-action">
@@ -237,12 +237,12 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
 
-          <h3 className="text-xl font-bold text-center pb-5">Edit Details</h3>
+          <h3 className="text-xl font-bold text-center pt-2 pb-7">Edit Details</h3>
 
           {/*Upload Image*/}
           <img src={editModal.picture || (selectedModal.picture ? selectedModal.picture : tempImageUrl)} alt="image" className="rounded-lg" />
           <div className="w-full my-3 flex">
-            <span className="text-right w-4/12 mr-2">New Image URL: </span>
+            <span className="text-start pl-4 w-4/12 mr-2">New Image URL: </span>
             <input
               type="text"
               onChange={(ev) => {
@@ -255,7 +255,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
           {/*Upload image*/}
 
           <div className="w-full my-3 flex">
-            <span className="text-right w-4/12 mr-2">Activity Type: </span>
+            <span className="text-start pl-4 w-4/12 mr-2">Activity Type: </span>
             <select className="select select-bordered select-sm w-8/12 mr-6" value={selectedOption1} onChange={handleDropdown1Change}>
               <option disabled value="" selected>
                 Choose new activity type
@@ -268,7 +268,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
             </select>
           </div>
           <div className="w-full my-3 flex">
-            <span className="text-right w-4/12 mr-2">Activity Variation: </span>
+            <span className="text-start pl-4 w-4/12 mr-2">Activity Variation: </span>
             <select
               className="select select-bordered select-sm w-8/12 mr-6"
               value={selectedOption2}
@@ -287,7 +287,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
           </div>
 
           <div className="w-full my-3 flex">
-            <span className="text-right w-4/12 mr-2"> Date: </span>
+            <span className="text-start pl-4 w-4/12 mr-2"> Date: </span>
             <input
               type="date"
               className="input input-bordered input-sm w-8/12 mr-6"
@@ -299,10 +299,10 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
             />
           </div>
           <div className="w-full my-3 flex">
-            <span className="text-right w-4/12 mr-2"> Start time: </span>
+            <span className="text-start pl-4 w-4/12 mr-2"> Start time: </span>
             <div className="w-8/12 mr-6">
               <select
-                className="select select-bordered select-sm text-center w-3/12"
+                className="select select-bordered select-sm text-center w-3/12 mr-2"
                 value={selectedHour || editModal.startTime}
                 onChange={(ev) => {
                   setSelectedHour(ev.target.value);
@@ -319,7 +319,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
               </select>
               :
               <select
-                className="select select-bordered select-sm w-3/12 text-center"
+                className="select select-bordered select-sm w-3/12 text-center ml-2"
                 onChange={(ev) => {
                   setSelectedMinute(ev.target.value);
                 }}
@@ -337,12 +337,12 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
             </div>
           </div>
           <div className="w-full my-3 flex">
-            <span className="text-right w-4/12 mr-2"> Duration: </span>
+            <span className="text-start pl-4 w-4/12 mr-2"> Duration: </span>
             <div className="w-8/12 mr-6">
               <input
                 type="number"
                 placeholder="HH"
-                className="input input-bordered input-sm w-3/12 text-center"
+                className="input input-bordered input-sm w-3/12 text-center mr-2"
                 min="0"
                 value={durationHour || Math.floor(editModal.duration / 60)}
                 onChange={(ev) => {
@@ -354,7 +354,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
                 type="number"
                 placeholder="MM"
                 value={durationMinute || editModal.duration % 60}
-                className="input input-bordered input-sm w-3/12 text-center"
+                className="input input-bordered input-sm w-3/12 text-center ml-2"
                 min="0"
                 onChange={(ev) => {
                   setDurationMinute(ev.target.value);
@@ -363,7 +363,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
             </div>
           </div>
           <div className="w-full my-3 flex relative">
-            <span className="text-right w-4/12 mr-2"> Calories: </span>
+            <span className="text-start pl-4 w-4/12 mr-2"> Calories: </span>
             <input
               type="number"
               placeholder="Enter Calories"

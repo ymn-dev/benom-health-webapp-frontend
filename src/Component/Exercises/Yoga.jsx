@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import yogaBackground from "../../assets/yoga01.jpg";
 import benomIcon from "../../assets/Benom_Yoga_icon.png";
+import ExerciseChoices from "./exercises";
 
 const Yoga = () => {
   const [type, setType] = useState("");
@@ -27,6 +28,10 @@ const Yoga = () => {
       console.error(err);
     }
   };
+  const options = [];
+  for (const choice in ExerciseChoices["Yoga"]) {
+    options.push(ExerciseChoices["Yoga"][choice]);
+  }
 
   return (
     <div className="flex  bg-cover min-h-screen  bg-center  " style={{ backgroundImage: `url(${yogaBackground})` }}>
@@ -45,7 +50,7 @@ const Yoga = () => {
                   Log Activities
                 </h3>
               </div>
-              <img className="m-auto h-28 max-sm:hidden" src={benomIcon} alt="" />
+              <img className="m-auto h-28 max-sm:hidden rounded-xl" src={benomIcon} alt="" />
               <div className="">{/* <img src={Benom_Calisthenics_icon} alt="Benom_Calisthenics_icon" className=" h-[12rem] w-auto  max-sm:hidden mx-auto rounded-xl mix-blend-multiply"/> */}</div>
             </div>
             <div className="">
@@ -58,11 +63,9 @@ const Yoga = () => {
                 <option disabled selected>
                   Select Type
                 </option>
-                <option>Hatha</option>
-                <option>Power</option>
-                <option>Nadisodhana</option>
-                <option>Surya Namaskar</option>
-                <option>Stretching</option>
+                {options.map((opt) => {
+                      return <option>{opt}</option>;
+                    })}
               </select>
             </div>
           </div>

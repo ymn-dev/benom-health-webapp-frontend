@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import swimmingBackground from "../../assets/swimming01.jpg";
 import benomIcon from "../../assets/Benom_Swimming_icon.png";
+import ExerciseChoices from "./exercises";
 
 const Swimming = () => {
   const [type, setType] = useState("");
@@ -27,6 +28,10 @@ const Swimming = () => {
       console.error(err);
     }
   };
+  const options = [];
+  for (const choice in ExerciseChoices["Swimming"]) {
+    options.push(ExerciseChoices["Swimming"][choice]);
+  }
   return (
     <div className="flex  bg-cover min-h-screen  bg-center  " style={{ backgroundImage: `url(${swimmingBackground})` }}>
       <div className="w-2/5 max-lg:hidden">
@@ -44,7 +49,7 @@ const Swimming = () => {
                   Log Activities
                 </h3>
               </div>
-              <img className="m-auto h-28 max-sm:hidden" src={benomIcon} alt="" />
+              <img className="m-auto h-28 max-sm:hidden rounded-xl" src={benomIcon} alt="" />
               <div className="">{/* <img src={Benom_Calisthenics_icon} alt="Benom_Calisthenics_icon" className=" h-[12rem] w-auto  max-sm:hidden mx-auto rounded-xl mix-blend-multiply"/> */}</div>
             </div>
             <div className="">
@@ -57,11 +62,9 @@ const Swimming = () => {
                 <option disabled selected>
                   Select Type
                 </option>
-                <option>Moderate Freestyle</option>
-                <option>General Backstroke</option>
-                <option>General Breatstroke</option>
-                <option>General Butterfly</option>
-                <option>General Sidestroke</option>
+                {options.map((opt) => {
+                      return <option>{opt}</option>;
+                    })}
               </select>
             </div>
           </div>
