@@ -12,6 +12,7 @@ const ResetPassword = () => {
   try {
     decoded = jwt_decode(token);
   } catch (error) {
+    alert(response.response.data.error);
     console.error("Failed to decode token:", error);
   }
   const [newpassword, setNewpassword] = useState("");
@@ -25,19 +26,21 @@ const ResetPassword = () => {
       setConfirmPasswordError("confirm password needs to match your password");
       return;
     }
-    try {setLoading(true);
+    try {
+      setLoading(true);
       const response = await axios.patch(
         `
       https://benom-backend.onrender.com/resetPassword`,
         { newPassword: newpassword, token }
       );
+      setLoading(false);
       if (response.status === 200) {
         alert("successfully changed the password");
-        setLoading(false);
       }
     } catch (err) {
+      setLoading(false);
       console.error(err);
-      alert("some error happened, try again");
+      alert(err.response.data.error);
     }
   };
 
@@ -52,12 +55,26 @@ const ResetPassword = () => {
       <form onSubmit={handleSubmit} className="max-w-[250px] w-full mx-auto pb-3">
         <div className="flex flex-col ml-8 gap-y-3">
           <label>
-            <input className="input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white" type="password" placeholder="New Password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)} required />
+            <input
+              className="input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white"
+              type="password"
+              placeholder="New Password"
+              value={newpassword}
+              onChange={(e) => setNewpassword(e.target.value)}
+              required
+            />
           </label>
         </div>
         <div className="flex flex-col ml-8 gap-y-3">
           <label>
-            <input className="input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white" type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setconfirmPassword(e.target.value)} required />
+            <input
+              className="input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white"
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setconfirmPassword(e.target.value)}
+              required
+            />
           </label>
         </div>
         {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}

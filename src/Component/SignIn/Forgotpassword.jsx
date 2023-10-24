@@ -10,18 +10,21 @@ const Forgotpassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try { setLoading(true);
+    try {
+      setLoading(true);
       //https://benom-backend.onrender.com
       const response = await axios.post(
         `
       https://benom-backend.onrender.com/resetPassword`,
         { email }
       );
+
       if (response.status === 200) {
         alert("success, please check your email");
-        setLoading(false);
       }
     } catch (err) {
+      setLoading(false);
+      alert(err.response.data.error);
       console.error(err);
     }
   };
@@ -31,6 +34,7 @@ const Forgotpassword = () => {
       <div className="ForgotImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>
+      <Loading loading={loading} />
       <h1 className="text-white text-4xl font-extrabold flex justify-center">BENOM</h1>
       <h1 className=" text-center my-2 font-bold text-slate-300">Forgot Password</h1>
       <form onSubmit={handleSubmit} className="max-w-[250px] w-full mx-auto pb-3">
