@@ -52,7 +52,7 @@ const Dashboard = () => {
       <div className="bg-slate-700 pb-7">
         <div className="md:block">
           <h1 className="text-6xl text-white pt-10 pb-6 text-center">Activities log</h1>
-          <div id="common_activity" className="border-solid border-2 border-white bg-white my-6 ml-5 mr-5 rounded-lg pb-5 xl:mx-60 xl:my-10">
+          <div id="common_activity" className="border-solid border-2 border-white bg-white my-6 ml-5 mr-5 rounded-lg pb-5 xl:mx-40 xl:my-10">
             <ActivityGraph ExerciseLog={ExerciseLog} />
           </div>
         </div>
