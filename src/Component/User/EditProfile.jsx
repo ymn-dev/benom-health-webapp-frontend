@@ -84,8 +84,8 @@ const EditProfile = () => {
 
   return (
     <div className="bg-dark-blue pt-20 pb-20 min-h-screen">
-      <div className="md:w-1/2 mx-auto">
-        <div className="bg-dark-sea  rounded-t-lg ">
+      <div className="lg:px-20">
+        <div className="bg-dark-sea rounded-t-lg ">
           <div className="flex justify-between items-center">
             <div className="relative left-1/2 top-20 transform -translate-x-1/2  lg:left-1/4">
               <img src={user.profilePicture || defaultPicture} alt="Profile" className="w-48 h-48 rounded-full" />
@@ -98,8 +98,8 @@ const EditProfile = () => {
         </div>
 
         {/* ส่วนล่าง  */}
-        <div className="bg-white p-10  rounded-b-lg  md:flex md:flex-row">
-          <div className="md:flex-1">
+        <div className="bg-white py-10 rounded-b-lg flex flex-row">
+          <div className="md:ml-40">
             <h2 className="text-dark-sea font-bold text-2xl mb-5 mt-16 text-center md:text-left">PERSONAL INFO</h2>
             <div className="field-value-pair">
               <p className="mb-2 mt-1">
@@ -187,6 +187,7 @@ const EditProfile = () => {
                       id="birthday"
                       placeholder={"Add birthday only once time"}
                       value={birthday}
+                      max={new Date().toISOString().split("T")[0]}
                       onChange={(ev) => {
                         setbirthday(ev.target.value);
                       }}
@@ -205,13 +206,13 @@ const EditProfile = () => {
                   type="number"
                   name="height"
                   id="height"
-                  placeholder="Height (cm)"
+                  placeholder={user.height+" (cm)" ||"Height (cm)" }
                   value={height}
                   min={0}
                   onChange={(ev) => {
                     setheight(ev.target.value);
                   }}
-                  className="bg-white border border-dark-sea p-1 mb-1 ml-9 lg:ml-10"
+                  className="bg-white border border-dark-sea mb-1 ml-9 py-1"
                 />
               </p>
               <p className="mb-2 mt-1">
@@ -220,16 +221,16 @@ const EditProfile = () => {
                   type="number"
                   name="weight"
                   id="weight"
-                  placeholder="Weight (kg)"
+                  placeholder={user.weight+" (kg)" || "Weight (kg)" }
                   value={weight}
                   min={0}
                   onChange={(ev) => {
                     setweight(ev.target.value);
                   }}
-                  className="bg-white border border-dark-sea p-1 mb-1  ml-8 lg:ml-9"
+                  className="bg-white border border-dark-sea mb-1 ml-8 py-1"
                 />
-                <span className="tooltip " data-tip="Must add weight before calculation calories.">
-                  <img src={alert} className="w-6 h-6 ml-1 md:ml-2 lg:ml-2" alt="alert" />
+                <span className="tooltip pr-10" data-tip="Must add weight before calculation calories.">
+                  <img src={alert} className="w-4 h-6 ml-1 pt-2" alt="alert" />
                 </span>
               </p>
             </div>
@@ -283,8 +284,8 @@ const EditProfile = () => {
           </div>
 
           {/* ส่วนขวา */}
-          <div className="md:flex-1 hidden lg:flex">
-            <img src={venom} alt="venomimg-right-profile" />
+          <div>
+            <img src={venom} alt="venomimg-right-profile" width={500} className="md:flex-1 hidden lg:flex mr-20"/>
           </div>
         </div>
       </div>

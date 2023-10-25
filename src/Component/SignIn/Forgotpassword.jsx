@@ -18,7 +18,8 @@ const Forgotpassword = () => {
       https://benom-backend.onrender.com/resetPassword`,
         { email }
       );
-
+      setLoading(false); 
+      
       if (response.status === 200) {
         alert("success, please check your email");
       }
