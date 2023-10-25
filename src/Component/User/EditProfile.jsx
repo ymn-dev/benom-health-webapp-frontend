@@ -83,7 +83,7 @@ const EditProfile = () => {
   }
 
   return (
-    <div className="bg-dark-blue pt-20 pb-20 h-screen">
+    <div className="bg-dark-blue pt-20 pb-20 min-h-screen">
       <div className="md:w-1/2 mx-auto">
         <div className="bg-dark-sea  rounded-t-lg ">
           <div className="flex justify-between items-center">

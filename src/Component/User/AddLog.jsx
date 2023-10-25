@@ -111,11 +111,11 @@ const AddLog = ({ reload, setReload }) => {
   };
 
   return (
-    <>
+    <div className="min-h-screen">
       {/*Activity log*/}
       <h2 className="text-4xl mt-10 mb-10 text-center">Common activities</h2>
       {/*Dropdown*/}
-      <div className="text-center">
+      <div className="text-center pb-5">
         <select className="select select-bordered select-lg border-gray-700 w-full max-w-xs bg-white text-xl" value={selectedOption1} onChange={handleDropdown1Change} onClick={handleSelect}>
           <option disabled selected value="">
             Choose your exercise
@@ -129,14 +129,14 @@ const AddLog = ({ reload, setReload }) => {
         {/*Dropdown*/}
 
         {/*Should be hover with animation*/}
-        <img src={venomIconGroup} width={900} height={900} className="" />
+        <img src={venomIconGroup} className="w-full pb-7 pt-6" />
 
         <div>
           <p className="mr-2 text-center mb-5 mt-5">
-            <span className="text-xl">create custom activities</span>
+            <span className="text-2xl">create custom activities</span>
 
             {/*Modal button*/}
-            <button className="btn disable:text-black disabled:opacity-20 ml-2" onClick={openmodal} disabled={!selectedOption1}>
+            <button className="btn disable:text-black disabled:opacity-40 ml-2" onClick={openmodal} disabled={!selectedOption1}>
               <img src={plus_button} width={15} height={15} />
             </button>
 
@@ -290,9 +290,9 @@ const AddLog = ({ reload, setReload }) => {
         {/*Modal*/}
 
         {/*venomสีส้ม*/}
-        <img src={venom_orangePic} alt="venom_orangePic" className="rounded-lg w-full mx-auto mb-12 mt-12" />
+        <img src={venom_orangePic} alt="venom_orangePic" className="rounded-lg w-full mb-12 mt-12" />
       </div>
-    </>
+    </div>
   );
 };
 

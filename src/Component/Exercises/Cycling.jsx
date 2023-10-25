@@ -98,6 +98,7 @@ const Cycling = () => {
                     id="Duration"
                     name="Duration"
                     placeholder="HH"
+                    min="0"
                     onChange={(ev) => {
                       setHour(ev.target.value);
                     }}
@@ -109,7 +110,6 @@ const Cycling = () => {
                     name="Duration"
                     placeholder="MM"
                     min="0"
-                    max="60"
                     onChange={(ev) => {
                       setMinute(ev.target.value);
                     }}
