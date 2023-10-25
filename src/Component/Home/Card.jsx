@@ -12,10 +12,10 @@ const Card = ({ Name, Image, Text }) => {
       <div className="w-370 h-307 overflow-hidden">
         <img src={Image} alt={Name} className="w-full h-full object-cover" />
       </div>
-      <div className=" bg-slate-200 p-4 h-30 w-100 justify-center items-center">
+      <div className=" bg-slate-200 p-4 h-40 w-100 justify-center items-center">
         <p className="text-slate-700 font-family: 'Nunito' mt-2 mb-8 text-center">{Text}</p> 
       </div>
-      <div className="card-actions justify-center pb-4 ">
+      <div className="card-actions justify-center pb-4 h-20">
        <Link to={link} className=" text-slate-700 mt-2 font-bold justify-center btn btn-wide rounded-full bg-slate-200 border-gray-400 hover:bg-sea-blue duration-500 hover:border-gray-400 hover:scale-105">
          {'Learn more'}
         </Link>
