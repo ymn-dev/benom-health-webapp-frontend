@@ -12,15 +12,14 @@ const Card = ({ Name, Image, Text }) => {
   <div className="w-full overflow-hidden">
     <img src={Image} alt={Name} className="w-full h-full object-cover" />
   </div>
-  <div className="bg-slate-200 h-full  flex-col justify-between space-y-2 pb-5">
-    <div className=" h-fit">
-      <p className="text-slate-700  m-4 font-family: 'Nunito' ">{Text}</p>
+  <div className="bg-slate-200 h-full  flex-col justify-between pb-5">
+    <div className=" ">
+      <p className="text-slate-700  h-28  m-4  font-family: 'Nunito' ">{Text}</p>
     </div>
-    <div className="card-actions justify-center  ">
+    <div className=" justify-center  ">
       <Link
         to={link}
         className="  text-slate-700 mt-2 font-bold btn btn-wide rounded-full bg-slate-200 border-gray-400 hover:bg-sea-blue duration-500 hover:border-gray-400 hover:scale-105"
-        
       >
         {'Learn more'}
       </Link>
