@@ -113,9 +113,9 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
     <>
       {/* Table log Data  */}
 
-      <div className="my-4 xl:mx-10 mx-5 border border-dark-blue rounded-t-3xl ">
+      <div className="my-4 xl:mx-10 mx-5 border border-dark-blue rounded-t-3xl min-h-screen">
         {/*container mx-auto max-w-screen-lg*/}
-        <table className="w-full bg-dark-blue text-white rounded-t-3xl ">
+        <table className="w-full bg-dark-blue text-white rounded-t-3xl">
           <thead className=" ">
             <tr className="py-4 ">
               <th className="xl:w-3/12 w-3/12 text-center font-bold uppercase text-white">Activity</th>
@@ -141,7 +141,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
                 <td className="xl:w-1/12 w-1/12 text-center text-black">{Math.round(Log.calories)}</td>
 
                 {/*ปุ่ม VIEW DETAIL*/}
-                <td className="xl:w-2/12 w-2/12 text-center text-black py-2">
+                <td className="xl:w-2/12 w-2/12 text-center text-black py-3">
                   <button
                     className="btn btn-warning border-black"
                     onClick={() => {
@@ -171,6 +171,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
           </tbody>
         </table>
       </div>
+
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
         <Loading loading={loading} />
         <div className="modal-box">

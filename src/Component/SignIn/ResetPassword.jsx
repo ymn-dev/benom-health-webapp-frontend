@@ -45,7 +45,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="bg-dark-blue h-screen w-full">
+    <div className="bg-dark-blue pb-10 min-h-screen">
       <div className="ForgotImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>

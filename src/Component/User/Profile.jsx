@@ -80,9 +80,9 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-dark-blue pt-20 pb-20 h-screen ">
-      <div className="md:w-1/2 mx-auto">
-        <div className="bg-dark-sea   rounded-t-lg ">
+    <div className="bg-dark-blue pt-20 pb-20 min-h-screen">
+      <div className="lg:px-40">
+        <div className="bg-dark-sea rounded-t-lg">
           <div className="flex justify-between items-center">
             <div className="relative left-1/2 top-20 transform -translate-x-1/2  lg:left-1/4">
               <img src={user.profilePicture || defaultPicture} alt="Profile" className="w-48 h-48 rounded-full" />
@@ -125,7 +125,7 @@ const Profile = () => {
         </div>
 
         {/* ส่วนด้านล่าง */}
-        <div className="bg-white p-10  rounded-b-lg  md:flex md:flex-row">
+        <div className="bg-white rounded-b-lg md:flex md:flex-row pl-32 py-5">
           <div className="md:flex-1">
             <h2 className="text-dark-sea font-bold text-2xl mb-5 mt-16 text-center md:text-left ">PERSONAL INFO</h2>
 
@@ -160,9 +160,9 @@ const Profile = () => {
               </p>
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex">
               <Link to="/edit-profile">
-                <button className="bg-dark-sea hover:bg-dark-blue text-white font-bold py-2 px-4 rounded block mx-auto  md:mx-0 mt-5 ">Edit</button>
+                <button className="justify-center bg-dark-sea hover:bg-dark-blue text-white font-bold py-2 px-4 rounded block mx-auto  md:mx-0 mt-5 ">Edit</button>
               </Link>
 
               {/* ส่วน Delete botton   */}
@@ -194,8 +194,8 @@ const Profile = () => {
           </div>
 
           {/* ส่วนด้านขวา  */}
-          <div className="md:flex-1 hidden lg:flex">
-            <img src={venom} alt="venomimg-right-profile" />
+          <div className="md:flex-1 hidden lg:flex mr-20">
+            <img src={venom} alt="venomimg-right-profile" width={500}/>
           </div>
         </div>
       </div>

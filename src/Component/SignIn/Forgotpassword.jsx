@@ -30,7 +30,7 @@ const Forgotpassword = () => {
   };
 
   return (
-    <div className="bg-dark-blue h-screen w-full">
+    <div className="bg-dark-blue pb-10 min-h-screen">
       <div className="ForgotImageContainer">
         <img src={Profile_Benom_Logo} width={170} height={70} className="max-w-[250px] mx-auto pt-20" />
       </div>
@@ -48,7 +48,7 @@ const Forgotpassword = () => {
           Reset Password
         </button>
         <Link to="/signin">
-          <button className="btn-sm bg-white hover:bg-[#d7d5d5] hover:scale-105 shadow-md shadow-gray-950 duration-150 rounded-lg text-center font-medium p-1">Back to Sign In</button>
+          <button className="btn-sm bg-white hover:bg-[#d7d5d5] hover:scale-105 shadow-md shadow-gray-950 duration-150 rounded-lg text-center font-medium p-1 mb-5">Back to Sign In</button>
         </Link>
       </form>
       <div className="flex justify-center gap-4 pb-4"></div>

@@ -4,8 +4,10 @@ import venom from "../../assets/venom-about.png";
 import venom1 from "../../assets/venom1.webp";
 import venom2 from "../../assets/venom2.jpg";
 import venom3 from "../../assets/venom3.png";
-import venom4 from "../../assets/venom4.jfif";
+import venom4 from "../../assets/venom4.png";
 import venom5 from "../../assets/venom5.png";
+import { Link } from "react-router-dom";
+
 
 const About = () => {
   const AboutStyle = {
@@ -13,24 +15,23 @@ const About = () => {
   };
   return (
     <>
-      <div className="min-h-screen  bg-cover bg-center p-10 pb-20" style={AboutStyle}>
+      <div className="bg-cover bg-center p-10 pb-20" style={AboutStyle}>
         <div className="   text-white flex items-center">
           <div className="w-full md:w-1/2 ">
             <h1 className="text-4xl font-bold font-family: 'Nunito'">About Us</h1>
 
-            <div className="p-4 bg-gray-200 bg-opacity-25 rounded-lg mt-4">
+            <div className="p-4 bg-white bg-opacity-25 rounded-lg mt-4">
               <p className="text-lg font-family: 'Nunito'">
                 We are a group of junior software developers #5 of the Generation Thailand project. This application is an integral part of our project-based learning experience. We created this app with the goal of helping both office
                 workers and individuals incorporate more exercise into their daily routines.The Benom app combines six types of workouts to cater to your overall physical health. It provides a user-friendly experience, calculating calorie
-                counts and MET values with ease. The Benom team sincerely thanks our users for entrusting us as their health partner.
+                counts and MET values with ease. The Benom team sincerely thanks our users for entrusting us as your health partner.
               </p>
               <div className="mt-6 text-center ">
-                <h3 className="btn w-90 bg-black text-white font-semibold font-family: 'Nunito' hover:text-black">START YOUR JOURNEY WITH BENOM TODAY</h3>
-              </div>
-              <div className="mt-6">
-                <div className="text-center">
-                  <button className="btn w-60 bg-dark-orange font-family: 'Nunito' text-white hover:text-black">SMASH IT!</button>
-                </div>
+                <h3 className="btn text-white bg-black border">
+                  <Link to={"/signin"}>
+                  START YOUR JOURNEY WITH BENOM TODAY
+                  </Link>
+                  </h3>
               </div>
             </div>
 
@@ -44,8 +45,8 @@ const About = () => {
 
         {/* // section bottom  */}
         <div className="mt-8">
-          <div className="text-center ">
-            <h3 className="btn w-150 bg-black text-white p-4 font-semibold font-family: 'Nunito' hover:text-black">Developer Team: วีนุ่มชุบแป้งทอด</h3>
+          <div className="text-start">
+            <h3 className="bg-black bg-opacity-50 py-5 pl-10 text-white 2xl:text-4xl sm:text-2xl">Developer Team: วีนุ่มชุบแป้งทอด</h3>
           </div>
           <div className="">
             {/* Team member cards Top */}
@@ -119,7 +120,7 @@ const About = () => {
                     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" alt="linkedin" className="w-full"></img>
                   </a>
                   {/* portfolio */}
-                  <a href="https://portfolio-jeniwa-first-draft.vercel.app/" target="_blank" className="" rel="noopener noreferrer">
+                  <a href="https://portfolio-jeniwa-dongsang.vercel.app/" target="_blank" className="" rel="noopener noreferrer">
                     <img src="https://img.shields.io/badge/website-d5d5d5?style=for-the-badge&amp;logo=About.me&amp;logoColor=orange" alt="website" className="w-full"></img>
                   </a>
                 </div>
