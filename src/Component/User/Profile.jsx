@@ -81,7 +81,7 @@ const Profile = () => {
 
   return (
     <div className="bg-dark-blue pt-20 pb-20 min-h-screen">
-      <div className="lg:px-40">
+      <div className="lg:px-20">
         <div className="bg-dark-sea rounded-t-lg">
           <div className="flex justify-between items-center">
             <div className="relative left-1/2 top-20 transform -translate-x-1/2  lg:left-1/4">
@@ -125,7 +125,7 @@ const Profile = () => {
         </div>
 
         {/* ส่วนด้านล่าง */}
-        <div className="bg-white rounded-b-lg md:flex md:flex-row pl-32 py-5">
+        <div className="bg-white rounded-b-lg md:flex md:flex-row pl-48 py-10">
           <div className="md:flex-1">
             <h2 className="text-dark-sea font-bold text-2xl mb-5 mt-16 text-center md:text-left ">PERSONAL INFO</h2>
 
@@ -194,8 +194,8 @@ const Profile = () => {
           </div>
 
           {/* ส่วนด้านขวา  */}
-          <div className="md:flex-1 hidden lg:flex mr-20">
-            <img src={venom} alt="venomimg-right-profile" width={500}/>
+          <div className="">
+            <img src={venom} alt="venomimg-right-profile" width={500} className="md:flex-1 hidden lg:flex mr-40"/>
           </div>
         </div>
       </div>
