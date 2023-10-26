@@ -65,6 +65,7 @@ const SignIn = () => {
       setLoading(false);
       navigate("/home");
     } catch (err) {
+      setLoading(false);
       console.error(err);
     }
   };

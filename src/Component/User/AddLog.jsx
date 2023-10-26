@@ -41,6 +41,7 @@ const AddLog = ({ reload, setReload }) => {
         // alert(`successfully added new activity!`);
       }
     } catch (err) {
+      setLoading(false);
       console.error(err);
     }
   };
@@ -187,8 +188,7 @@ const AddLog = ({ reload, setReload }) => {
                       value={selectedHour}
                       onChange={(ev) => {
                         setSelectedHour(ev.target.value);
-                      }}
-                    >
+                      }}>
                       <option disabled selected value="">
                         HH
                       </option>{" "}
@@ -204,8 +204,7 @@ const AddLog = ({ reload, setReload }) => {
                       className="select select-bordered select-sm w-1/6 max-w-x ml-2 mr-4 text-center"
                       onChange={(ev) => {
                         setSelectedMinute(ev.target.value);
-                      }}
-                    >
+                      }}>
                       <option selected value="00">
                         MM
                       </option>{" "}

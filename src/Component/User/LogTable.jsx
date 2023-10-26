@@ -105,6 +105,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
         document.getElementById("my_modal_3").close();
       }
     } catch (err) {
+      setLoading(false);
       console.error("Error editing activity", err);
     }
   };

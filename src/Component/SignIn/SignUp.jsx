@@ -140,6 +140,7 @@ const SignUp = () => {
           setLoading(false);
         }
       } catch (err) {
+        setLoading(false);
         console.error(err);
       }
     }

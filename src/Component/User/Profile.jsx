@@ -75,6 +75,7 @@ const Profile = () => {
         navigate("/");
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error deleting user", error);
     }
   };
@@ -195,7 +196,7 @@ const Profile = () => {
 
           {/* ส่วนด้านขวา  */}
           <div className="">
-            <img src={venom} alt="venomimg-right-profile" width={500} className="md:flex-1 hidden lg:flex mr-40"/>
+            <img src={venom} alt="venomimg-right-profile" width={500} className="md:flex-1 hidden lg:flex mr-40" />
           </div>
         </div>
       </div>

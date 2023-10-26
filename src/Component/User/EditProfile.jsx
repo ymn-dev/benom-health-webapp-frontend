@@ -70,6 +70,7 @@ const EditProfile = () => {
         setTimeout(navigate("/profile"), 2000);
       }
     } catch (err) {
+      setLoading(false);
       console.error(err);
     }
   };
@@ -206,7 +207,7 @@ const EditProfile = () => {
                   type="number"
                   name="height"
                   id="height"
-                  placeholder={user.height+" (cm)" ||"Height (cm)" }
+                  placeholder={user.height + " (cm)" || "Height (cm)"}
                   value={height}
                   min={0}
                   onChange={(ev) => {
@@ -221,7 +222,7 @@ const EditProfile = () => {
                   type="number"
                   name="weight"
                   id="weight"
-                  placeholder={user.weight+" (kg)" || "Weight (kg)" }
+                  placeholder={user.weight + " (kg)" || "Weight (kg)"}
                   value={weight}
                   min={0}
                   onChange={(ev) => {
@@ -245,8 +246,7 @@ const EditProfile = () => {
                       }
                     : submitHandler
                 }
-                className="bg-dark-sea hover:bg-dark-blue text-white font-bold py-2 px-4 rounded mt-5"
-              >
+                className="bg-dark-sea hover:bg-dark-blue text-white font-bold py-2 px-4 rounded mt-5">
                 Save
               </button>
               {/* ส่วน modal  */}
@@ -285,7 +285,7 @@ const EditProfile = () => {
 
           {/* ส่วนขวา */}
           <div>
-            <img src={venom} alt="venomimg-right-profile" width={500} className="md:flex-1 hidden lg:flex mr-20"/>
+            <img src={venom} alt="venomimg-right-profile" width={500} className="md:flex-1 hidden lg:flex mr-20" />
           </div>
         </div>
       </div>
