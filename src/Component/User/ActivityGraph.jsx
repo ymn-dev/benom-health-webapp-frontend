@@ -21,7 +21,7 @@ const ActivityGraph = ({ ExerciseLog }) => {
     days = 180;
   } else if (showType === "Last Year") {
     days = 365;
-  } else if (showType === "All Time") {
+  } else if (showType === "All Time" && ExerciseLog.length > 0) {
     //only work because default sort is from the most recent
     const oldestDate = new Date(ExerciseLog[ExerciseLog.length - 1].date);
     const timeDifference = new Date(today.toISOString().split("T")[0]) - oldestDate;
@@ -133,8 +133,6 @@ const ActivityGraph = ({ ExerciseLog }) => {
   return (
     <>
       <div className="flex">
-      
-
         <select
           className="select select-bordered border-gray-700 ml-auto bg-white"
           onChange={(ev) => {
@@ -151,23 +149,17 @@ const ActivityGraph = ({ ExerciseLog }) => {
         </select>
       </div>
       <div id="line-chart">
-      
-      <div className="flex-start ml-1">
-       <span className="text-xl font-bold border-solid border-2 rounded-full px-2 py-1 border-dark-sea bg-dark-sea text-white">
-        Calories
-       </span>
-      </div>
+        <div className="flex-start ml-1">
+          <span className="text-xl font-bold border-solid border-2 rounded-full px-2 py-1 border-dark-sea bg-dark-sea text-white">Calories</span>
+        </div>
 
         <div>
           <Line data={data} />
         </div>
-      
-      <div className="flex justify-end mr-1">
-       <span className="text-xl font-bold border-solid border-2 rounded-full px-6 py-1 border-dark-sea bg-dark-sea text-white">
-          Date
-       </span>
-      </div>
 
+        <div className="flex justify-end mr-1">
+          <span className="text-xl font-bold border-solid border-2 rounded-full px-6 py-1 border-dark-sea bg-dark-sea text-white">Date</span>
+        </div>
       </div>
 
       {/*เส้นตรงสีดำ เริ่ม*/}
