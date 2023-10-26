@@ -76,6 +76,7 @@ const Profile = () => {
       }
     } catch (error) {
       setLoading(false);
+      alert(error.response.data.error);
       console.error("Error deleting user", error);
     }
   };

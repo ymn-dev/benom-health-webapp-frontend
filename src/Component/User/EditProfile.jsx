@@ -40,7 +40,9 @@ const EditProfile = () => {
           weight,
         });
       } catch (error) {
+        setLoading(false);
         console.error("Error update User", error);
+        alert(error.response.data.error);
       }
     };
 
@@ -71,6 +73,7 @@ const EditProfile = () => {
       }
     } catch (err) {
       setLoading(false);
+      alert(err.response.data.error);
       console.error(err);
     }
   };

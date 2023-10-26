@@ -106,6 +106,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
       }
     } catch (err) {
       setLoading(false);
+      alert(err.response.data.error);
       console.error("Error editing activity", err);
     }
   };

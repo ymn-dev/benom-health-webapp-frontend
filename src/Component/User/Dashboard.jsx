@@ -40,6 +40,7 @@ const Dashboard = () => {
         setUser({ ...user, exerciseLog, exerciseTime, caloriesBurned });
       } catch (error) {
         console.error("Error fetching activities", error);
+        alert(error.response.data.error);
       }
     };
 
