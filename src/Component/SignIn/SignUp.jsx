@@ -8,6 +8,8 @@ import PasswordValidator from "password-validator";
 import { useLoginContext } from "../../Context/LoginContext";
 import axios from "axios";
 import Loading from "../Layout/Loading";
+import togglePasswordOn from "../../assets/eye-svgrepo-com.svg";
+import togglePasswordOff from "../../assets/eye-closed-svgrepo-com.svg";
 
 const SignUp = () => {
   const { login } = useLoginContext();
@@ -25,7 +27,8 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState([]);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [seePassword, setSeePassword] = useState(false);
+  const [seeConfirmPassword, setSeeConfirmPassword] = useState(false);
   const submitHandler = async (ev) => {
     ev.preventDefault();
     if (!username || !email || !password || !confirmPassword) {
@@ -190,15 +193,22 @@ const SignUp = () => {
           ))}
         <input
           required
-          type="password"
+          type={seePassword ? "text" : "password"}
           minLength={8}
           name="password"
           placeholder="Password"
-          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full  bg-gray-800 text-white"
+          className="relative input input-bordered input-sm mt-3 text-start text-xs font-bold w-full  bg-gray-800 text-white"
           onChange={(ev) => {
             setPassword(ev.target.value);
           }}
         />
+        <span
+          className="absolute w-4 h-4 mt-5 ml-2"
+          onClick={() => {
+            setSeePassword(!seePassword);
+          }}>
+          <img src={seePassword ? togglePasswordOn : togglePasswordOff} alt="see password" className="" />
+        </span>
 
         {passwordError.length > 0 &&
           passwordError.map((error, index) => (
@@ -210,23 +220,30 @@ const SignUp = () => {
         {/* ส่วน confirm */}
         <input
           required
-          type="password"
+          type={seeConfirmPassword ? "text" : "password"}
           minLength={8}
           name="confirmPassword"
           placeholder="Confirm Password"
-          className="input input-bordered input-sm mt-3 text-start text-xs font-bold w-full  bg-gray-800 text-white"
+          className="relative input input-bordered input-sm mt-3 text-start text-xs font-bold w-full  bg-gray-800 text-white"
           onChange={(ev) => {
             setConfirmPassword(ev.target.value);
           }}
         />
+
+        <span
+          className="absolute w-4 h-4 mt-5 ml-2"
+          onClick={() => {
+            setSeeConfirmPassword(!seeConfirmPassword);
+          }}>
+          <img src={seeConfirmPassword ? togglePasswordOn : togglePasswordOff} alt="see confirm password" className="" />
+        </span>
         {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}
         <br />
 
         <button
           type="submit"
           className="btn btn-wide btn-sm mt-3 text-xs font-bold hover:scale-105 shadow-md shadow-gray-950 disabled:text-white disabled:opacity-20 disabled:cursor-not-allowed"
-          disabled={!username || !password || !email || !confirmPassword || submitSuccess}
-        >
+          disabled={!username || !password || !email || !confirmPassword || submitSuccess}>
           Sign up
         </button>
         {submitSuccess && <p style={{ color: "green", textAlign: "center" }}>Register Success!</p>}

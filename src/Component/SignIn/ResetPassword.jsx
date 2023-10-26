@@ -4,10 +4,14 @@ import Profile_Benom_Logo from "../../assets/Profile_Benom_Logo.png";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Loading from "../Layout/Loading";
+import togglePasswordOn from "../../assets/eye-svgrepo-com.svg";
+import togglePasswordOff from "../../assets/eye-closed-svgrepo-com.svg";
 
 const ResetPassword = () => {
   const location = useLocation();
   const token = new URLSearchParams(location.search).get("token");
+  const [seePassword, setSeePassword] = useState(false);
+  const [seeConfirmPassword, setSeeConfirmPassword] = useState(false);
   let decoded;
   try {
     decoded = jwt_decode(token);
@@ -53,29 +57,46 @@ const ResetPassword = () => {
       <h1 className="text-white text-4xl font-extrabold flex justify-center">BENOM</h1>
       <h1 className=" text-center text-slate-300 my-2 font-bold">Reset Password for {decoded.email}</h1>
       <form onSubmit={handleSubmit} className="max-w-[250px] w-full mx-auto pb-3">
-        <div className="flex flex-col ml-8 gap-y-3">
+        <div className="relative flex flex-col ml-8 gap-y-3">
           <label>
             <input
-              className="input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white"
-              type="password"
+              className=" input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white"
+              type={seePassword ? "text" : "password"}
               placeholder="New Password"
               value={newpassword}
               onChange={(e) => setNewpassword(e.target.value)}
               required
             />
           </label>
+
+          <span
+            className="absolute w-4 h-4 right-3 top-4"
+            onClick={() => {
+              setSeePassword(!seePassword);
+            }}>
+            <img src={seePassword ? togglePasswordOn : togglePasswordOff} alt="see password" className="" />
+          </span>
         </div>
-        <div className="flex flex-col ml-8 gap-y-3">
+
+        <div className="relative flex flex-col ml-8 gap-y-3">
           <label>
             <input
               className="input input-bordered input-sm mt-2 text-start text-xs font-bold bg-gray-800 text-white"
-              type="password"
+              type={seeConfirmPassword ? "text" : "password"}
               placeholder="Confirm Password"
               value={confirmPassword}
               onChange={(e) => setconfirmPassword(e.target.value)}
               required
             />
           </label>
+
+          <span
+            className="absolute w-4 h-4 right-3 top-4"
+            onClick={() => {
+              setSeeConfirmPassword(!seeConfirmPassword);
+            }}>
+            <img src={seeConfirmPassword ? togglePasswordOn : togglePasswordOff} alt="see confirm password" className="" />
+          </span>
         </div>
         {confirmPasswordError && <p style={{ color: "red" }}>{confirmPasswordError}</p>}
         <div className="flex justify-center mt-4 ">

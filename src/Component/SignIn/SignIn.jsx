@@ -7,6 +7,8 @@ import Google_Icon from "../../assets/Google_Icon.svg";
 import { useLoginContext } from "../../Context/LoginContext";
 import axios from "axios";
 import Loading from "../Layout/Loading";
+import togglePasswordOn from "../../assets/eye-svgrepo-com.svg";
+import togglePasswordOff from "../../assets/eye-closed-svgrepo-com.svg";
 // import Cookies from "js-cookie";
 
 const SignIn = () => {
@@ -15,6 +17,7 @@ const SignIn = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [seePassword, setSeePassword] = useState(false);
 
   const submitHandler = async (ev) => {
     ev.preventDefault();
@@ -88,13 +91,21 @@ const SignIn = () => {
         <br />
         <input
           required
-          type="password"
+          type={seePassword ? "text" : "password"}
           placeholder="Password"
-          className="input input-bordered input-sm mt-2 text-start text-xs font-bold w-full bg-gray-800 text-white"
+          className="relative input input-bordered input-sm mt-2 text-start text-xs font-bold w-full bg-gray-800 text-white"
           onChange={(ev) => {
             setPassword(ev.target.value);
           }}
         />
+
+        <span
+          className="absolute w-4 h-4 mt-5 ml-2"
+          onClick={() => {
+            setSeePassword(!seePassword);
+          }}>
+          <img src={seePassword ? togglePasswordOn : togglePasswordOff} alt="see password" className="" />
+        </span>
         <br />
         <a href="#" className="text-white flex justify-center font-semibold pl-20 mt-2 mb-1 hover:transition-all hover:scale-105  duration-150">
           <Link to={"/Forgotpassword"}>Forgot your password?</Link>
