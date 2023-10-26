@@ -306,6 +306,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
             <div className="w-8/12 mr-6">
               <select
                 className="select select-bordered select-sm text-center w-3/12 mr-2"
+                min="0"
                 value={selectedHour || editModal.startTime}
                 onChange={(ev) => {
                   setSelectedHour(ev.target.value);
@@ -323,6 +324,7 @@ const LogTable = ({ ExerciseLog, reload, setReload }) => {
               :
               <select
                 className="select select-bordered select-sm w-3/12 text-center ml-2"
+                min="0"
                 onChange={(ev) => {
                   setSelectedMinute(ev.target.value);
                 }}
