@@ -14,38 +14,9 @@ const AddLog = ({ reload, setReload }) => {
   const { user } = useLoginContext();
   const [durationHour, setDurationHour] = useState(0);
   const [durationMinute, setDurationMinute] = useState(0);
-  const [calories, setCalories] = useState(0);
+  const [calories, setCalories] = useState(undefined);
   const [date, setDate] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = async (ev) => {
-    ev.preventDefault();
-    if ((!durationHour && !durationMinute) || !selectedHour || !date || !selectedOption1 || !selectedOption2) return;
-
-    const exerciseName = `${selectedOption1}:${selectedOption2}`;
-    const duration = Number(durationHour) * 60 + Number(durationMinute);
-    const startTime = `${selectedHour}:${selectedMinute}`;
-    const data = {
-      exerciseName,
-      date,
-      startTime,
-      duration,
-      calories,
-      picture: imageUrl,
-    };
-    try {
-      setLoading(true);
-      const response = await axios.post(`https://benom-backend.onrender.com/users/${user._id}/activities`, data, { headers: user.headers });
-      setLoading(false);
-      if (response.status === 200) {
-        setReload(!reload);
-        // alert(`successfully added new activity!`);
-      }
-    } catch (err) {
-      setLoading(false);
-      alert(err.response.data.error);
-      console.error(err);
-    }
-  };
 
   //toggle dropdown1 & dropdown2
   const [selectValue, setSelectValue] = useState("");
@@ -112,6 +83,45 @@ const AddLog = ({ reload, setReload }) => {
     }
   };
 
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    if ((!durationHour && !durationMinute) || !selectedHour || !date || !selectedOption1 || !selectedOption2) return;
+
+    const exerciseName = `${selectedOption1}:${selectedOption2}`;
+    const duration = Number(durationHour) * 60 + Number(durationMinute);
+    const startTime = `${selectedHour}:${selectedMinute}`;
+    const data = {
+      exerciseName,
+      date,
+      startTime,
+      duration,
+      calories,
+      picture: imageUrl,
+    };
+    try {
+      setLoading(true);
+      const response = await axios.post(`https://benom-backend.onrender.com/users/${user._id}/activities`, data, { headers: user.headers });
+      setLoading(false);
+      if (response.status === 200) {
+        setReload(!reload);
+        document.getElementById("my_modal_1").close();
+        setDurationHour(0);
+        setDurationMinute(0);
+        setCalories(undefined);
+        setDate("");
+        setSelectValue("");
+        setSelectedHour("");
+        setSelectedMinute("00");
+        setSelectedOption1("");
+        setSelectedOption2("");
+      }
+    } catch (err) {
+      setLoading(false);
+      alert(err.response.data.error);
+      console.error(err);
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/*Activity log*/}
@@ -139,7 +149,7 @@ const AddLog = ({ reload, setReload }) => {
 
             {/*Modal button*/}
             <button className="btn disable:text-black disabled:opacity-40 ml-2" onClick={openmodal} disabled={!selectedOption1}>
-              <img src={plus_button} width={15} height={15} />
+              <img src={plus_button} width={30} height={30} />
             </button>
 
             <dialog id="my_modal_1" className="modal">
@@ -175,6 +185,7 @@ const AddLog = ({ reload, setReload }) => {
                       type="date"
                       className="input input-bordered input-sm w-2/3 max-w-x ml-14"
                       max={new Date().toISOString().split("T")[0]}
+                      value={date}
                       onChange={(ev) => {
                         setDate(ev.target.value);
                       }}
@@ -203,6 +214,7 @@ const AddLog = ({ reload, setReload }) => {
                     :
                     <select
                       className="select select-bordered select-sm w-1/6 max-w-x ml-2 mr-4 text-center"
+                      value={selectedMinute}
                       onChange={(ev) => {
                         setSelectedMinute(ev.target.value);
                       }}>
@@ -227,6 +239,7 @@ const AddLog = ({ reload, setReload }) => {
                       placeholder="HH"
                       className="input input-bordered input-sm w-1/6 max-w-x ml-7 mr-2 text-center"
                       min="0"
+                      value={durationHour}
                       onChange={(ev) => {
                         setDurationHour(ev.target.value);
                       }}
@@ -237,6 +250,7 @@ const AddLog = ({ reload, setReload }) => {
                       placeholder="MM"
                       className="input input-bordered input-sm w-1/6 max-w-x text-center ml-2"
                       min="0"
+                      value={durationMinute}
                       onChange={(ev) => {
                         setDurationMinute(ev.target.value);
                       }}
@@ -252,6 +266,7 @@ const AddLog = ({ reload, setReload }) => {
                       placeholder="Enter Calories"
                       className="input input-bordered input-sm w-2/3 max-w-x ml-8"
                       min="0"
+                      value={calories}
                       onChange={(ev) => {
                         setCalories(ev.target.value);
                       }}

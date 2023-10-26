@@ -212,7 +212,7 @@ const EditProfile = () => {
                   id="height"
                   placeholder={user.height + " (cm)" || "Height (cm)"}
                   value={height}
-                  min={0}
+                  min="0"
                   onChange={(ev) => {
                     setheight(ev.target.value);
                   }}
@@ -227,7 +227,7 @@ const EditProfile = () => {
                   id="weight"
                   placeholder={user.weight + " (kg)" || "Weight (kg)"}
                   value={weight}
-                  min={0}
+                  min="0"
                   onChange={(ev) => {
                     setweight(ev.target.value);
                   }}
